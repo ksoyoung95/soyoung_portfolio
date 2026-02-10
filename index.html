@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SoYoung | Web Designer Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <a class="skip" href="#main">본문 바로가기</a>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header__inner">
+      <a class="brand" href="#">
+        <span class="brand__mark">SY</span>
+        <span class="brand__text">SoYoung Portfolio</span>
+      </a>
+
+      <nav class="nav" aria-label="주요 메뉴">
+        <a class="nav__link" href="#work">Work</a>
+        <a class="nav__link" href="#about">About</a>
+        <a class="nav__link" href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <p class="eyebrow">Web Designer · UI/UX · Visual</p>
+        <h1 class="headline">
+          미니멀하게, 하지만 설득력 있게.<br />
+          반응형 중심의 포트폴리오를 만듭니다.
+        </h1>
+        <p class="subhead">
+          웹사이트 구축부터 배너/기획전 디자인, 영상 콘텐츠까지—결과물이 “보이도록” 정리합니다.
+        </p>
+
+        <div class="hero__cta">
+          <a class="btn" href="#work">프로젝트 보기</a>
+          <a class="btn btn--ghost" href="#contact">연락하기</a>
+        </div>
+
+        <div class="hero__meta">
+          <div class="meta">
+            <span class="meta__label">Focus</span>
+            <span class="meta__value">Responsive · Motion · Clean UI</span>
+          </div>
+          <div class="meta">
+            <span class="meta__label">Tools</span>
+            <span class="meta__value">Figma · Photoshop · After Effects</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Work -->
+    <section id="work" class="section">
+      <div class="container">
+        <div class="section__head">
+          <h2 class="section__title">Work</h2>
+          <p class="section__desc">카테고리를 선택해서 작업물을 확인하세요.</p>
+        </div>
+
+        <!-- Primary Tabs -->
+        <div class="tabs">
+          <input class="tabs__radio" type="radio" name="primaryTabs" id="tab-website" checked />
+          <input class="tabs__radio" type="radio" name="primaryTabs" id="tab-design" />
+          <input class="tabs__radio" type="radio" name="primaryTabs" id="tab-video" />
+
+          <div class="tabs__bar" role="tablist" aria-label="카테고리 탭">
+            <label class="tabs__btn" for="tab-website" role="tab">웹사이트</label>
+            <label class="tabs__btn" for="tab-design" role="tab">디자인</label>
+            <label class="tabs__btn" for="tab-video" role="tab">비디오</label>
+          </div>
+
+          <!-- Panel 1: Website -->
+          <section class="tabs__panel" aria-label="웹사이트 작업물">
+            <div class="panel__head">
+              <h3 class="panel__title">웹사이트</h3>
+              <p class="panel__desc">반응형 퍼블리싱 · 랜딩/브랜딩 페이지 · 운영 UI</p>
+            </div>
+
+            <div class="grid">
+              <a class="card" href="#">
+                <div class="card__thumb" aria-hidden="true"></div>
+                <div class="card__body">
+                  <p class="card__tag">Website</p>
+                  <h4 class="card__title">브랜드 랜딩 페이지 리뉴얼</h4>
+                  <p class="card__meta">UI/UX · Responsive · Publishing</p>
+                </div>
+              </a>
+
+              <a class="card" href="#">
+                <div class="card__thumb" aria-hidden="true"></div>
+                <div class="card__body">
+                  <p class="card__tag">Website</p>
+                  <h4 class="card__title">커머스 이벤트 페이지</h4>
+                  <p class="card__meta">Design · Layout · QA</p>
+                </div>
+              </a>
+
+              <a class="card" href="#">
+                <div class="card__thumb" aria-hidden="true"></div>
+                <div class="card__body">
+                  <p class="card__tag">Website</p>
+                  <h4 class="card__title">포트폴리오 사이트 구축</h4>
+                  <p class="card__meta">IA · Grid · Responsive</p>
+                </div>
+              </a>
+            </div>
+          </section>
+
+          <!-- Panel 2: Design -->
+          <section class="tabs__panel" aria-label="디자인 작업물">
+            <div class="panel__head">
+              <h3 class="panel__title">디자인</h3>
+              <p class="panel__desc">소카테고리를 선택해서 분류된 작업을 확인하세요.</p>
+            </div>
+
+            <div class="subtabs">
+              <input class="subtabs__radio" type="radio" name="designTabs" id="design-1" checked />
+              <input class="subtabs__radio" type="radio" name="designTabs" id="design-2" />
+              <input class="subtabs__radio" type="radio" name="designTabs" id="design-3" />
+              <input class="subtabs__radio" type="radio" name="designTabs" id="design-4" />
+
+              <div class="subtabs__bar" role="tablist" aria-label="디자인 소카테고리">
+                <label class="subtabs__btn" for="design-1">이벤트 기획전</label>
+                <label class="subtabs__btn" for="design-2">광고 배너</label>
+                <label class="subtabs__btn" for="design-3">광고 촬영</label>
+                <label class="subtabs__btn" for="design-4">그외</label>
+              </div>
+
+              <div class="subtabs__panels">
+                <!-- Design 1: Event -->
+                <section class="subtabs__panel">
+                  <div class="grid">
+                    <a class="card" href="#">
+                      <div class="card__thumb card__thumb--tall" aria-hidden="true"></div>
+                      <div class="card__body">
+                        <p class="card__tag">Event</p>
+                        <h4 class="card__title">시즌 기획전 페이지</h4>
+                        <p class="card__meta">Key Visual · Layout</p>
+                      </div>
+                    </a>
+
+                    <a class="card" href="#">
+                      <div class="card__thumb card__thumb--tall" aria-hidden="true"></div>
+                      <div class="card__body">
+                        <p class="card__tag">Event</p>
+                        <h4 class="card__title">프로모션 상세/배너 세트</h4>
+                        <p class="card__meta">Banner · Typography</p>
+                      </div>
+                    </a>
+
+                    <a class="card" href="#">
+                      <div class="card__thumb card__thumb--tall" aria-hidden="true"></div>
+                      <div class="card__body">
+                        <p class="card__tag">Event</p>
+                        <h4 class="card__title">기획전 메인 비주얼</h4>
+                        <p class="card__meta">Visual · Composition</p>
+                      </div>
+                    </a>
+                  </div>
+                </section>
+
+                <!-- Design 2: Banner (SLIDER) -->
+                <section class="subtabs__panel">
+                  <div class="slider" data-slider>
+                    <div class="slider__head">
+                      <div>
+                        <p class="slider__kicker">Design · Banner</p>
+                        <h4 class="slider__title">광고 배너</h4>
+                      </div>
+
+                      <div class="slider__controls">
+                        <button class="iconbtn" type="button" data-prev aria-label="이전 슬라이드">‹</button>
+                        <button class="iconbtn" type="button" data-next aria-label="다음 슬라이드">›</button>
+                      </div>
+                    </div>
+
+                    <div class="slider__viewport" data-viewport>
+                      <div class="slider__track" data-track>
+                        <article class="slide">
+                          <a class="slide__card" href="#">
+                            <div class="slide__media" aria-hidden="true"></div>
+                            <div class="slide__body">
+                              <p class="slide__tag">Banner</p>
+                              <h5 class="slide__name">메인 배너 시안 3종</h5>
+                              <p class="slide__meta">A/B Test · Copy</p>
+                            </div>
+                          </a>
+                        </article>
+
+                        <article class="slide">
+                          <a class="slide__card" href="#">
+                            <div class="slide__media" aria-hidden="true"></div>
+                            <div class="slide__body">
+                              <p class="slide__tag">Banner</p>
+                              <h5 class="slide__name">SNS 광고 배너 패키지</h5>
+                              <p class="slide__meta">Campaign · Visual</p>
+                            </div>
+                          </a>
+                        </article>
+
+                        <article class="slide">
+                          <a class="slide__card" href="#">
+                            <div class="slide__media" aria-hidden="true"></div>
+                            <div class="slide__body">
+                              <p class="slide__tag">Banner</p>
+                              <h5 class="slide__name">프로모션 띠배너 세트</h5>
+                              <p class="slide__meta">System · Variations</p>
+                            </div>
+                          </a>
+                        </article>
+
+                        <article class="slide">
+                          <a class="slide__card" href="#">
+                            <div class="slide__media" aria-hidden="true"></div>
+                            <div class="slide__body">
+                              <p class="slide__tag">Banner</p>
+                              <h5 class="slide__name">광고 소재 리사이징</h5>
+                              <p class="slide__meta">Resize · Consistency</p>
+                            </div>
+                          </a>
+                        </article>
+
+                        <article class="slide">
+                          <a class="slide__card" href="#">
+                            <div class="slide__media" aria-hidden="true"></div>
+                            <div class="slide__body">
+                              <p class="slide__tag">Banner</p>
+                              <h5 class="slide__name">카피/문구 버전 운영</h5>
+                              <p class="slide__meta">Copy · Variants</p>
+                            </div>
+                          </a>
+                        </article>
+                      </div>
+                    </div>
+
+                    <div class="slider__foot">
+                      <div class="dots" data-dots aria-label="슬라이드 페이지네이션"></div>
+                      <div class="slider__status" aria-live="polite">
+                        <span data-current>1</span> / <span data-total>1</span>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- Design 3: Shoot -->
+                <section class="subtabs__panel">
+                  <div class="grid">
+                    <a class="card" href="#">
+                      <div class="card__thumb" aria-hidden="true"></div>
+                      <div class="card__body">
+                        <p class="card__tag">Shoot</p>
+                        <h4 class="card__title">촬영 디렉팅 & 편집</h4>
+                        <p class="card__meta">Direction · Retouch</p>
+                      </div>
+                    </a>
+
+                    <a class="card" href="#">
+                      <div class="card__thumb" aria-hidden="true"></div>
+                      <div class="card__body">
+                        <p class="card__tag">Shoot</p>
+                        <h4 class="card__title">제품 컷 촬영 가이드</h4>
+                        <p class="card__meta">Guide · Moodboard</p>
+                      </div>
+                    </a>
+
+                    <a class="card" href="#">
+                      <div class="card__thumb" aria-hidden="true"></div>
+                      <div class="card__body">
+                        <p class="card__tag">Shoot</p>
+                        <h4 class="card__title">촬영 콘셉트 보드</h4>
+                        <p class="card__meta">Concept · Styling</p>
+                      </div>
+                    </a>
+                  </div>
+                </section>
+
+                <!-- Design 4: Others -->
+                <section class="subtabs__panel">
+                  <div class="grid">
+                    <a class="card" href="#">
+                      <div class="card__thumb" aria-hidden="true"></div>
+                      <div class="card__body">
+                        <p class="card__tag">Other</p>
+                        <h4 class="card__title">브랜드 가이드 일부</h4>
+                        <p class="card__meta">System · Components</p>
+                      </div>
+                    </a>
+
+                    <a class="card" href="#">
+                      <div class="card__thumb" aria-hidden="true"></div>
+                      <div class="card__body">
+                        <p class="card__tag">Other</p>
+                        <h4 class="card__title">카드뉴스 템플릿</h4>
+                        <p class="card__meta">Layout · Grid</p>
+                      </div>
+                    </a>
+
+                    <a class="card" href="#">
+                      <div class="card__thumb" aria-hidden="true"></div>
+                      <div class="card__body">
+                        <p class="card__tag">Other</p>
+                        <h4 class="card__title">아이콘 세트</h4>
+                        <p class="card__meta">Icon · Visual</p>
+                      </div>
+                    </a>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </section>
+
+          <!-- Panel 3: Video -->
+          <section class="tabs__panel" aria-label="비디오 작업물">
+            <div class="panel__head">
+              <h3 class="panel__title">비디오</h3>
+              <p class="panel__desc">풀영상과 쇼츠/릴스를 구분해 보여줍니다.</p>
+            </div>
+
+            <div class="subtabs">
+              <input class="subtabs__radio" type="radio" name="videoTabs" id="video-1" checked />
+              <input class="subtabs__radio" type="radio" name="videoTabs" id="video-2" />
+
+              <div class="subtabs__bar" role="tablist" aria-label="비디오 소카테고리">
+                <label class="subtabs__btn" for="video-1">풀영상</label>
+                <label class="subtabs__btn" for="video-2">쇼츠 · 릴스</label>
+              </div>
+
+              <div class="subtabs__panels">
+                <section class="subtabs__panel">
+                  <div class="grid">
+                    <a class="card" href="#">
+                      <div class="card__thumb card__thumb--wide" aria-hidden="true"></div>
+                      <div class="card__body">
+                        <p class="card__tag">Full</p>
+                        <h4 class="card__title">브랜드 인터뷰 영상</h4>
+                        <p class="card__meta">Edit · Motion · Sound</p>
+                      </div>
+                    </a>
+
+                    <a class="card" href="#">
+                      <div class="card__thumb card__thumb--wide" aria-hidden="true"></div>
+                      <div class="card__body">
+                        <p class="card__tag">Full</p>
+                        <h4 class="card__title">제품 소개 영상</h4>
+                        <p class="card__meta">Storyboard · Edit</p>
+                      </div>
+                    </a>
+
+                    <a class="card" href="#">
+                      <div class="card__thumb card__thumb--wide" aria-hidden="true"></div>
+                      <div class="card__body">
+                        <p class="card__tag">Full</p>
+                        <h4 class="card__title">브랜드 캠페인 필름</h4>
+                        <p class="card__meta">Edit · Color</p>
+                      </div>
+                    </a>
+                  </div>
+                </section>
+
+                <section class="subtabs__panel">
+                  <div class="grid">
+                    <a class="card" href="#">
+                      <div class="card__thumb" aria-hidden="true"></div>
+                      <div class="card__body">
+                        <p class="card__tag">Shorts</p>
+                        <h4 class="card__title">릴스 모션 템플릿</h4>
+                        <p class="card__meta">Motion · Caption</p>
+                      </div>
+                    </a>
+
+                    <a class="card" href="#">
+                      <div class="card__thumb" aria-hidden="true"></div>
+                      <div class="card__body">
+                        <p class="card__tag">Shorts</p>
+                        <h4 class="card__title">쇼츠 광고 컷 편집</h4>
+                        <p class="card__meta">Cut · Rhythm</p>
+                      </div>
+                    </a>
+
+                    <a class="card" href="#">
+                      <div class="card__thumb" aria-hidden="true"></div>
+                      <div class="card__body">
+                        <p class="card__tag">Shorts</p>
+                        <h4 class="card__title">제품 하이라이트 숏폼</h4>
+                        <p class="card__meta">Edit · Subtitle</p>
+                      </div>
+                    </a>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section section--muted">
+      <div class="container about">
+        <div class="about__left">
+          <h2 class="section__title">About</h2>
+          <p class="section__desc">
+            “예쁜 화면”을 넘어서, 전달/전환/가독성까지 고려한 작업을 지향합니다.
+          </p>
+        </div>
+
+        <div class="about__right">
+          <div class="info">
+            <h3 class="info__title">핵심 역량</h3>
+            <ul class="list">
+              <li>반응형 UI 설계 · 퍼블리싱</li>
+              <li>커머스 기획전/배너 제작</li>
+              <li>영상 편집 · 숏폼 포맷 최적화</li>
+            </ul>
+          </div>
+
+          <div class="info">
+            <h3 class="info__title">Contact</h3>
+            <ul class="list">
+              <li><a class="link" href="mailto:you@example.com">you@example.com</a></li>
+              <li><a class="link" href="#" target="_blank" rel="noreferrer">Behance / Dribbble</a></li>
+              <li><a class="link" href="#" target="_blank" rel="noreferrer">Instagram</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section__head">
+          <h2 class="section__title">Let’s work together</h2>
+          <p class="section__desc">프로젝트/협업 문의는 아래로 보내주세요.</p>
+        </div>
+
+        <div class="contactbox">
+          <div class="contactbox__item">
+            <p class="contactbox__label">Email</p>
+            <a class="contactbox__value link" href="mailto:you@example.com">you@example.com</a>
+          </div>
+
+          <div class="contactbox__item">
+            <p class="contactbox__label">Links</p>
+            <p class="contactbox__value">
+              <a class="link" href="#" target="_blank" rel="noreferrer">Portfolio PDF</a>
+              <span class="dot">·</span>
+              <a class="link" href="#" target="_blank" rel="noreferrer">Notion</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p class="footer__copy">© 2026 SoYoung. All rights reserved.</p>
+      <p class="footer__note">Made with responsive grid.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
