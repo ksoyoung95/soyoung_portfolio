@@ -1,412 +1,284 @@
-/* app.js */
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>강소영 | Portfolio</title>
+    <meta
+      name="description"
+      content="웹/비주얼 디자이너 강소영의 포트폴리오. 상세페이지, 패키지, SNS, 웹 작업을 정리했습니다."
+    />
 
-/**
- * =========================
- * Helpers
- * =========================
- */
-function escapeHTML(str = "") {
-  return String(str)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
 
-/**
- * =========================
- * UI: Mobile nav
- * =========================
- */
-const header = document.querySelector(".header");
-const navToggle = document.querySelector(".nav-toggle");
-const nav = document.querySelector(".nav");
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
 
-navToggle?.addEventListener("click", () => {
-  const opened = header.classList.toggle("is-open");
-  navToggle.setAttribute("aria-expanded", String(opened));
-});
+  <body>
+    <a class="skip" href="#main">본문 바로가기</a>
 
-nav?.addEventListener("click", (e) => {
-  const a = e.target.closest("a");
-  if (!a) return;
-  header.classList.remove("is-open");
-  navToggle.setAttribute("aria-expanded", "false");
-});
+    <!-- Header -->
+    <header class="header" id="top">
+      <div class="container header__inner">
+        <a class="brand" href="#top" aria-label="홈으로">
+          <span class="brand__dot" aria-hidden="true"></span>
+          <span class="brand__text">Soyoung</span>
+        </a>
 
-const yearEl = document.getElementById("year");
-if (yearEl) yearEl.textContent = new Date().getFullYear();
+        <button class="nav-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false">
+          <span class="nav-toggle__bar" aria-hidden="true"></span>
+          <span class="nav-toggle__bar" aria-hidden="true"></span>
+          <span class="nav-toggle__bar" aria-hidden="true"></span>
+        </button>
 
-/**
- * =========================
- * Portfolio Data
- * - thumb: 카드 썸네일
- * - images: 모달에서 보여줄 이미지 여러장
- * =========================
- */
-const projects = [
-  {
-    id: "p01",
-    title: "브랜드 상세페이지 리뉴얼",
-    category: "detail",
-    tag: "상세페이지",
-    thumb: "./assets/portfolio-01.jpg",
-    images: ["./assets/portfolio-01.jpg", "./assets/portfolio-01-2.jpg", "./assets/portfolio-01-3.jpg"],
-    desc: "기획 의도에 맞춘 정보 구조 재정리, 구매 전환을 고려한 레이아웃 개선.",
-    meta: ["Tool: PS / AI", "Contribution: 100%", "Type: E-commerce"],
-    links: [{ label: "작업 링크", href: "#" }],
-  },
-  {
-    id: "p02",
-    title: "패키지 디자인 시리즈",
-    category: "package",
-    tag: "패키지",
-    thumb: "./assets/portfolio-02.jpg",
-    images: ["./assets/portfolio-02.jpg", "./assets/portfolio-02-2.jpg"],
-    desc: "브랜드 톤 유지 + 진열 환경에서 눈에 띄는 컬러/타이포 전략 적용.",
-    meta: ["Tool: AI", "Deliverable: Print", "Output: Box / Label"],
-    links: [],
-  },
-  {
-    id: "p03",
-    title: "SNS 콘텐츠 템플릿",
-    category: "sns",
-    tag: "SNS",
-    thumb: "./assets/portfolio-03.jpg",
-    images: ["./assets/portfolio-03.jpg", "./assets/portfolio-03-2.jpg"],
-    desc: "운영 효율을 높이는 컴포넌트화(그리드/타이포/아이콘)로 제작 시간 단축.",
-    meta: ["Tool: PS", "Output: Feed / Story", "System: Components"],
-    links: [],
-  },
-  {
-    id: "p04",
-    title: "웹 랜딩 페이지 퍼블리싱",
-    category: "web",
-    tag: "웹",
-    thumb: "./assets/portfolio-04.jpg",
-    images: ["./assets/portfolio-04.jpg", "./assets/portfolio-04-2.jpg"],
-    desc: "모바일 우선 반응형, 섹션 흐름과 CTA 배치로 전환 동선 최적화.",
-    meta: ["Tech: HTML / CSS", "Type: Responsive", "Role: Design+Publish"],
-    links: [],
-  },
+        <nav class="nav" aria-label="주요 메뉴">
+          <ul class="nav__list">
+            <li><a class="nav__link" href="#home">홈</a></li>
+            <li><a class="nav__link" href="#portfolio">포트폴리오</a></li>
+            <li class="nav__dropdown">
+              <a class="nav__link" href="#about" aria-haspopup="true">소개</a>
+              <ul class="nav__dropdown-menu" aria-label="소개 하위 메뉴">
+                <li><a class="nav__sublink" href="#profile">프로필</a></li>
+                <li><a class="nav__sublink" href="#awards">수상경력</a></li>
+                <li><a class="nav__sublink" href="#activities">활동이력</a></li>
+              </ul>
+            </li>
+            <li><a class="nav__link" href="#contact">문의</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-  // +10개(샘플) — 교체해서 사용
-  {
-    id: "p05",
-    title: "상세페이지 A/B 레이아웃 개선",
-    category: "detail",
-    tag: "상세페이지",
-    thumb: "./assets/portfolio-05.jpg",
-    images: ["./assets/portfolio-05.jpg", "./assets/portfolio-05-2.jpg"],
-    desc: "핵심 USP 위치 재배치와 정보 밀도 조정으로 가독성 강화.",
-    meta: ["Tool: PS", "Focus: Readability", "Contribution: 100%"],
-    links: [],
-  },
-  {
-    id: "p06",
-    title: "프로모션 상세페이지 템플릿",
-    category: "detail",
-    tag: "상세페이지",
-    thumb: "./assets/portfolio-06.jpg",
-    images: ["./assets/portfolio-06.jpg", "./assets/portfolio-06-2.jpg"],
-    desc: "프로모션 반복 요소를 템플릿화하여 제작 시간을 단축.",
-    meta: ["Tool: PS", "System: Template", "Output: Campaign"],
-    links: [],
-  },
-  {
-    id: "p07",
-    title: "신제품 패키지 키비주얼 확장",
-    category: "package",
-    tag: "패키지",
-    thumb: "./assets/portfolio-07.jpg",
-    images: ["./assets/portfolio-07.jpg", "./assets/portfolio-07-2.jpg"],
-    desc: "키비주얼 기반 라인업 확장 규칙을 설계하고 적용.",
-    meta: ["Tool: AI", "Output: Print", "Deliverable: Guide"],
-    links: [],
-  },
-  {
-    id: "p08",
-    title: "패키지 라벨 타이포 시스템",
-    category: "package",
-    tag: "패키지",
-    thumb: "./assets/portfolio-08.jpg",
-    images: ["./assets/portfolio-08.jpg", "./assets/portfolio-08-2.jpg"],
-    desc: "정보 위계와 가독성을 고려한 라벨 타이포 규칙 정리.",
-    meta: ["Tool: AI", "Focus: Typography", "Output: Label"],
-    links: [],
-  },
-  {
-    id: "p09",
-    title: "SNS 시즌 캠페인 콘텐츠",
-    category: "sns",
-    tag: "SNS",
-    thumb: "./assets/portfolio-09.jpg",
-    images: ["./assets/portfolio-09.jpg", "./assets/portfolio-09-2.jpg", "./assets/portfolio-09-3.jpg"],
-    desc: "시즌 무드 반영 + 브랜드 톤을 유지한 시리즈 제작.",
-    meta: ["Tool: PS", "Output: 12 posts", "Role: Design"],
-    links: [],
-  },
-  {
-    id: "p10",
-    title: "SNS 카드뉴스 템플릿",
-    category: "sns",
-    tag: "SNS",
-    thumb: "./assets/portfolio-10.jpg",
-    images: ["./assets/portfolio-10.jpg", "./assets/portfolio-10-2.jpg"],
-    desc: "카드뉴스 제작을 빠르게 하기 위한 레이아웃/타이포 템플릿 구성.",
-    meta: ["Tool: PS", "Output: Carousel", "System: Grid"],
-    links: [],
-  },
-  {
-    id: "p11",
-    title: "웹 배너/썸네일 디자인 세트",
-    category: "web",
-    tag: "웹",
-    thumb: "./assets/portfolio-11.jpg",
-    images: ["./assets/portfolio-11.jpg", "./assets/portfolio-11-2.jpg"],
-    desc: "플랫폼별 규격을 고려해 일관된 메시지 구조로 배너 세트 제작.",
-    meta: ["Tool: PS", "Output: Banner set", "Focus: Consistency"],
-    links: [],
-  },
-  {
-    id: "p12",
-    title: "브랜드 소개 랜딩(디자인)",
-    category: "web",
-    tag: "웹",
-    thumb: "./assets/portfolio-12.jpg",
-    images: ["./assets/portfolio-12.jpg", "./assets/portfolio-12-2.jpg"],
-    desc: "브랜드 스토리 흐름에 맞춘 섹션 구조/비주얼 리듬 설계.",
-    meta: ["Tool: Figma/PS", "Type: Landing", "Role: Design"],
-    links: [],
-  },
-  {
-    id: "p13",
-    title: "상세페이지 썸네일 개선",
-    category: "detail",
-    tag: "상세페이지",
-    thumb: "./assets/portfolio-13.jpg",
-    images: ["./assets/portfolio-13.jpg", "./assets/portfolio-13-2.jpg"],
-    desc: "작은 영역에서도 메시지가 명확히 전달되도록 타이포/대비 조정.",
-    meta: ["Tool: PS", "Focus: CTR", "Contribution: 100%"],
-    links: [],
-  },
-  {
-    id: "p14",
-    title: "웹 UI 컴포넌트 스타일 정리",
-    category: "web",
-    tag: "웹",
-    thumb: "./assets/portfolio-14.jpg",
-    images: ["./assets/portfolio-14.jpg", "./assets/portfolio-14-2.jpg"],
-    desc: "버튼/태그/카드 등 반복 요소를 컴포넌트 기준으로 정리.",
-    meta: ["Tech: HTML/CSS", "Focus: System", "Role: Design+Publish"],
-    links: [],
-  },
-];
+    <main id="main">
+      <!-- Hero -->
+      <section class="hero" id="home">
+        <div class="container hero__inner">
+          <div class="hero__text">
+            <p class="badge">Welcome to my Portfolio</p>
 
-const categoryLabel = { detail: "상세페이지", package: "패키지", sns: "SNS", web: "웹" };
+            <h1 class="hero__title">
+              안녕하세요. <br />
+              <span class="hero__em">감각적으로 풀어내는 디자이너</span> 강소영입니다.
+            </h1>
 
-/**
- * =========================
- * Render: Portfolio Cards
- * =========================
- */
-const grid = document.getElementById("portfolioGrid");
+            <p class="hero__desc">
+              트렌드를 읽고, 경험을 담아, 브랜드 목적에 맞게 시각적으로 풀어냅니다.
+              상세페이지·패키지·SNS·웹 디자인을 중심으로 작업해왔고,
+              디자인 퀄리티뿐 아니라 사용자 흐름과 전달력을 함께 고려합니다.
+            </p>
 
-function cardTemplate(p) {
-  const metaPreview = (p.meta || []).slice(0, 2).map((m) => `<li>${escapeHTML(m)}</li>`).join("");
-  return `
-    <article class="card" data-category="${escapeHTML(p.category)}">
-      <button class="card__thumb card__button" type="button" data-open="${escapeHTML(p.id)}" aria-label="${escapeHTML(
-        p.title
-      )} 상세 보기">
-        <img src="${escapeHTML(p.thumb)}" alt="${escapeHTML(p.title)} 썸네일" loading="lazy" />
-      </button>
-      <div class="card__body">
-        <div class="card__top">
-          <h3 class="card__title">${escapeHTML(p.title)}</h3>
-          <span class="tag">${escapeHTML(p.tag || categoryLabel[p.category] || "")}</span>
+            <div class="hero__cta">
+              <a class="btn btn--primary" href="#portfolio">작업물 보기</a>
+              <a class="btn btn--ghost" href="#contact">문의하기</a>
+            </div>
+
+            <ul class="meta">
+              <li><span class="meta__k">Role</span><span class="meta__v">Web / Visual Designer</span></li>
+              <li><span class="meta__k">Skill</span><span class="meta__v">PS · AI · PR · HTML/CSS</span></li>
+              <li><span class="meta__k">Focus</span><span class="meta__v">Brand · Detail · UX</span></li>
+            </ul>
+          </div>
+
+          <div class="hero__media">
+            <div class="avatar-card">
+              <img class="avatar" src="./assets/memoji.png" alt="미모티콘 이미지" loading="lazy" />
+              <div class="avatar-card__glass" aria-hidden="true"></div>
+            </div>
+
+            <div class="hero__chips" aria-hidden="true">
+              <span class="chip">Detail</span>
+              <span class="chip">Brand Tone</span>
+              <span class="chip">Publishing</span>
+              <span class="chip">UI/UX</span>
+            </div>
+          </div>
         </div>
-        <p class="card__desc">${escapeHTML(p.desc || "")}</p>
-        <ul class="card__meta">${metaPreview}</ul>
+      </section>
+
+      <!-- Portfolio -->
+      <section class="section" id="portfolio">
+        <div class="container">
+          <header class="section__head">
+            <h2 class="section__title">포트폴리오</h2>
+            <p class="section__desc">썸네일 클릭 → 팝업(모달)에서 여러 장 슬라이드로 확인</p>
+          </header>
+
+          <div class="filters" aria-label="포트폴리오 필터">
+            <button class="pill is-active" type="button" data-filter="all">전체</button>
+            <button class="pill" type="button" data-filter="detail">상세페이지</button>
+            <button class="pill" type="button" data-filter="package">패키지</button>
+            <button class="pill" type="button" data-filter="sns">SNS</button>
+            <button class="pill" type="button" data-filter="web">웹</button>
+          </div>
+
+          <div class="grid" id="portfolioGrid" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- About -->
+      <section class="section section--alt" id="about">
+        <div class="container">
+          <header class="section__head">
+            <h2 class="section__title">소개</h2>
+            <p class="section__desc">프로필 / 수상경력 / 활동이력을 정리해두는 영역입니다.</p>
+          </header>
+
+          <div class="about">
+            <section class="panel" id="profile">
+              <h3 class="panel__title">프로필</h3>
+              <dl class="dl">
+                <div class="dl__row">
+                  <dt>이름</dt>
+                  <dd>강소영</dd>
+                </div>
+                <div class="dl__row">
+                  <dt>전문 분야</dt>
+                  <dd>웹디자인 · 비주얼디자인 · 퍼블리싱</dd>
+                </div>
+                <div class="dl__row">
+                  <dt>사용 툴</dt>
+                  <dd>Photoshop · Illustrator · Premiere Pro · HTML/CSS</dd>
+                </div>
+                <div class="dl__row">
+                  <dt>키워드</dt>
+                  <dd>브랜드 톤 · 디테일 · 사용자 흐름</dd>
+                </div>
+              </dl>
+            </section>
+
+            <section class="panel" id="awards">
+              <h3 class="panel__title">수상경력</h3>
+              <ul class="timeline">
+                <li class="timeline__item">
+                  <p class="timeline__title">수상명 / 공모전명</p>
+                  <p class="timeline__meta">연도 · 주최기관</p>
+                </li>
+                <li class="timeline__item">
+                  <p class="timeline__title">수상명 / 공모전명</p>
+                  <p class="timeline__meta">연도 · 주최기관</p>
+                </li>
+              </ul>
+            </section>
+
+            <section class="panel" id="activities">
+              <h3 class="panel__title">활동이력</h3>
+              <ul class="timeline">
+                <li class="timeline__item">
+                  <p class="timeline__title">브랜드/프로젝트 · 역할</p>
+                  <p class="timeline__meta">기간 · 상세페이지/패키지/SNS 제작</p>
+                </li>
+                <li class="timeline__item">
+                  <p class="timeline__title">대외활동/스터디</p>
+                  <p class="timeline__meta">기간 · 활동 내용</p>
+                </li>
+              </ul>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section" id="contact">
+        <div class="container">
+          <header class="section__head">
+            <h2 class="section__title">문의</h2>
+            <p class="section__desc">협업/외주/채용 관련 연락은 아래로 부탁드려요.</p>
+          </header>
+
+          <div class="contact">
+            <div class="contact__card">
+              <h3 class="contact__title">Contact Info</h3>
+              <ul class="contact__list">
+                <li>
+                  <span class="contact__k">Email</span>
+                  <a class="contact__v" href="mailto:you@example.com">you@example.com</a>
+                </li>
+                <li>
+                  <span class="contact__k">Phone</span>
+                  <a class="contact__v" href="tel:+821012345678">010-1234-5678</a>
+                </li>
+                <li>
+                  <span class="contact__k">Link</span>
+                  <a class="contact__v" href="#" target="_blank" rel="noreferrer">Behance / Notion / Instagram</a>
+                </li>
+              </ul>
+              <p class="contact__note">* 실제 정보로 교체해 주세요.</p>
+            </div>
+
+            <form class="form" action="#" method="post">
+              <div class="form__row">
+                <label class="label" for="name">이름</label>
+                <input class="input" id="name" name="name" type="text" placeholder="홍길동" required />
+              </div>
+              <div class="form__row">
+                <label class="label" for="email">이메일</label>
+                <input class="input" id="email" name="email" type="email" placeholder="name@email.com" required />
+              </div>
+              <div class="form__row">
+                <label class="label" for="message">내용</label>
+                <textarea class="textarea" id="message" name="message" rows="5" placeholder="문의 내용을 적어주세요." required></textarea>
+              </div>
+
+              <button class="btn btn--primary btn--full" type="submit">보내기 (데모)</button>
+              <p class="form__hint">* 실제 전송은 Formspree/Netlify Forms 등으로 연결하면 돼요.</p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <p class="footer__copy">© <span id="year"></span> Soyoung. All rights reserved.</p>
+        <a class="footer__top" href="#top">↑ Top</a>
       </div>
-    </article>
-  `;
-}
+    </footer>
 
-function renderCards(list) {
-  if (!grid) return;
-  grid.innerHTML = list.map(cardTemplate).join("");
-}
+    <!-- Modal (Carousel) -->
+    <div class="modal" id="portfolioModal" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="modal__backdrop" data-close="true"></div>
 
-renderCards(projects);
+      <div class="modal__panel" role="document" aria-label="포트폴리오 상세">
+        <button class="modal__close" type="button" aria-label="닫기" data-close="true">✕</button>
 
-/**
- * =========================
- * Filter
- * =========================
- */
-document.querySelectorAll(".pill").forEach((pill) => {
-  pill.addEventListener("click", () => {
-    document.querySelectorAll(".pill").forEach((x) => x.classList.remove("is-active"));
-    pill.classList.add("is-active");
+        <!-- Carousel -->
+        <div class="carousel" aria-label="작업 이미지 슬라이드">
+          <div class="carousel__viewport">
+            <div class="carousel__track" id="carouselTrack"></div>
+          </div>
 
-    const f = pill.dataset.filter;
-    const list = f === "all" ? projects : projects.filter((p) => p.category === f);
-    renderCards(list);
-  });
-});
+          <button class="carousel__nav carousel__prev" type="button" aria-label="이전 이미지" id="prevBtn">
+            ‹
+          </button>
+          <button class="carousel__nav carousel__next" type="button" aria-label="다음 이미지" id="nextBtn">
+            ›
+          </button>
 
-/**
- * =========================
- * Modal + Carousel
- * =========================
- */
-const modal = document.getElementById("portfolioModal");
+          <div class="carousel__bottom">
+            <div class="carousel__dots" id="carouselDots" aria-label="이미지 선택"></div>
+            <div class="carousel__count" id="carouselCount" aria-label="현재 이미지 번호"></div>
+          </div>
+        </div>
 
-const modalTitle = document.getElementById("modalTitle");
-const modalTag = document.getElementById("modalTag");
-const modalDesc = document.getElementById("modalDesc");
-const modalMeta = document.getElementById("modalMeta");
-const modalLinks = document.getElementById("modalLinks");
+        <!-- Content -->
+        <div class="modal__content">
+          <div class="modal__top">
+            <h3 class="modal__title" id="modalTitle"></h3>
+            <span class="tag" id="modalTag"></span>
+          </div>
 
-const track = document.getElementById("carouselTrack");
-const dots = document.getElementById("carouselDots");
-const count = document.getElementById("carouselCount");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-
-let lastFocus = null;
-let activeProject = null;
-let slideIndex = 0;
-
-function setSlide(i) {
-  if (!activeProject || !track || !dots || !count || !prevBtn || !nextBtn) return;
-
-  const total = (activeProject.images || []).length;
-  if (total <= 0) return;
-
-  slideIndex = (i + total) % total; // loop
-  track.style.transform = `translateX(${-slideIndex * 100}%)`;
-
-  dots.querySelectorAll("button").forEach((b, idx) => {
-    b.classList.toggle("is-active", idx === slideIndex);
-    b.setAttribute("aria-current", idx === slideIndex ? "true" : "false");
-  });
-
-  count.textContent = `${slideIndex + 1} / ${total}`;
-
-  const single = total === 1;
-  prevBtn.disabled = single;
-  nextBtn.disabled = single;
-}
-
-function buildCarousel(images = [], title = "") {
-  if (!track || !dots) return;
-
-  const safeImages = images.length ? images : [""];
-
-  track.innerHTML = safeImages
-    .map(
-      (src, idx) => `
-      <div class="carousel__slide">
-        <img src="${escapeHTML(src)}" alt="${escapeHTML(title)} 이미지 ${idx + 1}" loading="lazy" />
+          <p class="modal__desc" id="modalDesc"></p>
+          <ul class="modal__meta" id="modalMeta"></ul>
+          <div class="modal__links" id="modalLinks"></div>
+        </div>
       </div>
-    `
-    )
-    .join("");
+    </div>
 
-  dots.innerHTML = safeImages
-    .map(
-      (_, idx) => `
-      <button class="dot" type="button" aria-label="이미지 ${idx + 1}로 이동" data-dot="${idx}"></button>
-    `
-    )
-    .join("");
-
-  slideIndex = 0;
-  setSlide(0);
-}
-
-function openModal(project) {
-  if (!modal) return;
-
-  lastFocus = document.activeElement;
-  activeProject = project;
-
-  modal.classList.add("is-open");
-  modal.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
-
-  if (modalTitle) modalTitle.textContent = project.title || "";
-  if (modalTag) modalTag.textContent = project.tag || categoryLabel[project.category] || "";
-  if (modalDesc) modalDesc.textContent = project.desc || "";
-
-  if (modalMeta) modalMeta.innerHTML = (project.meta || []).map((m) => `<li>${escapeHTML(m)}</li>`).join("");
-
-  if (modalLinks) {
-    const links = (project.links || []).filter((l) => l.href && l.href !== "#");
-    modalLinks.innerHTML = links
-      .map(
-        (l) =>
-          `<a class="modal__link" href="${escapeHTML(l.href)}" target="_blank" rel="noreferrer">${escapeHTML(
-            l.label || "링크"
-          )}</a>`
-      )
-      .join("");
-  }
-
-  buildCarousel(project.images || [project.thumb], project.title || "");
-
-  modal.querySelector(".modal__close")?.focus();
-}
-
-function closeModal() {
-  if (!modal) return;
-
-  modal.classList.remove("is-open");
-  modal.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = "";
-
-  activeProject = null;
-  slideIndex = 0;
-
-  if (track) track.innerHTML = "";
-  if (dots) dots.innerHTML = "";
-  if (count) count.textContent = "";
-
-  lastFocus?.focus?.();
-}
-
-// Delegate: open/close + dot click
-document.addEventListener("click", (e) => {
-  const openBtn = e.target.closest("[data-open]");
-  if (openBtn) {
-    const id = openBtn.getAttribute("data-open");
-    const project = projects.find((p) => p.id === id);
-    if (project) openModal(project);
-    return;
-  }
-
-  const closeEl = e.target.closest("[data-close]");
-  if (closeEl && modal?.classList.contains("is-open")) closeModal();
-
-  const dotBtn = e.target.closest("[data-dot]");
-  if (dotBtn && modal?.classList.contains("is-open")) {
-    const idx = Number(dotBtn.getAttribute("data-dot"));
-    setSlide(idx);
-  }
-});
-
-// Prev/Next
-prevBtn?.addEventListener("click", () => setSlide(slideIndex - 1));
-nextBtn?.addEventListener("click", () => setSlide(slideIndex + 1));
-
-// Keyboard: ESC + arrows
-document.addEventListener("keydown", (e) => {
-  if (!modal?.classList.contains("is-open")) return;
-
-  if (e.key === "Escape") closeModal();
-  if (e.key === "ArrowLeft") setSlide(slideIndex - 1);
-  if (e.key === "ArrowRight") setSlide(slideIndex + 1);
-});
+    <script src="./js/script.js" defer></script>
+  </body>
+</html>
