@@ -1,160 +1,412 @@
-(() => {
-  const sliders = document.querySelectorAll("[data-slider]");
-  if (!sliders.length) return;
+/* app.js */
 
-  sliders.forEach((root) => {
-    const viewport = root.querySelector("[data-viewport]");
-    const track = root.querySelector("[data-track]");
-    const prevBtn = root.querySelector("[data-prev]");
-    const nextBtn = root.querySelector("[data-next]");
-    const dotsWrap = root.querySelector("[data-dots]");
-    const currentEl = root.querySelector("[data-current]");
-    const totalEl = root.querySelector("[data-total]");
+/**
+ * =========================
+ * Helpers
+ * =========================
+ */
+function escapeHTML(str = "") {
+  return String(str)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
 
-    const slides = Array.from(track?.children || []).filter((el) => el.classList.contains("slide"));
-    if (!viewport || !track || slides.length === 0) return;
+/**
+ * =========================
+ * UI: Mobile nav
+ * =========================
+ */
+const header = document.querySelector(".header");
+const navToggle = document.querySelector(".nav-toggle");
+const nav = document.querySelector(".nav");
 
-    let index = 0;
-    let pageCount = 1;
-    let pageWidth = 0;
-    let gap = 0;
+navToggle?.addEventListener("click", () => {
+  const opened = header.classList.toggle("is-open");
+  navToggle.setAttribute("aria-expanded", String(opened));
+});
 
-    // drag state
-    let isDown = false;
-    let startX = 0;
-    let startTranslate = 0;
-    let currentTranslate = 0;
+nav?.addEventListener("click", (e) => {
+  const a = e.target.closest("a");
+  if (!a) return;
+  header.classList.remove("is-open");
+  navToggle.setAttribute("aria-expanded", "false");
+});
 
-    const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
-    const px = (v) => {
-      const n = Number(String(v).replace("px", ""));
-      return Number.isFinite(n) ? n : 0;
-    };
+const yearEl = document.getElementById("year");
+if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    const getGap = () => {
-      const styles = window.getComputedStyle(track);
-      return px(styles.columnGap || styles.gap || "0px");
-    };
+/**
+ * =========================
+ * Portfolio Data
+ * - thumb: 카드 썸네일
+ * - images: 모달에서 보여줄 이미지 여러장
+ * =========================
+ */
+const projects = [
+  {
+    id: "p01",
+    title: "브랜드 상세페이지 리뉴얼",
+    category: "detail",
+    tag: "상세페이지",
+    thumb: "./assets/portfolio-01.jpg",
+    images: ["./assets/portfolio-01.jpg", "./assets/portfolio-01-2.jpg", "./assets/portfolio-01-3.jpg"],
+    desc: "기획 의도에 맞춘 정보 구조 재정리, 구매 전환을 고려한 레이아웃 개선.",
+    meta: ["Tool: PS / AI", "Contribution: 100%", "Type: E-commerce"],
+    links: [{ label: "작업 링크", href: "#" }],
+  },
+  {
+    id: "p02",
+    title: "패키지 디자인 시리즈",
+    category: "package",
+    tag: "패키지",
+    thumb: "./assets/portfolio-02.jpg",
+    images: ["./assets/portfolio-02.jpg", "./assets/portfolio-02-2.jpg"],
+    desc: "브랜드 톤 유지 + 진열 환경에서 눈에 띄는 컬러/타이포 전략 적용.",
+    meta: ["Tool: AI", "Deliverable: Print", "Output: Box / Label"],
+    links: [],
+  },
+  {
+    id: "p03",
+    title: "SNS 콘텐츠 템플릿",
+    category: "sns",
+    tag: "SNS",
+    thumb: "./assets/portfolio-03.jpg",
+    images: ["./assets/portfolio-03.jpg", "./assets/portfolio-03-2.jpg"],
+    desc: "운영 효율을 높이는 컴포넌트화(그리드/타이포/아이콘)로 제작 시간 단축.",
+    meta: ["Tool: PS", "Output: Feed / Story", "System: Components"],
+    links: [],
+  },
+  {
+    id: "p04",
+    title: "웹 랜딩 페이지 퍼블리싱",
+    category: "web",
+    tag: "웹",
+    thumb: "./assets/portfolio-04.jpg",
+    images: ["./assets/portfolio-04.jpg", "./assets/portfolio-04-2.jpg"],
+    desc: "모바일 우선 반응형, 섹션 흐름과 CTA 배치로 전환 동선 최적화.",
+    meta: ["Tech: HTML / CSS", "Type: Responsive", "Role: Design+Publish"],
+    links: [],
+  },
 
-    const getSlideWidth = () => slides[0].getBoundingClientRect().width;
+  // +10개(샘플) — 교체해서 사용
+  {
+    id: "p05",
+    title: "상세페이지 A/B 레이아웃 개선",
+    category: "detail",
+    tag: "상세페이지",
+    thumb: "./assets/portfolio-05.jpg",
+    images: ["./assets/portfolio-05.jpg", "./assets/portfolio-05-2.jpg"],
+    desc: "핵심 USP 위치 재배치와 정보 밀도 조정으로 가독성 강화.",
+    meta: ["Tool: PS", "Focus: Readability", "Contribution: 100%"],
+    links: [],
+  },
+  {
+    id: "p06",
+    title: "프로모션 상세페이지 템플릿",
+    category: "detail",
+    tag: "상세페이지",
+    thumb: "./assets/portfolio-06.jpg",
+    images: ["./assets/portfolio-06.jpg", "./assets/portfolio-06-2.jpg"],
+    desc: "프로모션 반복 요소를 템플릿화하여 제작 시간을 단축.",
+    meta: ["Tool: PS", "System: Template", "Output: Campaign"],
+    links: [],
+  },
+  {
+    id: "p07",
+    title: "신제품 패키지 키비주얼 확장",
+    category: "package",
+    tag: "패키지",
+    thumb: "./assets/portfolio-07.jpg",
+    images: ["./assets/portfolio-07.jpg", "./assets/portfolio-07-2.jpg"],
+    desc: "키비주얼 기반 라인업 확장 규칙을 설계하고 적용.",
+    meta: ["Tool: AI", "Output: Print", "Deliverable: Guide"],
+    links: [],
+  },
+  {
+    id: "p08",
+    title: "패키지 라벨 타이포 시스템",
+    category: "package",
+    tag: "패키지",
+    thumb: "./assets/portfolio-08.jpg",
+    images: ["./assets/portfolio-08.jpg", "./assets/portfolio-08-2.jpg"],
+    desc: "정보 위계와 가독성을 고려한 라벨 타이포 규칙 정리.",
+    meta: ["Tool: AI", "Focus: Typography", "Output: Label"],
+    links: [],
+  },
+  {
+    id: "p09",
+    title: "SNS 시즌 캠페인 콘텐츠",
+    category: "sns",
+    tag: "SNS",
+    thumb: "./assets/portfolio-09.jpg",
+    images: ["./assets/portfolio-09.jpg", "./assets/portfolio-09-2.jpg", "./assets/portfolio-09-3.jpg"],
+    desc: "시즌 무드 반영 + 브랜드 톤을 유지한 시리즈 제작.",
+    meta: ["Tool: PS", "Output: 12 posts", "Role: Design"],
+    links: [],
+  },
+  {
+    id: "p10",
+    title: "SNS 카드뉴스 템플릿",
+    category: "sns",
+    tag: "SNS",
+    thumb: "./assets/portfolio-10.jpg",
+    images: ["./assets/portfolio-10.jpg", "./assets/portfolio-10-2.jpg"],
+    desc: "카드뉴스 제작을 빠르게 하기 위한 레이아웃/타이포 템플릿 구성.",
+    meta: ["Tool: PS", "Output: Carousel", "System: Grid"],
+    links: [],
+  },
+  {
+    id: "p11",
+    title: "웹 배너/썸네일 디자인 세트",
+    category: "web",
+    tag: "웹",
+    thumb: "./assets/portfolio-11.jpg",
+    images: ["./assets/portfolio-11.jpg", "./assets/portfolio-11-2.jpg"],
+    desc: "플랫폼별 규격을 고려해 일관된 메시지 구조로 배너 세트 제작.",
+    meta: ["Tool: PS", "Output: Banner set", "Focus: Consistency"],
+    links: [],
+  },
+  {
+    id: "p12",
+    title: "브랜드 소개 랜딩(디자인)",
+    category: "web",
+    tag: "웹",
+    thumb: "./assets/portfolio-12.jpg",
+    images: ["./assets/portfolio-12.jpg", "./assets/portfolio-12-2.jpg"],
+    desc: "브랜드 스토리 흐름에 맞춘 섹션 구조/비주얼 리듬 설계.",
+    meta: ["Tool: Figma/PS", "Type: Landing", "Role: Design"],
+    links: [],
+  },
+  {
+    id: "p13",
+    title: "상세페이지 썸네일 개선",
+    category: "detail",
+    tag: "상세페이지",
+    thumb: "./assets/portfolio-13.jpg",
+    images: ["./assets/portfolio-13.jpg", "./assets/portfolio-13-2.jpg"],
+    desc: "작은 영역에서도 메시지가 명확히 전달되도록 타이포/대비 조정.",
+    meta: ["Tool: PS", "Focus: CTR", "Contribution: 100%"],
+    links: [],
+  },
+  {
+    id: "p14",
+    title: "웹 UI 컴포넌트 스타일 정리",
+    category: "web",
+    tag: "웹",
+    thumb: "./assets/portfolio-14.jpg",
+    images: ["./assets/portfolio-14.jpg", "./assets/portfolio-14-2.jpg"],
+    desc: "버튼/태그/카드 등 반복 요소를 컴포넌트 기준으로 정리.",
+    meta: ["Tech: HTML/CSS", "Focus: System", "Role: Design+Publish"],
+    links: [],
+  },
+];
 
-    const setTranslate = (x, withTransition = true) => {
-      track.style.transition = withTransition ? "transform .35s ease" : "none";
-      track.style.transform = `translate3d(${x}px,0,0)`;
-      currentTranslate = x;
-    };
+const categoryLabel = { detail: "상세페이지", package: "패키지", sns: "SNS", web: "웹" };
 
-    const renderDots = () => {
-      if (!dotsWrap) return;
-      dotsWrap.innerHTML = "";
-      for (let i = 0; i < pageCount; i++) {
-        const b = document.createElement("button");
-        b.type = "button";
-        b.className = "dotbtn";
-        b.setAttribute("aria-label", `슬라이드 ${i + 1}`);
-        b.setAttribute("aria-current", i === index ? "true" : "false");
-        b.addEventListener("click", () => {
-          index = i;
-          update();
-        });
-        dotsWrap.appendChild(b);
-      }
-    };
+/**
+ * =========================
+ * Render: Portfolio Cards
+ * =========================
+ */
+const grid = document.getElementById("portfolioGrid");
 
-    const update = () => {
-      const x = -(index * pageWidth);
-      setTranslate(x, true);
+function cardTemplate(p) {
+  const metaPreview = (p.meta || []).slice(0, 2).map((m) => `<li>${escapeHTML(m)}</li>`).join("");
+  return `
+    <article class="card" data-category="${escapeHTML(p.category)}">
+      <button class="card__thumb card__button" type="button" data-open="${escapeHTML(p.id)}" aria-label="${escapeHTML(
+        p.title
+      )} 상세 보기">
+        <img src="${escapeHTML(p.thumb)}" alt="${escapeHTML(p.title)} 썸네일" loading="lazy" />
+      </button>
+      <div class="card__body">
+        <div class="card__top">
+          <h3 class="card__title">${escapeHTML(p.title)}</h3>
+          <span class="tag">${escapeHTML(p.tag || categoryLabel[p.category] || "")}</span>
+        </div>
+        <p class="card__desc">${escapeHTML(p.desc || "")}</p>
+        <ul class="card__meta">${metaPreview}</ul>
+      </div>
+    </article>
+  `;
+}
 
-      if (prevBtn) prevBtn.disabled = index <= 0;
-      if (nextBtn) nextBtn.disabled = index >= pageCount - 1;
+function renderCards(list) {
+  if (!grid) return;
+  grid.innerHTML = list.map(cardTemplate).join("");
+}
 
-      if (currentEl) currentEl.textContent = String(index + 1);
-      if (totalEl) totalEl.textContent = String(pageCount);
+renderCards(projects);
 
-      if (dotsWrap) {
-        const btns = dotsWrap.querySelectorAll("button");
-        btns.forEach((b, i) => b.setAttribute("aria-current", i === index ? "true" : "false"));
-      }
-    };
+/**
+ * =========================
+ * Filter
+ * =========================
+ */
+document.querySelectorAll(".pill").forEach((pill) => {
+  pill.addEventListener("click", () => {
+    document.querySelectorAll(".pill").forEach((x) => x.classList.remove("is-active"));
+    pill.classList.add("is-active");
 
-    const compute = () => {
-      gap = getGap();
-      const slideW = getSlideWidth();
-      const viewportW = viewport.getBoundingClientRect().width;
-
-      const perView = Math.max(1, Math.round((viewportW + gap) / (slideW + gap)));
-      pageWidth = perView * (slideW + gap);
-      pageCount = Math.max(1, Math.ceil(slides.length / perView));
-
-      index = clamp(index, 0, pageCount - 1);
-
-      renderDots();
-      update();
-    };
-
-    // controls
-    prevBtn?.addEventListener("click", () => {
-      index = clamp(index - 1, 0, pageCount - 1);
-      update();
-    });
-    nextBtn?.addEventListener("click", () => {
-      index = clamp(index + 1, 0, pageCount - 1);
-      update();
-    });
-
-    // focus + keyboard
-    root.tabIndex = 0;
-    root.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowLeft") prevBtn?.click();
-      if (e.key === "ArrowRight") nextBtn?.click();
-    });
-
-    // drag/swipe
-    const pointerDown = (clientX) => {
-      isDown = true;
-      startX = clientX;
-
-      const match = track.style.transform.match(/translate3d\(([-0-9.]+)px/);
-      startTranslate = match ? Number(match[1]) : -(index * pageWidth);
-
-      track.style.transition = "none";
-    };
-
-    const pointerMove = (clientX) => {
-      if (!isDown) return;
-      const dx = clientX - startX;
-      let next = startTranslate + dx;
-
-      const min = -(pageWidth * (pageCount - 1)) - 80;
-      const max = 80;
-      next = clamp(next, min, max);
-
-      setTranslate(next, false);
-    };
-
-    const pointerUp = () => {
-      if (!isDown) return;
-      isDown = false;
-
-      const moved = currentTranslate - (-(index * pageWidth));
-      const threshold = Math.min(120, pageWidth * 0.25);
-
-      if (moved > threshold) index = clamp(index - 1, 0, pageCount - 1);
-      else if (moved < -threshold) index = clamp(index + 1, 0, pageCount - 1);
-
-      update();
-    };
-
-    viewport.addEventListener("touchstart", (e) => pointerDown(e.touches[0].clientX), { passive: true });
-    viewport.addEventListener("touchmove", (e) => pointerMove(e.touches[0].clientX), { passive: true });
-    viewport.addEventListener("touchend", pointerUp);
-
-    viewport.addEventListener("mousedown", (e) => pointerDown(e.clientX));
-    window.addEventListener("mousemove", (e) => pointerMove(e.clientX));
-    window.addEventListener("mouseup", pointerUp);
-
-    window.addEventListener("resize", compute);
-
-    compute();
+    const f = pill.dataset.filter;
+    const list = f === "all" ? projects : projects.filter((p) => p.category === f);
+    renderCards(list);
   });
-})();
+});
+
+/**
+ * =========================
+ * Modal + Carousel
+ * =========================
+ */
+const modal = document.getElementById("portfolioModal");
+
+const modalTitle = document.getElementById("modalTitle");
+const modalTag = document.getElementById("modalTag");
+const modalDesc = document.getElementById("modalDesc");
+const modalMeta = document.getElementById("modalMeta");
+const modalLinks = document.getElementById("modalLinks");
+
+const track = document.getElementById("carouselTrack");
+const dots = document.getElementById("carouselDots");
+const count = document.getElementById("carouselCount");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+let lastFocus = null;
+let activeProject = null;
+let slideIndex = 0;
+
+function setSlide(i) {
+  if (!activeProject || !track || !dots || !count || !prevBtn || !nextBtn) return;
+
+  const total = (activeProject.images || []).length;
+  if (total <= 0) return;
+
+  slideIndex = (i + total) % total; // loop
+  track.style.transform = `translateX(${-slideIndex * 100}%)`;
+
+  dots.querySelectorAll("button").forEach((b, idx) => {
+    b.classList.toggle("is-active", idx === slideIndex);
+    b.setAttribute("aria-current", idx === slideIndex ? "true" : "false");
+  });
+
+  count.textContent = `${slideIndex + 1} / ${total}`;
+
+  const single = total === 1;
+  prevBtn.disabled = single;
+  nextBtn.disabled = single;
+}
+
+function buildCarousel(images = [], title = "") {
+  if (!track || !dots) return;
+
+  const safeImages = images.length ? images : [""];
+
+  track.innerHTML = safeImages
+    .map(
+      (src, idx) => `
+      <div class="carousel__slide">
+        <img src="${escapeHTML(src)}" alt="${escapeHTML(title)} 이미지 ${idx + 1}" loading="lazy" />
+      </div>
+    `
+    )
+    .join("");
+
+  dots.innerHTML = safeImages
+    .map(
+      (_, idx) => `
+      <button class="dot" type="button" aria-label="이미지 ${idx + 1}로 이동" data-dot="${idx}"></button>
+    `
+    )
+    .join("");
+
+  slideIndex = 0;
+  setSlide(0);
+}
+
+function openModal(project) {
+  if (!modal) return;
+
+  lastFocus = document.activeElement;
+  activeProject = project;
+
+  modal.classList.add("is-open");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+
+  if (modalTitle) modalTitle.textContent = project.title || "";
+  if (modalTag) modalTag.textContent = project.tag || categoryLabel[project.category] || "";
+  if (modalDesc) modalDesc.textContent = project.desc || "";
+
+  if (modalMeta) modalMeta.innerHTML = (project.meta || []).map((m) => `<li>${escapeHTML(m)}</li>`).join("");
+
+  if (modalLinks) {
+    const links = (project.links || []).filter((l) => l.href && l.href !== "#");
+    modalLinks.innerHTML = links
+      .map(
+        (l) =>
+          `<a class="modal__link" href="${escapeHTML(l.href)}" target="_blank" rel="noreferrer">${escapeHTML(
+            l.label || "링크"
+          )}</a>`
+      )
+      .join("");
+  }
+
+  buildCarousel(project.images || [project.thumb], project.title || "");
+
+  modal.querySelector(".modal__close")?.focus();
+}
+
+function closeModal() {
+  if (!modal) return;
+
+  modal.classList.remove("is-open");
+  modal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+
+  activeProject = null;
+  slideIndex = 0;
+
+  if (track) track.innerHTML = "";
+  if (dots) dots.innerHTML = "";
+  if (count) count.textContent = "";
+
+  lastFocus?.focus?.();
+}
+
+// Delegate: open/close + dot click
+document.addEventListener("click", (e) => {
+  const openBtn = e.target.closest("[data-open]");
+  if (openBtn) {
+    const id = openBtn.getAttribute("data-open");
+    const project = projects.find((p) => p.id === id);
+    if (project) openModal(project);
+    return;
+  }
+
+  const closeEl = e.target.closest("[data-close]");
+  if (closeEl && modal?.classList.contains("is-open")) closeModal();
+
+  const dotBtn = e.target.closest("[data-dot]");
+  if (dotBtn && modal?.classList.contains("is-open")) {
+    const idx = Number(dotBtn.getAttribute("data-dot"));
+    setSlide(idx);
+  }
+});
+
+// Prev/Next
+prevBtn?.addEventListener("click", () => setSlide(slideIndex - 1));
+nextBtn?.addEventListener("click", () => setSlide(slideIndex + 1));
+
+// Keyboard: ESC + arrows
+document.addEventListener("keydown", (e) => {
+  if (!modal?.classList.contains("is-open")) return;
+
+  if (e.key === "Escape") closeModal();
+  if (e.key === "ArrowLeft") setSlide(slideIndex - 1);
+  if (e.key === "ArrowRight") setSlide(slideIndex + 1);
+});
