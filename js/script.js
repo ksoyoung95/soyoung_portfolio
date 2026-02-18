@@ -410,3 +410,15 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowLeft") setSlide(slideIndex - 1);
   if (e.key === "ArrowRight") setSlide(slideIndex + 1);
 });
+// Floating Top Button: show/hide after scroll
+const topBtn = document.querySelector(".footer__top");
+const SHOW_AFTER = 300; // px (원하는 만큼 조절)
+
+function updateTopButton() {
+  if (!topBtn) return;
+  const y = window.scrollY || document.documentElement.scrollTop;
+  topBtn.classList.toggle("is-visible", y > SHOW_AFTER);
+}
+
+window.addEventListener("scroll", updateTopButton, { passive: true });
+window.addEventListener("load", updateTopButton);

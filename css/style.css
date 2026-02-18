@@ -819,3 +819,33 @@ dd {
     min-height: 320px;
   }
 }
+/* Floating Top Button */
+.footer__top {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 1000;
+
+  /* 기본은 숨김(스크롤 일정 이상에서만 보이게) */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  pointer-events: none;
+
+  transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+}
+
+.footer__top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* 모바일에서 살짝 여백 조정(선택) */
+@media (max-width: 480px) {
+  .footer__top {
+    right: 14px;
+    bottom: 14px;
+  }
+}
