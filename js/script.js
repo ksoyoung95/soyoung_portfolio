@@ -1,4 +1,4 @@
-/* scriot.js */
+/* script.js */
 
 /**
  * =========================
@@ -32,7 +32,7 @@ nav?.addEventListener("click", (e) => {
   const a = e.target.closest("a");
   if (!a) return;
   header.classList.remove("is-open");
-  navToggle.setAttribute("aria-expanded", "false");
+  navToggle?.setAttribute("aria-expanded", "false");
 });
 
 const yearEl = document.getElementById("year");
@@ -41,8 +41,6 @@ if (yearEl) yearEl.textContent = new Date().getFullYear();
 /**
  * =========================
  * Portfolio Data
- * - thumb: 카드 썸네일
- * - images: 모달에서 보여줄 이미지 여러장
  * =========================
  */
 const projects = [
@@ -90,8 +88,6 @@ const projects = [
     meta: ["Tech: HTML / CSS", "Type: Responsive", "Role: Design+Publish"],
     links: [],
   },
-
-  // +10개(샘플) — 교체해서 사용
   {
     id: "p05",
     title: "상세페이지 A/B 레이아웃 개선",
@@ -217,9 +213,8 @@ function cardTemplate(p) {
   const metaPreview = (p.meta || []).slice(0, 2).map((m) => `<li>${escapeHTML(m)}</li>`).join("");
   return `
     <article class="card" data-category="${escapeHTML(p.category)}">
-      <button class="card__thumb card__button" type="button" data-open="${escapeHTML(p.id)}" aria-label="${escapeHTML(
-        p.title
-      )} 상세 보기">
+      <button class="card__thumb card__button" type="button" data-open="${escapeHTML(p.id)}"
+        aria-label="${escapeHTML(p.title)} 상세 보기">
         <img src="${escapeHTML(p.thumb)}" alt="${escapeHTML(p.title)} 썸네일" loading="lazy" />
       </button>
       <div class="card__body">
@@ -238,7 +233,6 @@ function renderCards(list) {
   if (!grid) return;
   grid.innerHTML = list.map(cardTemplate).join("");
 }
-
 renderCards(projects);
 
 /**
@@ -259,7 +253,7 @@ document.querySelectorAll(".pill").forEach((pill) => {
 
 /**
  * =========================
- * Modal + Carousel
+ * Modal + Carousel (Portfolio)
  * =========================
  */
 const modal = document.getElementById("portfolioModal");
@@ -286,7 +280,7 @@ function setSlide(i) {
   const total = (activeProject.images || []).length;
   if (total <= 0) return;
 
-  slideIndex = (i + total) % total; // loop
+  slideIndex = (i + total) % total;
   track.style.transform = `translateX(${-slideIndex * 100}%)`;
 
   dots.querySelectorAll("button").forEach((b, idx) => {
@@ -305,7 +299,6 @@ function buildCarousel(images = [], title = "") {
   if (!track || !dots) return;
 
   const safeImages = images.length ? images : [""];
-
   track.innerHTML = safeImages
     .map(
       (src, idx) => `
@@ -339,7 +332,6 @@ function openModal(project) {
   document.body.style.overflow = "hidden";
   document.body.classList.add("modal-open");
 
-
   if (modalTitle) modalTitle.textContent = project.title || "";
   if (modalTag) modalTag.textContent = project.tag || categoryLabel[project.category] || "";
   if (modalDesc) modalDesc.textContent = project.desc || "";
@@ -356,10 +348,11 @@ function openModal(project) {
           )}</a>`
       )
       .join("");
+  } else {
+    modalLinks.innerHTML = "";
   }
 
   buildCarousel(project.images || [project.thumb], project.title || "");
-
   modal.querySelector(".modal__close")?.focus();
 }
 
@@ -371,7 +364,6 @@ function closeModal() {
   document.body.style.overflow = "";
   document.body.classList.remove("modal-open");
 
-
   activeProject = null;
   slideIndex = 0;
 
@@ -382,7 +374,6 @@ function closeModal() {
   lastFocus?.focus?.();
 }
 
-// Delegate: open/close + dot click
 document.addEventListener("click", (e) => {
   const openBtn = e.target.closest("[data-open]");
   if (openBtn) {
@@ -402,11 +393,9 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// Prev/Next
 prevBtn?.addEventListener("click", () => setSlide(slideIndex - 1));
 nextBtn?.addEventListener("click", () => setSlide(slideIndex + 1));
 
-// Keyboard: ESC + arrows
 document.addEventListener("keydown", (e) => {
   if (!modal?.classList.contains("is-open")) return;
 
@@ -414,31 +403,36 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowLeft") setSlide(slideIndex - 1);
   if (e.key === "ArrowRight") setSlide(slideIndex + 1);
 });
-// Floating Top Button: show/hide after scroll
+
+/**
+ * =========================
+ * Floating Top Button
+ * =========================
+ */
 const topBtn = document.querySelector(".footer__top");
-const SHOW_AFTER = 300; // px (원하는 만큼 조절)
+const SHOW_AFTER = 300;
 
 function updateTopButton() {
   if (!topBtn) return;
   const y = window.scrollY || document.documentElement.scrollTop;
   topBtn.classList.toggle("is-visible", y > SHOW_AFTER);
 }
-
 window.addEventListener("scroll", updateTopButton, { passive: true });
 window.addEventListener("load", updateTopButton);
 
 /**
  * =========================
- * Career data + modal
+ * Career Section + Modal (최종 1개만)
+ * - HTML 기준 ID:
+ *   careerGrid, careerModal, careerModalTitle, careerModalMeta, careerModalList
  * =========================
  */
 const careers = [
   {
     id: "c01",
     company: "키스템프",
-    role: "파견 계약직",
-    period: "기간: 2025.09 ~ ing",
-    pill: "키스템프",
+    type: "파견 계약직",
+    period: "기간 : 2025.09 ~ ing",
     duties: [
       "자사 홈페이지 운영 전반의 디자인을 담당하며, 메인 및 서브 페이지의 비주얼 개선과 유지·보수 진행",
       "프로모션, 이벤트, 캠페인 일정에 맞춰 배너 및 콘텐츠 디자인 기획·제작",
@@ -446,44 +440,78 @@ const careers = [
       "유관 부서와의 협업을 통해 콘텐츠 업데이트 및 운영 효율을 높이는 디자인 지원",
     ],
   },
-  // 필요하면 아래처럼 계속 추가
   {
     id: "c02",
-    company: "회사명",
-    role: "직무/형태",
-    period: "기간: 2024.03 ~ 2025.08",
-    pill: "경력",
-    duties: ["업무 1", "업무 2", "업무 3"],
+    company: "(주)위드내추럴",
+    type: "정규직",
+    period: "기간 : 2021.10 ~ 2022.09",
+    duties: ["주요 업무를 여기에 입력", "주요 업무를 여기에 입력"],
+  },
+  {
+    id: "c03",
+    company: "(주)플로우스",
+    type: "상주 프리랜서",
+    period: "기간 : 2025.01 ~ 2025.03",
+    duties: ["주요 업무를 여기에 입력", "주요 업무를 여기에 입력"],
+  },
+  {
+    id: "c04",
+    company: "(주)엠앤비",
+    type: "정규직",
+    period: "기간 : 2020.07 ~ 2021.06",
+    duties: ["주요 업무를 여기에 입력", "주요 업무를 여기에 입력"],
+  },
+  {
+    id: "c05",
+    company: "(주)올인원뱅크",
+    type: "정규직",
+    period: "기간 : 2024.04 ~ 2024.12",
+    duties: ["주요 업무를 여기에 입력", "주요 업무를 여기에 입력"],
+  },
+  {
+    id: "c06",
+    company: "(주)한국앤컴퍼니",
+    type: "정규직",
+    period: "기간 : 2017.10 ~ 2020.03",
+    duties: ["주요 업무를 여기에 입력", "주요 업무를 여기에 입력"],
+  },
+  {
+    id: "c07",
+    company: "딜라잇플랜트",
+    type: "상주 프리랜서",
+    period: "기간 : 2023.01 ~ 2023.06",
+    duties: ["주요 업무를 여기에 입력", "주요 업무를 여기에 입력"],
+  },
+  {
+    id: "c08",
+    company: "(주)산돌리빙",
+    type: "정규직",
+    period: "기간 : 2016.02 ~ 2017.08",
+    duties: ["주요 업무를 여기에 입력", "주요 업무를 여기에 입력"],
   },
 ];
 
 const careerGrid = document.getElementById("careerGrid");
-
 function careerCardTemplate(c) {
-  const pill = c.pill ? `<span class="career-pill">${escapeHTML(c.pill)}</span>` : "";
   return `
-    <button class="career-card" type="button" data-career-open="${escapeHTML(c.id)}" aria-label="${escapeHTML(
-    c.company
-  )} 경력 상세 보기">
-      <div class="career-card__top">
-        <div>
-          <p class="career-card__company">${escapeHTML(c.company)}</p>
-          <p class="career-card__role">${escapeHTML(c.role)}</p>
-        </div>
-        ${pill}
+    <button class="career-card" type="button"
+      data-career-open="${escapeHTML(c.id)}"
+      aria-label="${escapeHTML(c.company)} 경력 상세 보기">
+      <div class="career-card__row">
+        <p class="career-card__company">${escapeHTML(c.company)}</p>
+        <p class="career-card__type">${escapeHTML(c.type)}</p>
       </div>
       <p class="career-card__period">${escapeHTML(c.period)}</p>
     </button>
   `;
 }
-
 function renderCareerCards() {
   if (!careerGrid) return;
   careerGrid.innerHTML = careers.map(careerCardTemplate).join("");
 }
 renderCareerCards();
 
-// Modal elements
+// Career modal
 const careerModal = document.getElementById("careerModal");
 const careerModalTitle = document.getElementById("careerModalTitle");
 const careerModalMeta = document.getElementById("careerModalMeta");
@@ -491,21 +519,19 @@ const careerModalList = document.getElementById("careerModalList");
 
 let lastCareerFocus = null;
 
-function openCareerModal(career) {
+function openCareerModal(c) {
   if (!careerModal) return;
+
   lastCareerFocus = document.activeElement;
 
   careerModal.classList.add("is-open");
   careerModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
 
-  if (careerModalTitle) careerModalTitle.textContent = `${career.company}   ${career.role}`;
-  if (careerModalMeta) careerModalMeta.textContent = career.period || "";
-
+  if (careerModalTitle) careerModalTitle.textContent = `${c.company}   ${c.type}`;
+  if (careerModalMeta) careerModalMeta.textContent = c.period || "";
   if (careerModalList) {
-    careerModalList.innerHTML = (career.duties || [])
-      .map((t) => `<li>${escapeHTML(t)}</li>`)
-      .join("");
+    careerModalList.innerHTML = (c.duties || []).map((t) => `<li>${escapeHTML(t)}</li>`).join("");
   }
 
   careerModal.querySelector(".career-modal__close")?.focus();
@@ -518,26 +544,26 @@ function closeCareerModal() {
   careerModal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
 
+  if (careerModalTitle) careerModalTitle.textContent = "";
+  if (careerModalMeta) careerModalMeta.textContent = "";
+  if (careerModalList) careerModalList.innerHTML = "";
+
   lastCareerFocus?.focus?.();
 }
 
-// Open/Close events (delegate)
 document.addEventListener("click", (e) => {
   const openBtn = e.target.closest("[data-career-open]");
   if (openBtn) {
     const id = openBtn.getAttribute("data-career-open");
-    const career = careers.find((c) => c.id === id);
-    if (career) openCareerModal(career);
+    const c = careers.find((x) => x.id === id);
+    if (c) openCareerModal(c);
     return;
   }
 
   const closeBtn = e.target.closest("[data-career-close]");
-  if (closeBtn && careerModal?.classList.contains("is-open")) {
-    closeCareerModal();
-  }
+  if (closeBtn && careerModal?.classList.contains("is-open")) closeCareerModal();
 });
 
-// ESC close
 document.addEventListener("keydown", (e) => {
   if (!careerModal?.classList.contains("is-open")) return;
   if (e.key === "Escape") closeCareerModal();

@@ -20,6 +20,7 @@
   </head>
 
   <body>
+    <!-- 접근성: skip link -->
     <a class="skip" href="#main">본문 바로가기</a>
 
     <!-- Header -->
@@ -41,7 +42,7 @@
             <li><a class="nav__link" href="#home">홈</a></li>
             <li><a class="nav__link" href="#portfolio">포트폴리오</a></li>
             <li class="nav__dropdown">
-              <a class="nav__link" href="#about" aria-haspopup="true">소개</a>
+              <a class="nav__link" href="#about" aria-haspopup="true" aria-expanded="false">소개</a>
               <ul class="nav__dropdown-menu" aria-label="소개 하위 메뉴">
                 <li><a class="nav__sublink" href="#profile">프로필</a></li>
                 <li><a class="nav__sublink" href="#activities">경력사항</a></li>
@@ -126,6 +127,7 @@
           </header>
 
           <div class="about">
+            <!-- Profile -->
             <section class="panel" id="profile">
               <h3 class="panel__title">프로필</h3>
               <dl class="dl">
@@ -148,10 +150,14 @@
               </dl>
             </section>
 
+            <!-- Career -->
             <section class="panel panel--career" id="activities">
               <h3 class="panel__title">경력사항</h3>
-              <!-- 카드 그리드 -->
-                <div class="career-grid" id="careerGrid" aria-label="경력사항 목록"></div>
+
+              <!-- ✅ 이미지처럼: 큰 프레임(테두리) 안에서 스크롤 -->
+              <div class="career-frame" aria-label="경력사항 목록">
+                <div class="career-grid" id="careerGrid"></div>
+              </div>
             </section>
           </div>
         </div>
@@ -166,7 +172,9 @@
       </div>
     </footer>
 
-    <!-- Modal (Carousel) -->
+    <!-- =========================
+         Portfolio Modal (Carousel)
+         ========================= -->
     <div class="modal" id="portfolioModal" aria-hidden="true" role="dialog" aria-modal="true">
       <div class="modal__backdrop" data-close="true"></div>
 
@@ -196,7 +204,7 @@
 
           <p class="modal__desc" id="modalDesc"></p>
 
-          <!-- ✅ tag: desc 아래로 -->
+          <!-- ✅ tag: desc 아래 배치 (X 버튼 겹침 방지용) -->
           <div class="modal__tag-row">
             <span class="tag" id="modalTag"></span>
           </div>
@@ -206,25 +214,30 @@
         </div>
       </div>
     </div>
-    <!-- Career Modal -->
-<div class="career-modal" id="careerModal" aria-hidden="true" role="dialog" aria-modal="true">
-  <div class="career-modal__backdrop" data-career-close="true"></div>
 
-  <div class="career-modal__panel" role="document" aria-label="경력 상세">
-    <button class="career-modal__close" type="button" aria-label="닫기" data-career-close="true">✕</button>
+    <!-- =========================
+         Career Modal (Popup)
+         ========================= -->
+    <div class="career-modal" id="careerModal" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="career-modal__backdrop" data-career-close="true"></div>
 
-    <div class="career-modal__head">
-      <h3 class="career-modal__title" id="careerModalTitle"></h3>
-      <p class="career-modal__meta" id="careerModalMeta"></p>
+      <div class="career-modal__panel" role="document" aria-label="경력 상세">
+        <button class="career-modal__close" type="button" aria-label="닫기" data-career-close="true">✕</button>
+
+        <div class="career-modal__head">
+          <!-- JS에서: "회사명   고용형태" 형태로 채움 -->
+          <h3 class="career-modal__title" id="careerModalTitle"></h3>
+
+          <!-- JS에서: "기간 : ..." 형태로 채움 -->
+          <p class="career-modal__period" id="careerModalPeriod"></p>
+        </div>
+
+        <div class="career-modal__box">
+          <h4 class="career-modal__box-title">주요 업무</h4>
+          <ul class="career-modal__list" id="careerModalList"></ul>
+        </div>
+      </div>
     </div>
-
-    <div class="career-modal__box">
-      <h4 class="career-modal__box-title">주요 업무</h4>
-      <ul class="career-modal__list" id="careerModalList"></ul>
-    </div>
-  </div>
-</div>
-
 
     <script src="./js/script.js" defer></script>
   </body>
