@@ -426,3 +426,119 @@ function updateTopButton() {
 
 window.addEventListener("scroll", updateTopButton, { passive: true });
 window.addEventListener("load", updateTopButton);
+
+/**
+ * =========================
+ * Career data + modal
+ * =========================
+ */
+const careers = [
+  {
+    id: "c01",
+    company: "키스템프",
+    role: "파견 계약직",
+    period: "기간: 2025.09 ~ ing",
+    pill: "키스템프",
+    duties: [
+      "자사 홈페이지 운영 전반의 디자인을 담당하며, 메인 및 서브 페이지의 비주얼 개선과 유지·보수 진행",
+      "프로모션, 이벤트, 캠페인 일정에 맞춰 배너 및 콘텐츠 디자인 기획·제작",
+      "브랜드 가이드에 맞춘 디자인 일관성 관리 및 사용자 경험을 고려한 화면 구성 개선",
+      "유관 부서와의 협업을 통해 콘텐츠 업데이트 및 운영 효율을 높이는 디자인 지원",
+    ],
+  },
+  // 필요하면 아래처럼 계속 추가
+  {
+    id: "c02",
+    company: "회사명",
+    role: "직무/형태",
+    period: "기간: 2024.03 ~ 2025.08",
+    pill: "경력",
+    duties: ["업무 1", "업무 2", "업무 3"],
+  },
+];
+
+const careerGrid = document.getElementById("careerGrid");
+
+function careerCardTemplate(c) {
+  const pill = c.pill ? `<span class="career-pill">${escapeHTML(c.pill)}</span>` : "";
+  return `
+    <button class="career-card" type="button" data-career-open="${escapeHTML(c.id)}" aria-label="${escapeHTML(
+    c.company
+  )} 경력 상세 보기">
+      <div class="career-card__top">
+        <div>
+          <p class="career-card__company">${escapeHTML(c.company)}</p>
+          <p class="career-card__role">${escapeHTML(c.role)}</p>
+        </div>
+        ${pill}
+      </div>
+      <p class="career-card__period">${escapeHTML(c.period)}</p>
+    </button>
+  `;
+}
+
+function renderCareerCards() {
+  if (!careerGrid) return;
+  careerGrid.innerHTML = careers.map(careerCardTemplate).join("");
+}
+renderCareerCards();
+
+// Modal elements
+const careerModal = document.getElementById("careerModal");
+const careerModalTitle = document.getElementById("careerModalTitle");
+const careerModalMeta = document.getElementById("careerModalMeta");
+const careerModalList = document.getElementById("careerModalList");
+
+let lastCareerFocus = null;
+
+function openCareerModal(career) {
+  if (!careerModal) return;
+  lastCareerFocus = document.activeElement;
+
+  careerModal.classList.add("is-open");
+  careerModal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+
+  if (careerModalTitle) careerModalTitle.textContent = `${career.company}   ${career.role}`;
+  if (careerModalMeta) careerModalMeta.textContent = career.period || "";
+
+  if (careerModalList) {
+    careerModalList.innerHTML = (career.duties || [])
+      .map((t) => `<li>${escapeHTML(t)}</li>`)
+      .join("");
+  }
+
+  careerModal.querySelector(".career-modal__close")?.focus();
+}
+
+function closeCareerModal() {
+  if (!careerModal) return;
+
+  careerModal.classList.remove("is-open");
+  careerModal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+
+  lastCareerFocus?.focus?.();
+}
+
+// Open/Close events (delegate)
+document.addEventListener("click", (e) => {
+  const openBtn = e.target.closest("[data-career-open]");
+  if (openBtn) {
+    const id = openBtn.getAttribute("data-career-open");
+    const career = careers.find((c) => c.id === id);
+    if (career) openCareerModal(career);
+    return;
+  }
+
+  const closeBtn = e.target.closest("[data-career-close]");
+  if (closeBtn && careerModal?.classList.contains("is-open")) {
+    closeCareerModal();
+  }
+});
+
+// ESC close
+document.addEventListener("keydown", (e) => {
+  if (!careerModal?.classList.contains("is-open")) return;
+  if (e.key === "Escape") closeCareerModal();
+});

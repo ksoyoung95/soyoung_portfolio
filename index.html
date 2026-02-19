@@ -148,18 +148,10 @@
               </dl>
             </section>
 
-            <section class="panel" id="activities">
+            <section class="panel panel--career" id="activities">
               <h3 class="panel__title">경력사항</h3>
-              <ul class="timeline">
-                <li class="timeline__item">
-                  <p class="timeline__title">브랜드/프로젝트 · 역할</p>
-                  <p class="timeline__meta">기간 · 상세페이지/패키지/SNS 제작</p>
-                </li>
-                <li class="timeline__item">
-                  <p class="timeline__title">대외활동/스터디</p>
-                  <p class="timeline__meta">기간 · 활동 내용</p>
-                </li>
-              </ul>
+              <!-- 카드 그리드 -->
+                <div class="career-grid" id="careerGrid" aria-label="경력사항 목록"></div>
             </section>
           </div>
         </div>
@@ -214,6 +206,25 @@
         </div>
       </div>
     </div>
+    <!-- Career Modal -->
+<div class="career-modal" id="careerModal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="career-modal__backdrop" data-career-close="true"></div>
+
+  <div class="career-modal__panel" role="document" aria-label="경력 상세">
+    <button class="career-modal__close" type="button" aria-label="닫기" data-career-close="true">✕</button>
+
+    <div class="career-modal__head">
+      <h3 class="career-modal__title" id="careerModalTitle"></h3>
+      <p class="career-modal__meta" id="careerModalMeta"></p>
+    </div>
+
+    <div class="career-modal__box">
+      <h4 class="career-modal__box-title">주요 업무</h4>
+      <ul class="career-modal__list" id="careerModalList"></ul>
+    </div>
+  </div>
+</div>
+
 
     <script src="./js/script.js" defer></script>
   </body>
