@@ -24,19 +24,20 @@ const navToggle = document.querySelector(".nav-toggle");
 const nav = document.querySelector(".nav");
 
 navToggle?.addEventListener("click", () => {
-  const opened = header.classList.toggle("is-open");
-  navToggle.setAttribute("aria-expanded", String(opened));
+  const opened = header?.classList.toggle("is-open");
+  navToggle.setAttribute("aria-expanded", String(!!opened));
 });
 
 nav?.addEventListener("click", (e) => {
   const a = e.target.closest("a");
   if (!a) return;
-  header.classList.remove("is-open");
+  header?.classList.remove("is-open");
   navToggle?.setAttribute("aria-expanded", "false");
 });
 
+// Footer year
 const yearEl = document.getElementById("year");
-if (yearEl) yearEl.textContent = new Date().getFullYear();
+if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
 /**
  * =========================
@@ -88,6 +89,7 @@ const projects = [
     meta: ["Tech: HTML / CSS", "Type: Responsive", "Role: Design+Publish"],
     links: [],
   },
+  // 샘플 추가들...
   {
     id: "p05",
     title: "상세페이지 A/B 레이아웃 개선",
@@ -207,14 +209,15 @@ const categoryLabel = { detail: "상세페이지", package: "패키지", sns: "S
  * Render: Portfolio Cards
  * =========================
  */
-const grid = document.getElementById("portfolioGrid");
+const portfolioGrid = document.getElementById("portfolioGrid");
 
-function cardTemplate(p) {
+function portfolioCardTemplate(p) {
   const metaPreview = (p.meta || []).slice(0, 2).map((m) => `<li>${escapeHTML(m)}</li>`).join("");
   return `
     <article class="card" data-category="${escapeHTML(p.category)}">
-      <button class="card__thumb card__button" type="button" data-open="${escapeHTML(p.id)}"
-        aria-label="${escapeHTML(p.title)} 상세 보기">
+      <button class="card__thumb card__button" type="button" data-open="${escapeHTML(p.id)}" aria-label="${escapeHTML(
+        p.title
+      )} 상세 보기">
         <img src="${escapeHTML(p.thumb)}" alt="${escapeHTML(p.title)} 썸네일" loading="lazy" />
       </button>
       <div class="card__body">
@@ -229,17 +232,14 @@ function cardTemplate(p) {
   `;
 }
 
-function renderCards(list) {
-  if (!grid) return;
-  grid.innerHTML = list.map(cardTemplate).join("");
+function renderPortfolioCards(list) {
+  if (!portfolioGrid) return;
+  portfolioGrid.innerHTML = list.map(portfolioCardTemplate).join("");
 }
-renderCards(projects);
 
-/**
- * =========================
- * Filter
- * =========================
- */
+renderPortfolioCards(projects);
+
+// Filter pills
 document.querySelectorAll(".pill").forEach((pill) => {
   pill.addEventListener("click", () => {
     document.querySelectorAll(".pill").forEach((x) => x.classList.remove("is-active"));
@@ -247,17 +247,16 @@ document.querySelectorAll(".pill").forEach((pill) => {
 
     const f = pill.dataset.filter;
     const list = f === "all" ? projects : projects.filter((p) => p.category === f);
-    renderCards(list);
+    renderPortfolioCards(list);
   });
 });
 
 /**
  * =========================
- * Modal + Carousel (Portfolio)
+ * Portfolio Modal + Carousel
  * =========================
  */
-const modal = document.getElementById("portfolioModal");
-
+const portfolioModal = document.getElementById("portfolioModal");
 const modalTitle = document.getElementById("modalTitle");
 const modalTag = document.getElementById("modalTag");
 const modalDesc = document.getElementById("modalDesc");
@@ -270,7 +269,7 @@ const count = document.getElementById("carouselCount");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 
-let lastFocus = null;
+let lastPortfolioFocus = null;
 let activeProject = null;
 let slideIndex = 0;
 
@@ -299,6 +298,7 @@ function buildCarousel(images = [], title = "") {
   if (!track || !dots) return;
 
   const safeImages = images.length ? images : [""];
+
   track.innerHTML = safeImages
     .map(
       (src, idx) => `
@@ -310,32 +310,26 @@ function buildCarousel(images = [], title = "") {
     .join("");
 
   dots.innerHTML = safeImages
-    .map(
-      (_, idx) => `
-      <button class="dot" type="button" aria-label="이미지 ${idx + 1}로 이동" data-dot="${idx}"></button>
-    `
-    )
+    .map((_, idx) => `<button class="dot" type="button" aria-label="이미지 ${idx + 1}로 이동" data-dot="${idx}"></button>`)
     .join("");
 
-  slideIndex = 0;
   setSlide(0);
 }
 
-function openModal(project) {
-  if (!modal) return;
+function openPortfolioModal(project) {
+  if (!portfolioModal) return;
 
-  lastFocus = document.activeElement;
+  lastPortfolioFocus = document.activeElement;
   activeProject = project;
 
-  modal.classList.add("is-open");
-  modal.setAttribute("aria-hidden", "false");
+  portfolioModal.classList.add("is-open");
+  portfolioModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
   document.body.classList.add("modal-open");
 
   if (modalTitle) modalTitle.textContent = project.title || "";
   if (modalTag) modalTag.textContent = project.tag || categoryLabel[project.category] || "";
   if (modalDesc) modalDesc.textContent = project.desc || "";
-
   if (modalMeta) modalMeta.innerHTML = (project.meta || []).map((m) => `<li>${escapeHTML(m)}</li>`).join("");
 
   if (modalLinks) {
@@ -348,19 +342,17 @@ function openModal(project) {
           )}</a>`
       )
       .join("");
-  } else {
-    modalLinks.innerHTML = "";
   }
 
   buildCarousel(project.images || [project.thumb], project.title || "");
-  modal.querySelector(".modal__close")?.focus();
+  portfolioModal.querySelector(".modal__close")?.focus();
 }
 
-function closeModal() {
-  if (!modal) return;
+function closePortfolioModal() {
+  if (!portfolioModal) return;
 
-  modal.classList.remove("is-open");
-  modal.setAttribute("aria-hidden", "true");
+  portfolioModal.classList.remove("is-open");
+  portfolioModal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
   document.body.classList.remove("modal-open");
 
@@ -371,60 +363,16 @@ function closeModal() {
   if (dots) dots.innerHTML = "";
   if (count) count.textContent = "";
 
-  lastFocus?.focus?.();
+  lastPortfolioFocus?.focus?.();
 }
 
-document.addEventListener("click", (e) => {
-  const openBtn = e.target.closest("[data-open]");
-  if (openBtn) {
-    const id = openBtn.getAttribute("data-open");
-    const project = projects.find((p) => p.id === id);
-    if (project) openModal(project);
-    return;
-  }
-
-  const closeEl = e.target.closest("[data-close]");
-  if (closeEl && modal?.classList.contains("is-open")) closeModal();
-
-  const dotBtn = e.target.closest("[data-dot]");
-  if (dotBtn && modal?.classList.contains("is-open")) {
-    const idx = Number(dotBtn.getAttribute("data-dot"));
-    setSlide(idx);
-  }
-});
-
+// Carousel prev/next
 prevBtn?.addEventListener("click", () => setSlide(slideIndex - 1));
 nextBtn?.addEventListener("click", () => setSlide(slideIndex + 1));
 
-document.addEventListener("keydown", (e) => {
-  if (!modal?.classList.contains("is-open")) return;
-
-  if (e.key === "Escape") closeModal();
-  if (e.key === "ArrowLeft") setSlide(slideIndex - 1);
-  if (e.key === "ArrowRight") setSlide(slideIndex + 1);
-});
-
 /**
  * =========================
- * Floating Top Button
- * =========================
- */
-const topBtn = document.querySelector(".footer__top");
-const SHOW_AFTER = 300;
-
-function updateTopButton() {
-  if (!topBtn) return;
-  const y = window.scrollY || document.documentElement.scrollTop;
-  topBtn.classList.toggle("is-visible", y > SHOW_AFTER);
-}
-window.addEventListener("scroll", updateTopButton, { passive: true });
-window.addEventListener("load", updateTopButton);
-
-/**
- * =========================
- * Career Section + Modal (최종 1개만)
- * - HTML 기준 ID:
- *   careerGrid, careerModal, careerModalTitle, careerModalMeta, careerModalList
+ * Career Data + Career Modal
  * =========================
  */
 const careers = [
@@ -492,11 +440,18 @@ const careers = [
 ];
 
 const careerGrid = document.getElementById("careerGrid");
+const careerModal = document.getElementById("careerModal");
+const careerModalTitle = document.getElementById("careerModalTitle");
+const careerModalMeta = document.getElementById("careerModalMeta"); // ✅ HTML id 기준
+const careerModalList = document.getElementById("careerModalList");
+
+let lastCareerFocus = null;
+
 function careerCardTemplate(c) {
   return `
-    <button class="career-card" type="button"
-      data-career-open="${escapeHTML(c.id)}"
-      aria-label="${escapeHTML(c.company)} 경력 상세 보기">
+    <button class="career-card" type="button" data-career-open="${escapeHTML(c.id)}" aria-label="${escapeHTML(
+    c.company
+  )} 경력 상세 보기">
       <div class="career-card__row">
         <p class="career-card__company">${escapeHTML(c.company)}</p>
         <p class="career-card__type">${escapeHTML(c.type)}</p>
@@ -505,19 +460,12 @@ function careerCardTemplate(c) {
     </button>
   `;
 }
+
 function renderCareerCards() {
   if (!careerGrid) return;
   careerGrid.innerHTML = careers.map(careerCardTemplate).join("");
 }
 renderCareerCards();
-
-// Career modal
-const careerModal = document.getElementById("careerModal");
-const careerModalTitle = document.getElementById("careerModalTitle");
-const careerModalMeta = document.getElementById("careerModalMeta");
-const careerModalList = document.getElementById("careerModalList");
-
-let lastCareerFocus = null;
 
 function openCareerModal(c) {
   if (!careerModal) return;
@@ -530,6 +478,7 @@ function openCareerModal(c) {
 
   if (careerModalTitle) careerModalTitle.textContent = `${c.company}   ${c.type}`;
   if (careerModalMeta) careerModalMeta.textContent = c.period || "";
+
   if (careerModalList) {
     careerModalList.innerHTML = (c.duties || []).map((t) => `<li>${escapeHTML(t)}</li>`).join("");
   }
@@ -544,27 +493,89 @@ function closeCareerModal() {
   careerModal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
 
-  if (careerModalTitle) careerModalTitle.textContent = "";
-  if (careerModalMeta) careerModalMeta.textContent = "";
-  if (careerModalList) careerModalList.innerHTML = "";
-
   lastCareerFocus?.focus?.();
 }
 
+/**
+ * =========================
+ * Global Click Delegation
+ * (포트폴리오 + 커리어 한 번에 처리)
+ * =========================
+ */
 document.addEventListener("click", (e) => {
-  const openBtn = e.target.closest("[data-career-open]");
-  if (openBtn) {
-    const id = openBtn.getAttribute("data-career-open");
+  // Portfolio open
+  const openPortfolioBtn = e.target.closest("[data-open]");
+  if (openPortfolioBtn) {
+    const id = openPortfolioBtn.getAttribute("data-open");
+    const project = projects.find((p) => p.id === id);
+    if (project) openPortfolioModal(project);
+    return;
+  }
+
+  // Portfolio close
+  const portfolioCloseEl = e.target.closest("[data-close]");
+  if (portfolioCloseEl && portfolioModal?.classList.contains("is-open")) {
+    closePortfolioModal();
+    return;
+  }
+
+  // Portfolio dot
+  const dotBtn = e.target.closest("[data-dot]");
+  if (dotBtn && portfolioModal?.classList.contains("is-open")) {
+    const idx = Number(dotBtn.getAttribute("data-dot"));
+    setSlide(idx);
+    return;
+  }
+
+  // Career open
+  const openCareerBtn = e.target.closest("[data-career-open]");
+  if (openCareerBtn) {
+    const id = openCareerBtn.getAttribute("data-career-open");
     const c = careers.find((x) => x.id === id);
     if (c) openCareerModal(c);
     return;
   }
 
-  const closeBtn = e.target.closest("[data-career-close]");
-  if (closeBtn && careerModal?.classList.contains("is-open")) closeCareerModal();
+  // Career close
+  const closeCareerBtn = e.target.closest("[data-career-close]");
+  if (closeCareerBtn && careerModal?.classList.contains("is-open")) {
+    closeCareerModal();
+    return;
+  }
 });
 
+/**
+ * =========================
+ * Keyboard: ESC + arrows
+ * =========================
+ */
 document.addEventListener("keydown", (e) => {
-  if (!careerModal?.classList.contains("is-open")) return;
-  if (e.key === "Escape") closeCareerModal();
+  // Career modal has priority
+  if (careerModal?.classList.contains("is-open")) {
+    if (e.key === "Escape") closeCareerModal();
+    return;
+  }
+
+  if (!portfolioModal?.classList.contains("is-open")) return;
+
+  if (e.key === "Escape") closePortfolioModal();
+  if (e.key === "ArrowLeft") setSlide(slideIndex - 1);
+  if (e.key === "ArrowRight") setSlide(slideIndex + 1);
 });
+
+/**
+ * =========================
+ * Floating Top Button
+ * =========================
+ */
+const topBtn = document.querySelector(".footer__top");
+const SHOW_AFTER = 300;
+
+function updateTopButton() {
+  if (!topBtn) return;
+  const y = window.scrollY || document.documentElement.scrollTop;
+  topBtn.classList.toggle("is-visible", y > SHOW_AFTER);
+}
+
+window.addEventListener("scroll", updateTopButton, { passive: true });
+window.addEventListener("load", updateTopButton);
