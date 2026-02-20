@@ -89,117 +89,6 @@ const projects = [
     meta: ["Tech: HTML / CSS", "Type: Responsive", "Role: Design+Publish"],
     links: [],
   },
-  // 샘플 추가들...
-  {
-    id: "p05",
-    title: "상세페이지 A/B 레이아웃 개선",
-    category: "detail",
-    tag: "상세페이지",
-    thumb: "./assets/portfolio-05.jpg",
-    images: ["./assets/portfolio-05.jpg", "./assets/portfolio-05-2.jpg"],
-    desc: "핵심 USP 위치 재배치와 정보 밀도 조정으로 가독성 강화.",
-    meta: ["Tool: PS", "Focus: Readability", "Contribution: 100%"],
-    links: [],
-  },
-  {
-    id: "p06",
-    title: "프로모션 상세페이지 템플릿",
-    category: "detail",
-    tag: "상세페이지",
-    thumb: "./assets/portfolio-06.jpg",
-    images: ["./assets/portfolio-06.jpg", "./assets/portfolio-06-2.jpg"],
-    desc: "프로모션 반복 요소를 템플릿화하여 제작 시간을 단축.",
-    meta: ["Tool: PS", "System: Template", "Output: Campaign"],
-    links: [],
-  },
-  {
-    id: "p07",
-    title: "신제품 패키지 키비주얼 확장",
-    category: "package",
-    tag: "패키지",
-    thumb: "./assets/portfolio-07.jpg",
-    images: ["./assets/portfolio-07.jpg", "./assets/portfolio-07-2.jpg"],
-    desc: "키비주얼 기반 라인업 확장 규칙을 설계하고 적용.",
-    meta: ["Tool: AI", "Output: Print", "Deliverable: Guide"],
-    links: [],
-  },
-  {
-    id: "p08",
-    title: "패키지 라벨 타이포 시스템",
-    category: "package",
-    tag: "패키지",
-    thumb: "./assets/portfolio-08.jpg",
-    images: ["./assets/portfolio-08.jpg", "./assets/portfolio-08-2.jpg"],
-    desc: "정보 위계와 가독성을 고려한 라벨 타이포 규칙 정리.",
-    meta: ["Tool: AI", "Focus: Typography", "Output: Label"],
-    links: [],
-  },
-  {
-    id: "p09",
-    title: "SNS 시즌 캠페인 콘텐츠",
-    category: "sns",
-    tag: "SNS",
-    thumb: "./assets/portfolio-09.jpg",
-    images: ["./assets/portfolio-09.jpg", "./assets/portfolio-09-2.jpg", "./assets/portfolio-09-3.jpg"],
-    desc: "시즌 무드 반영 + 브랜드 톤을 유지한 시리즈 제작.",
-    meta: ["Tool: PS", "Output: 12 posts", "Role: Design"],
-    links: [],
-  },
-  {
-    id: "p10",
-    title: "SNS 카드뉴스 템플릿",
-    category: "sns",
-    tag: "SNS",
-    thumb: "./assets/portfolio-10.jpg",
-    images: ["./assets/portfolio-10.jpg", "./assets/portfolio-10-2.jpg"],
-    desc: "카드뉴스 제작을 빠르게 하기 위한 레이아웃/타이포 템플릿 구성.",
-    meta: ["Tool: PS", "Output: Carousel", "System: Grid"],
-    links: [],
-  },
-  {
-    id: "p11",
-    title: "웹 배너/썸네일 디자인 세트",
-    category: "web",
-    tag: "웹",
-    thumb: "./assets/portfolio-11.jpg",
-    images: ["./assets/portfolio-11.jpg", "./assets/portfolio-11-2.jpg"],
-    desc: "플랫폼별 규격을 고려해 일관된 메시지 구조로 배너 세트 제작.",
-    meta: ["Tool: PS", "Output: Banner set", "Focus: Consistency"],
-    links: [],
-  },
-  {
-    id: "p12",
-    title: "브랜드 소개 랜딩(디자인)",
-    category: "web",
-    tag: "웹",
-    thumb: "./assets/portfolio-12.jpg",
-    images: ["./assets/portfolio-12.jpg", "./assets/portfolio-12-2.jpg"],
-    desc: "브랜드 스토리 흐름에 맞춘 섹션 구조/비주얼 리듬 설계.",
-    meta: ["Tool: Figma/PS", "Type: Landing", "Role: Design"],
-    links: [],
-  },
-  {
-    id: "p13",
-    title: "상세페이지 썸네일 개선",
-    category: "detail",
-    tag: "상세페이지",
-    thumb: "./assets/portfolio-13.jpg",
-    images: ["./assets/portfolio-13.jpg", "./assets/portfolio-13-2.jpg"],
-    desc: "작은 영역에서도 메시지가 명확히 전달되도록 타이포/대비 조정.",
-    meta: ["Tool: PS", "Focus: CTR", "Contribution: 100%"],
-    links: [],
-  },
-  {
-    id: "p14",
-    title: "웹 UI 컴포넌트 스타일 정리",
-    category: "web",
-    tag: "웹",
-    thumb: "./assets/portfolio-14.jpg",
-    images: ["./assets/portfolio-14.jpg", "./assets/portfolio-14-2.jpg"],
-    desc: "버튼/태그/카드 등 반복 요소를 컴포넌트 기준으로 정리.",
-    meta: ["Tech: HTML/CSS", "Focus: System", "Role: Design+Publish"],
-    links: [],
-  },
 ];
 
 const categoryLabel = { detail: "상세페이지", package: "패키지", sns: "SNS", web: "웹" };
@@ -220,6 +109,7 @@ function portfolioCardTemplate(p) {
       )} 상세 보기">
         <img src="${escapeHTML(p.thumb)}" alt="${escapeHTML(p.title)} 썸네일" loading="lazy" />
       </button>
+
       <div class="card__body">
         <div class="card__top">
           <h3 class="card__title">${escapeHTML(p.title)}</h3>
@@ -236,7 +126,6 @@ function renderPortfolioCards(list) {
   if (!portfolioGrid) return;
   portfolioGrid.innerHTML = list.map(portfolioCardTemplate).join("");
 }
-
 renderPortfolioCards(projects);
 
 // Filter pills
@@ -374,6 +263,7 @@ nextBtn?.addEventListener("click", () => setSlide(slideIndex + 1));
  * =========================
  * Career Data + Career Modal
  * =========================
+ * ✅ duties 문자열엔 "-" 붙이지 마! (CSS가 자동으로 붙임)
  */
 const careers = [
   {
@@ -390,59 +280,84 @@ const careers = [
   },
   {
     id: "c02",
-    company: "(주)위드내추럴",
-    type: "정규직",
-    period: "기간 : 2021.10 ~ 2022.09",
-    duties: ["주요 업무를 여기에 입력", "주요 업무를 여기에 입력"],
-  },
-  {
-    id: "c03",
     company: "(주)플로우스",
     type: "상주 프리랜서",
     period: "기간 : 2025.01 ~ 2025.03",
-    duties: ["주요 업무를 여기에 입력", "주요 업무를 여기에 입력"],
+    duties: [
+      "카페24 플랫폼을 활용해 홈페이지 리뉴얼과 유지보수를 담당하며, 계절별 메인 비주얼과 콘텐츠를 기획 및 제작",
+      "브랜드 아이덴티티 강화를 위한 크리에이티브 광고 디자인과 프로모션 콘텐츠 제작",
+      "신제품 출시 프로젝트에 참여하여 상세페이지, 패키지 디자인 등 다양한 디자인 자산을 기획 및 제작",
+    ],
   },
   {
-    id: "c04",
-    company: "(주)엠앤비",
-    type: "정규직",
-    period: "기간 : 2020.07 ~ 2021.06",
-    duties: ["주요 업무를 여기에 입력", "주요 업무를 여기에 입력"],
-  },
-  {
-    id: "c05",
+    id: "c03",
     company: "(주)올인원뱅크",
     type: "정규직",
     period: "기간 : 2024.04 ~ 2024.12",
-    duties: ["주요 업무를 여기에 입력", "주요 업무를 여기에 입력"],
+    duties: [
+      "카페24 플랫폼을 기반으로 자사 홈페이지를 구축하고 유지보수 전반을 담당",
+      "상품 상세페이지 및 온라인 홍보 콘텐츠를 기획·제작",
+      "영업 지원을 위한 오프라인 홍보물과 영상 콘텐츠 제작",
+      "브랜드의 일관성을 유지하기 위한 디자인 가이드라인 관리",
+    ],
+  },
+  {
+    id: "c04",
+    company: "딜라잇플랜트",
+    type: "상주 프리랜서",
+    period: "기간 : 2023.05 ~ 2024.01",
+    duties: ["(작성 예정)", "(작성 예정)"],
+  },
+  {
+    id: "c05",
+    company: "(주)위드내추럴",
+    type: "정규직",
+    period: "기간 : 2021.10 ~ 2022.09",
+    duties: [
+      "병원·여성용품·식품 등 다양한 산업군의 홈페이지 디자인과 운영을 담당",
+      "상세페이지, 이벤트 배너, 온·오프라인 광고 콘텐츠를 기획 및 제작",
+      "브랜드북 제작과 자사몰 유지보수를 통한 브랜드 이미지 관리",
+      "협업 부서와의 커뮤니케이션을 통한 프로젝트 일정 조율과 결과물 품질 관리",
+    ],
   },
   {
     id: "c06",
-    company: "(주)한국앤컴퍼니",
+    company: "(주)엠앤비",
     type: "정규직",
-    period: "기간 : 2017.10 ~ 2020.03",
-    duties: ["주요 업무를 여기에 입력", "주요 업무를 여기에 입력"],
+    period: "기간 : 2020.07 ~ 2021.06",
+    duties: [
+      "자사 홈페이지 및 오픈마켓 사이트의 디자인과 상세페이지 제작 업무 담당",
+      "다양한 상품 카테고리에 적합한 비주얼 콘셉트와 레이아웃 설계",
+    ],
   },
   {
     id: "c07",
-    company: "딜라잇플랜트",
-    type: "상주 프리랜서",
-    period: "기간 : 2023.01 ~ 2023.06",
-    duties: ["주요 업무를 여기에 입력", "주요 업무를 여기에 입력"],
+    company: "(주)한국앤컴퍼니",
+    type: "정규직",
+    period: "기간 : 2017.10 ~ 2020.03",
+    duties: [
+      "자사 온라인몰 및 오픈마켓 홈페이지 디자인을 기획·제작",
+      "상세페이지, 프로모션 배너, 외주 광고물 등 다양한 디자인 콘텐츠 제작",
+      "브랜드 아이덴티티를 고려한 디자인 일관성 유지",
+    ],
   },
   {
     id: "c08",
     company: "(주)산돌리빙",
     type: "정규직",
     period: "기간 : 2016.02 ~ 2017.08",
-    duties: ["주요 업무를 여기에 입력", "주요 업무를 여기에 입력"],
+    duties: [
+      "스타트업 자사몰 디자인 및 전반적인 온라인 채널 구축 업무 담당",
+      "홈페이지와 상세페이지 기획·제작, CS업무 및 관리 시스템 운영",
+    ],
   },
 ];
 
 const careerGrid = document.getElementById("careerGrid");
 const careerModal = document.getElementById("careerModal");
 const careerModalTitle = document.getElementById("careerModalTitle");
-const careerModalMeta = document.getElementById("careerModalMeta"); // ✅ HTML id 기준
+const careerModalType = document.getElementById("careerModalType");
+const careerModalPeriod = document.getElementById("careerModalPeriod");
 const careerModalList = document.getElementById("careerModalList");
 
 let lastCareerFocus = null;
@@ -450,8 +365,8 @@ let lastCareerFocus = null;
 function careerCardTemplate(c) {
   return `
     <button class="career-card" type="button" data-career-open="${escapeHTML(c.id)}" aria-label="${escapeHTML(
-    c.company
-  )} 경력 상세 보기">
+      c.company
+    )} 경력 상세 보기">
       <div class="career-card__row">
         <p class="career-card__company">${escapeHTML(c.company)}</p>
         <p class="career-card__type">${escapeHTML(c.type)}</p>
@@ -476,8 +391,9 @@ function openCareerModal(c) {
   careerModal.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
 
-  if (careerModalTitle) careerModalTitle.textContent = `${c.company}   ${c.type}`;
-  if (careerModalMeta) careerModalMeta.textContent = c.period || "";
+  if (careerModalTitle) careerModalTitle.textContent = c.company || "";
+  if (careerModalType) careerModalType.textContent = c.type || "";
+  if (careerModalPeriod) careerModalPeriod.textContent = c.period || "";
 
   if (careerModalList) {
     careerModalList.innerHTML = (c.duties || []).map((t) => `<li>${escapeHTML(t)}</li>`).join("");
@@ -499,7 +415,6 @@ function closeCareerModal() {
 /**
  * =========================
  * Global Click Delegation
- * (포트폴리오 + 커리어 한 번에 처리)
  * =========================
  */
 document.addEventListener("click", (e) => {
@@ -550,7 +465,6 @@ document.addEventListener("click", (e) => {
  * =========================
  */
 document.addEventListener("keydown", (e) => {
-  // Career modal has priority
   if (careerModal?.classList.contains("is-open")) {
     if (e.key === "Escape") closeCareerModal();
     return;

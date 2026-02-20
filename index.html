@@ -3,16 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>강소영 | Portfolio</title>
     <meta
       name="description"
       content="웹/비주얼 디자이너 강소영의 포트폴리오. 상세페이지, 패키지, SNS, 웹 작업을 정리했습니다."
     />
 
+    <!-- Favicon (✅ 여기에 파비콘 파일 넣고 경로만 맞추면 됨) -->
+    <link rel="icon" href="./favicon/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="./favicon/icon.svg" />
+    <link rel="apple-touch-icon" href="./favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="./favicon/site.webmanifest" />
+    <meta name="theme-color" content="#0b0d12" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
 
@@ -20,7 +28,6 @@
   </head>
 
   <body>
-    <!-- 접근성: skip link -->
     <a class="skip" href="#main">본문 바로가기</a>
 
     <!-- Header -->
@@ -42,7 +49,7 @@
             <li><a class="nav__link" href="#home">홈</a></li>
             <li><a class="nav__link" href="#portfolio">포트폴리오</a></li>
             <li class="nav__dropdown">
-              <a class="nav__link" href="#about" aria-haspopup="true" aria-expanded="false">소개</a>
+              <a class="nav__link" href="#about" aria-haspopup="true">소개</a>
               <ul class="nav__dropdown-menu" aria-label="소개 하위 메뉴">
                 <li><a class="nav__sublink" href="#profile">프로필</a></li>
                 <li><a class="nav__sublink" href="#activities">경력사항</a></li>
@@ -154,7 +161,6 @@
             <section class="panel panel--career" id="activities">
               <h3 class="panel__title">경력사항</h3>
 
-              <!-- ✅ 이미지처럼: 큰 프레임(테두리) 안에서 스크롤 -->
               <div class="career-frame" aria-label="경력사항 목록">
                 <div class="career-grid" id="careerGrid"></div>
               </div>
@@ -172,16 +178,13 @@
       </div>
     </footer>
 
-    <!-- =========================
-         Portfolio Modal (Carousel)
-         ========================= -->
+    <!-- Portfolio Modal (Carousel) -->
     <div class="modal" id="portfolioModal" aria-hidden="true" role="dialog" aria-modal="true">
       <div class="modal__backdrop" data-close="true"></div>
 
       <div class="modal__panel" role="document" aria-label="포트폴리오 상세">
         <button class="modal__close" type="button" aria-label="닫기" data-close="true">✕</button>
 
-        <!-- Carousel -->
         <div class="carousel" aria-label="작업 이미지 슬라이드">
           <div class="carousel__viewport">
             <div class="carousel__track" id="carouselTrack"></div>
@@ -196,7 +199,6 @@
           </div>
         </div>
 
-        <!-- Content -->
         <div class="modal__content">
           <div class="modal__top">
             <h3 class="modal__title" id="modalTitle"></h3>
@@ -204,7 +206,6 @@
 
           <p class="modal__desc" id="modalDesc"></p>
 
-          <!-- ✅ tag: desc 아래 배치 (X 버튼 겹침 방지용) -->
           <div class="modal__tag-row">
             <span class="tag" id="modalTag"></span>
           </div>
@@ -215,9 +216,7 @@
       </div>
     </div>
 
-    <!-- =========================
-         Career Modal (Popup)
-         ========================= -->
+    <!-- Career Modal (이미지 레이아웃) -->
     <div class="career-modal" id="careerModal" aria-hidden="true" role="dialog" aria-modal="true">
       <div class="career-modal__backdrop" data-career-close="true"></div>
 
@@ -225,10 +224,11 @@
         <button class="career-modal__close" type="button" aria-label="닫기" data-career-close="true">✕</button>
 
         <div class="career-modal__head">
-          <!-- JS에서: "회사명   고용형태" 형태로 채움 -->
-          <h3 class="career-modal__title" id="careerModalTitle"></h3>
+          <div class="career-modal__title-row">
+            <h3 class="career-modal__title" id="careerModalTitle"></h3>
+            <span class="career-modal__pill" id="careerModalType"></span>
+          </div>
 
-          <!-- JS에서: "기간 : ..." 형태로 채움 -->
           <p class="career-modal__period" id="careerModalPeriod"></p>
         </div>
 
