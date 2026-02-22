@@ -99,8 +99,8 @@ const portfolioData = [
   {
     id: "hyundai-join",
     category: "detail", // detail | uiux | ads | video
-    title: "현대디에프 신규가입 페이지",
-    desc: "현대디에프 신규가입 회원들을 위한 이벤트 혜택 페이지",
+    title: "현대디에프 제주항공 프로모션 이벤트",
+    desc: "현대디에프 내 최대 행사 현데이 프로젝트에 오픈하는 제주항공 왕복 항공권 추첨 이벤트 제작",
     thumb: "./images/profile/work_piece/thumb/thumb_jeju_air.jpg",
     popupImages: [
       "./images/profile/work_piece/popup/images_jeju.jpg"
