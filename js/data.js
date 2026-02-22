@@ -101,7 +101,7 @@ const portfolioData = [
     category: "detail", // detail | uiux | ads | video
     title: "현대디에프 신규가입 페이지",
     desc: "현대디에프 신규가입 회원들을 위한 이벤트 혜택 페이지",
-    thumb: "assets/thumb/hyundai-join.jpg",
+    thumb: "./images/profile/work_piece/thumb/thumb_jeju_air.jpg",
     popupImages: [
       "assets/popup/hyundai-join-1.jpg",
       "assets/popup/hyundai-join-2.jpg",
