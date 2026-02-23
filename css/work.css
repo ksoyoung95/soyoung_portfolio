@@ -1,135 +1,129 @@
-/* ==========================
-   Work Page Styles
-========================== */
-
-.workPage{
-  min-height: 100vh;
-  background: #090B10;
-  color: #fff;
+:root{
+  --bg:#090B10;
+  --panel:#17191D;
+  --panel2:#202226;
+  --stroke:rgba(255,255,255,.15);
+  --text:#fff;
+  --muted:#B4B4B5;
+  --shadow: 0 20px 60px rgba(0,0,0,.55);
+  --radius:18px;
 }
 
-/* (선택) 메인 BG 이미지 깔려있다면 */
-.workPage::before{
-  content:"";
-  position: fixed;
-  inset: 0;
-  background: url("../images/Portfolio_BG.png") no-repeat top right;
-  background-size: cover;
-  opacity: .85;
-  z-index: -1;
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family: Pretendard, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color:var(--text);
+  background: radial-gradient(1200px 600px at 30% -10%, rgba(255,255,255,.10), transparent 60%),
+              var(--bg);
 }
 
-.workContainer{
-  width: min(1200px, 100%);
-  margin: 0 auto;
-  padding: 0 24px;
-}
+a{ color:inherit; text-decoration:none; }
+.container{ width:min(1200px, calc(100% - 40px)); margin:0 auto; }
 
 /* Header */
 .workHeader{
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(9,11,16,.7);
-  backdrop-filter: blur(10px);
+  position:sticky;
+  top:0;
+  z-index:10;
+  background: rgba(9,11,16,.65);
+  backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(255,255,255,.08);
 }
-
-.workHeaderRow{
-  height: 72px;
+.headerRow{
   display:flex;
-  align-items:center;
-  justify-content: space-between;
+  align-items:flex-start;
+  gap:16px;
+  padding:18px 0;
 }
-
-.workBack{
-  display:inline-flex;
-  align-items:center;
-  gap: 10px;
-  text-decoration:none;
-  color:#fff;
-  padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(23,25,29,.65);
+.brand{
+  padding:10px 12px;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:10px;
+  background: rgba(23,25,29,.6);
 }
-
-.workBack img{ width:20px; height:20px; display:block; }
-
-.workBrand{
-  opacity:.85;
-  font-weight: 700;
-}
-
-/* Main */
-.workMain{
-  padding: 28px 0 80px;
-}
-
-.workInfo{
-  padding: 22px;
-  border-radius: 22px;
-  border: 1px solid rgba(255,255,255,.16);
-  background: rgba(23,25,29,.7);
-  box-shadow: 0 16px 60px rgba(0,0,0,.35);
-}
-
+.headerTitleWrap{ flex:1; min-width:0; }
 .workTitle{
-  margin: 0 0 10px;
-  font-size: clamp(24px, 4vw, 40px);
-  font-weight: 800;
+  margin:0;
+  font-size: clamp(1.3rem, 2.8vw, 2rem);
+  font-weight: 900;
+  letter-spacing:-.02em;
 }
-
 .workSubtitle{
-  margin: 0 0 18px;
-  color: rgba(255,255,255,.75);
-  line-height: 1.6;
-  font-size: 16px;
+  margin:.35rem 0 0;
+  color: var(--muted);
+  font-size: .95rem;
+  line-height:1.4;
 }
 
-.workMeta{
+/* Meta */
+.workMain{ padding: 28px 0 60px; }
+.metaRow{
   display:grid;
   grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 12px;
+  gap:12px;
+  margin-bottom: 18px;
+}
+.metaBox{
+  padding:14px 16px;
+  border-radius: 12px;
+  background: rgba(24,26,39,.6);
+  border: 1px solid rgba(255,255,255,.22);
+  font-weight: 600;
+}
+@media (max-width: 720px){
+  .metaRow{ grid-template-columns: 1fr; }
 }
 
-.workMetaBox{
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(24,26,39,.8);
+/* Notice */
+.notice{
+  margin: 10px 0 18px;
   padding: 14px 16px;
-  font-weight: 600;
+  border-radius: 12px;
+  background: rgba(255, 80, 80, .08);
+  border: 1px solid rgba(255, 80, 80, .25);
+  color: #ffe4e4;
+  line-height:1.45;
+}
+.notice code{
+  background: rgba(255,255,255,.08);
+  padding: 2px 6px;
+  border-radius: 6px;
 }
 
 /* Gallery */
-.workGallery{
-  margin-top: 18px;
-}
-
 .galleryGrid{
   display:grid;
   grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 14px;
-  margin-top: 14px;
+  gap:14px;
+}
+@media (max-width: 980px){
+  .galleryGrid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 560px){
+  .galleryGrid{ grid-template-columns: 1fr; }
 }
 
 .galleryItem{
-  border-radius: 18px;
-  overflow: hidden;
+  width:100%;
+  text-align:left;
+  border-radius: var(--radius);
   border: 1px solid rgba(255,255,255,.12);
-  background: rgba(23,25,29,.55);
-  cursor: pointer;
+  background: rgba(23,25,29,.75);
+  overflow:hidden;
+  cursor:pointer;
+  box-shadow: 0 14px 40px rgba(0,0,0,.35);
+  padding:0;
 }
-
 .galleryThumb{
   aspect-ratio: 4 / 3;
-  width: 100%;
-  background: rgba(0,0,0,.25);
+  background: #0f1116;
   display:flex;
   align-items:center;
   justify-content:center;
+  overflow:hidden;
 }
-
 .galleryThumb img,
 .galleryThumb video{
   width:100%;
@@ -137,127 +131,101 @@
   object-fit: cover;
   display:block;
 }
-
 .galleryCaption{
-  padding: 12px 14px;
-  font-size: 14px;
-  color: rgba(255,255,255,.8);
-}
-
-/* Notice */
-.workNotice{
-  margin-top: 18px;
-  padding: 16px 18px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(23,25,29,.6);
+  padding: 12px 12px 14px;
   color: rgba(255,255,255,.85);
-  line-height: 1.7;
+  font-size: .92rem;
 }
 
 /* Lightbox */
 .lightbox{
+  position:fixed;
+  inset:0;
   display:none;
-  position: fixed;
-  inset: 0;
-  z-index: 999;
+  z-index:100;
 }
-
-.lightbox.isOpen{ display:grid; place-items:center; }
-
+.lightbox.isOpen{ display:block; }
 .lightboxBackdrop{
   position:absolute;
   inset:0;
-  background: rgba(0,0,0,.65);
+  background: rgba(18,22,34,.70);
 }
-
 .lightboxDialog{
-  position: relative;
-  width: min(1100px, calc(100% - 32px));
-  height: min(78vh, 820px);
-  border-radius: 22px;
+  position:absolute;
+  inset: 30px;
+  border-radius: 24px;
+  background: rgba(13,16,24,.95);
   border: 1px solid rgba(255,255,255,.18);
-  background: rgba(18,22,34,.72);
-  overflow: hidden;
+  box-shadow: var(--shadow);
+  overflow:hidden;
   display:flex;
   align-items:center;
   justify-content:center;
+}
+@media (max-width: 720px){
+  .lightboxDialog{ inset: 14px; border-radius: 18px; }
 }
 
 .lightboxStage{
-  width: 100%;
-  height: 100%;
+  width:100%;
+  height:100%;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding: 18px;
+  padding: 56px 56px 44px;
+}
+@media (max-width: 720px){
+  .lightboxStage{ padding: 52px 18px 44px; }
 }
 
 .lightboxStage img,
 .lightboxStage video{
   max-width: 100%;
   max-height: 100%;
-  border-radius: 16px;
+  border-radius: 14px;
   border: 1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.25);
+  background:#0f1116;
 }
 
 .lightboxClose{
   position:absolute;
-  top: 14px;
-  right: 14px;
-  width: 44px;
-  height: 44px;
+  top:14px;
+  right:14px;
+  width:44px;
+  height:44px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.22);
-  background: rgba(27,31,43,.75);
-  display:grid;
-  place-items:center;
+  border:1px solid rgba(255,255,255,.25);
+  background: rgba(27,31,43,.7);
+  color:#fff;
+  font-size: 18px;
   cursor:pointer;
 }
-
-.lightboxClose img{ width:22px; height:22px; }
 
 .lightboxNav{
   position:absolute;
-  top: 50%;
+  top:50%;
   transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  border: 1px solid rgba(255,255,255,.20);
+  width:44px;
+  height:44px;
+  border-radius: 12px;
+  border:1px solid rgba(255,255,255,.25);
   background: rgba(27,31,43,.55);
-  display:grid;
-  place-items:center;
+  color:#fff;
+  font-size: 30px;
   cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
-
-.lightboxNav img{ width:22px; height:22px; }
-
-.lightboxNavPrev{ left: 12px; }
-.lightboxNavNext{ right: 12px; }
+.lightboxNav--prev{ left:14px; }
+.lightboxNav--next{ right:14px; }
 
 .lightboxCount{
   position:absolute;
-  bottom: 12px;
-  left: 50%;
+  left:50%;
+  bottom:10px;
   transform: translateX(-50%);
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(27,31,43,.55);
-  font-size: 13px;
-  color: rgba(255,255,255,.85);
-}
-
-/* Responsive */
-@media (max-width: 980px){
-  .workMeta{ grid-template-columns: 1fr; }
-  .galleryGrid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-}
-
-@media (max-width: 520px){
-  .workContainer{ padding: 0 16px; }
-  .galleryGrid{ grid-template-columns: 1fr; }
-  .lightboxNav{ display:none; } /* 모바일은 스와이프까지 넣기 전엔 버튼 숨기는게 깔끔 */
+  color: rgba(255,255,255,.75);
+  font-weight: 600;
+  font-size: .92rem;
 }

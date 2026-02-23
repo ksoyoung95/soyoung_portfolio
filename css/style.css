@@ -33,15 +33,10 @@ a{ color:inherit; }
 
 .section{ padding: 4.5rem 0; }
 .sectionHead{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; }
-.sectionTitle{
-  margin: 0 0 1.2rem;
-  font-size: clamp(2.5rem, 4.5vw, 4.5rem);
-  font-weight: 950;
-  letter-spacing: -.03em;
-}
-.sectionTitleSm{
-  font-size: clamp(1.8rem, 3vw, 2.6rem);
-  margin-bottom: .9rem;
+.sectionTitle {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 800;
+  line-height: 1.1;
 }
 .center{ display:flex; justify-content:center; margin-top: 1.5rem; }
 

@@ -94,22 +94,72 @@ const careerData = [
   },
 ];
 
+
+/** 프트폴리오 복붙용 **/
+/* ==========================
+  * {
+    id: "",
+    category: "detail", // detail | uiux | ads | video
+    title: "",
+    desc: "",
+    thumb: "파일경로",
+    popupImages: [
+    "파일경로"
+    ],
+    tool: "툴 프로그램",
+    contribution: "100%",
+    type: "E-commerce",
+    fullImage: "파일경로",
+  },
+========================== */
 /** 포트폴리오 데이터 */
 const portfolioData = [
   {
-    id: "hyundai-join",
-    category: "detail", // detail | uiux | ads | video
+    id: "hyundai-jejuair",
+    category: "detail",
     title: "현대디에프 제주항공 프로모션 이벤트",
     desc: "현대디에프 내 최대 행사 현데이 프로젝트에 오픈하는 제주항공 왕복 항공권 추첨 이벤트 제작",
     thumb: "./images/profile/work_piece/thumb/thumb_jeju_air.jpg",
-    popupImages: [
-      "./images/profile/work_piece/popup/images_jeju.jpg"
-    ],
+    popupImages: ["./images/profile/work_piece/popup/images_jeju.jpg"],
     tool: "PS / FIGMA",
     contribution: "100%",
     type: "E-commerce",
     fullImage: "./images/profile/work_piece/detail_page/PC_detail_jeju_air.jpg",
   },
-
-  // 여기에 계속 추가하면 됨
+  {
+    id: "hyundai-newsub",
+    category: "detail",
+    title: "현대디에프 신규가입 프로모션 페이지",
+    desc: "현대디에프 신규가입 유도를 위한 이벤트 페이지",
+    thumb: "./images/profile/work_piece/thumb/thumb_new_sub.jpg",
+    popupImages: ["./images/profile/work_piece/popup/images_new_sub.jpg"],
+    tool: "PS / FIGMA",
+    contribution: "100%",
+    type: "E-commerce",
+    fullImage: "./images/profile/work_piece/detail_page/PC_detail_new_sub.jpg", 
+  },
+  {
+    id: "hyundai-icair",
+    category: "detail",
+    title: "[현대디에프] 인천공항면세점앱 가입방법 안내 페이지",
+    desc: "인천공항면세점 앱 스면세 가입방법 안내 페이지",
+    thumb: "./images/profile/work_piece/thumb/thumb_ic_air.jpg",
+    popupImages: ["./images/profile/work_piece/popup/images_ic_air.jpg"],
+    tool: "FIGMA",
+    contribution: "100%",
+    type: "E-commerce",
+    fullImage: "./images/profile/work_piece/detail_page/PC_detail_ic_air.jpg",
+  },
+  {
+    id: "hyundai-wedding",
+    category: "detail",
+    title: "현대디에프 웨딩 인증 고객 혜택 페이지",
+    desc: "곧 결혼하는 예비 부부들을 위한 웨딩 인증 고객 혜택 페이지",
+    thumb: "./images/profile/work_piece/thumb/thumb_wedding.jpg",
+    popupImages: ["./images/profile/work_piece/popup/images_wedding.jpg"],
+    tool: "FIGMA",
+    contribution: "100%",
+    type: "E-commerce",
+    fullImage: "./images/profile/work_piece/detail_page/PC_detail_wedding.jpg",
+  },
 ];
