@@ -23,8 +23,8 @@ function openModal(modalEl) {
   document.body.style.right = "0";
   document.body.style.width = "100%";
 
-  const onKeyDown = (e) => { 
-    if (e.key === "Escape") closeModal(modalEl); 
+  const onKeyDown = (e) => {
+    if (e.key === "Escape") closeModal(modalEl);
   };
 
   modalEl._onKeyDown = onKeyDown;
@@ -82,6 +82,12 @@ function renderCareers() {
   const grid = qs("#careerGrid");
   if (!grid) return;
 
+  if (!Array.isArray(window.careerData)) {
+    console.error("careerData not found. Check data.js load order.");
+    grid.innerHTML = "";
+    return;
+  }
+
   grid.innerHTML = careerData.map(c => `
     <button class="careerCard" type="button" data-career-id="${c.id}">
       <div class="careerTop">
@@ -133,6 +139,7 @@ let currentWork = null;
 let currentIndex = 0;
 
 function getFilteredWorks() {
+  if (!Array.isArray(window.portfolioData)) return [];
   if (activeFilter === "all") return portfolioData;
   return portfolioData.filter(w => w.category === activeFilter);
 }
@@ -165,6 +172,12 @@ function renderPortfolio() {
 function renderDots(active, total) {
   const el = qs("#workDots");
   if (!el) return;
+
+  if (total <= 1) {
+    el.innerHTML = "";
+    return;
+  }
+
   el.innerHTML = Array.from({ length: total }).map((_, i) =>
     `<span class="dot ${i === active ? "isActive" : ""}"></span>`
   ).join("");
@@ -174,16 +187,22 @@ function updateWorkImage() {
   if (!currentWork) return;
 
   const imgs = currentWork.popupImages || currentWork.images || [];
-  if (!imgs.length) return;
+  const imgEl = qs("#workImg");
+  if (!imgEl || !imgs.length) return;
 
   if (currentIndex < 0) currentIndex = imgs.length - 1;
   if (currentIndex >= imgs.length) currentIndex = 0;
 
-  const img = qs("#workImg");
-  img.src = imgs[currentIndex];
-  img.alt = `${currentWork.title} 이미지 ${currentIndex + 1}`;
+  imgEl.src = imgs[currentIndex];
+  imgEl.alt = `${currentWork.title} 이미지 ${currentIndex + 1}`;
 
   renderDots(currentIndex, imgs.length);
+
+  // 이미지 1장이면 화살표 숨김
+  const prevBtn = qs("[data-img-prev]");
+  const nextBtn = qs("[data-img-next]");
+  if (prevBtn) prevBtn.style.display = imgs.length > 1 ? "" : "none";
+  if (nextBtn) nextBtn.style.display = imgs.length > 1 ? "" : "none";
 }
 
 function openWorkModal(id) {
@@ -196,11 +215,13 @@ function openWorkModal(id) {
   currentWork = w;
   currentIndex = 0;
 
-  qs("#workTitle").textContent = w.title;
-  qs("#workDesc").textContent = w.desc;
-  qs("#workTool").textContent = `Tool : ${w.tool}`;
-  qs("#workContribution").textContent = `Contribution : ${w.contribution}`;
-  qs("#workType").textContent = `Type : ${w.type}`;
+  qs("#workTitle").textContent = w.title || "";
+  qs("#workDesc").textContent = w.desc || "";
+  qs("#workTool").textContent = `Tool : ${w.tool || "-"}`;
+  qs("#workContribution").textContent = `Contribution : ${w.contribution || "-"}`;
+  qs("#workType").textContent = `Type : ${w.type || "-"}`;
+
+  // 상세 페이지 이동 링크
   qs("#workLink").href = `work.html?id=${encodeURIComponent(w.id)}`;
 
   updateWorkImage();
@@ -211,6 +232,7 @@ function initPortfolio() {
   const modal = qs("#workModal");
   if (modal) wireModalClose(modal);
 
+  // tabs
   qsa(".tab").forEach(btn => {
     btn.addEventListener("click", () => {
       qsa(".tab").forEach(t => {
@@ -227,17 +249,20 @@ function initPortfolio() {
     });
   });
 
+  // load more
   qs("#loadMoreBtn")?.addEventListener("click", () => {
     visibleCount += 4;
     renderPortfolio();
   });
 
+  // open modal (click)
   qs("#workGrid")?.addEventListener("click", (e) => {
     const card = e.target.closest("[data-work-id]");
     if (!card) return;
     openWorkModal(card.dataset.workId);
   });
 
+  // open modal (keyboard)
   qs("#workGrid")?.addEventListener("keydown", (e) => {
     const card = e.target.closest("[data-work-id]");
     if (!card) return;
@@ -247,6 +272,7 @@ function initPortfolio() {
     }
   });
 
+  // slider
   modal?.addEventListener("click", (e) => {
     if (e.target.closest("[data-img-prev]")) { currentIndex--; updateWorkImage(); }
     if (e.target.closest("[data-img-next]")) { currentIndex++; updateWorkImage(); }
