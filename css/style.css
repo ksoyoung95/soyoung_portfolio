@@ -1,8 +1,6 @@
-/* =====================================================
-   Root
-===================================================== */
 :root{
   --bg:#090B10;
+
   --panel: rgba(23,25,29,.88);
   --item: rgba(35,38,43,.92);
 
@@ -16,12 +14,10 @@
   --shadow: 0 30px 70px rgba(0,0,0,.45);
   --shadowSoft: 0 14px 34px rgba(0,0,0,.28);
 
+  /* About 패널 공통 높이 (반응형 안전하게 clamp) */
   --aboutPanelH: clamp(420px, 55vh, 560px);
 }
 
-/* =====================================================
-   Reset / Base
-===================================================== */
 *{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; }
 body{
@@ -31,68 +27,46 @@ body{
   font-family: system-ui, -apple-system, "Pretendard", "Noto Sans KR", Arial, sans-serif;
 }
 img{ max-width:100%; display:block; }
-a{ color:inherit; text-decoration:none; }
-
-/* iOS Safari 기본 버튼 UI 제거(✅ 상단 오른쪽 하얀 박스 방지 핵심) */
-button{
-  -webkit-appearance: none;
-  appearance: none;
-  background: none;
-  border: none;
-  padding: 0;
-  color: inherit;
-  font: inherit;
-}
-
-/* iOS에서 탭 하이라이트 제거 */
-a, button { -webkit-tap-highlight-color: transparent; }
-
+a{ color:inherit; }
 .container{ width: min(1280px, 100% - 2rem); margin-inline:auto; }
+.muted{ color: var(--muted); }
+
 .section{ padding: 4.5rem 0; }
 .sectionHead{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; }
-.sectionTitle{
+.sectionTitle {
   font-size: clamp(40px, 5vw, 64px);
-  font-weight:800;
-  line-height:1.1;
-  margin: 0 0 1.2rem;
+  font-weight: 800;
+  line-height: 1.1;
 }
 .center{ display:flex; justify-content:center; margin-top: 1.5rem; }
-.muted{ color:var(--muted); }
 
-/* =====================================================
-   Header
-===================================================== */
+/* Header */
 .siteHeader{
   position: sticky;
   top:0;
-  z-index:50;
+  z-index: 50;
   backdrop-filter: blur(10px);
   background: rgba(9,11,16,.55);
-  border-bottom:1px solid rgba(255,255,255,.08);
+  border-bottom: 1px solid rgba(255,255,255,.08);
 }
 .headerRow{
-  height:4.5rem;
+  height: 4.5rem;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap: 1rem;
+  gap:1rem;
 }
-.brand{
-  font-weight: 950;
-  letter-spacing: .02em;
-  font-size: 1.1rem;
-}
-.nav{ display:flex; gap:2rem; }
-.navLink{ font-weight:900; opacity:.9; }
+.brand{ text-decoration:none; font-weight:950; letter-spacing:.02em; font-size:1.1rem; }
+.nav{ display:flex; gap: 2.2rem; }
+.navLink{ text-decoration:none; font-weight:900; opacity:.92; }
 .navLink:hover{ opacity:1; }
 
-/* iconBtn / burger (index.html에 있는 구조 기준) */
 .iconBtn{
-  width: 2.75rem;
-  height: 2.75rem;
-  border-radius: .9rem;
   border: 1px solid rgba(255,255,255,.14);
   background: rgba(23,25,29,.65);
+  border-radius: .9rem;
+  width: 2.75rem;
+  height: 2.75rem;
   display:grid;
   place-items:center;
   cursor:pointer;
@@ -123,15 +97,13 @@ a, button { -webkit-tap-highlight-color: transparent; }
 .mobileNavLink{
   display:block;
   padding: .65rem 0;
+  text-decoration:none;
   font-weight: 900;
   opacity:.92;
 }
-.mobileNavLink:hover{ opacity:1; }
 
-/* =====================================================
-   Hero
-===================================================== */
-.hero{ position:relative; padding:4rem 0 2rem; overflow:hidden; }
+/* Hero */
+.hero{ position:relative; padding: 4.2rem 0 2rem; overflow:hidden; }
 .heroBg{
   position:absolute;
   inset:0;
@@ -144,21 +116,23 @@ a, button { -webkit-tap-highlight-color: transparent; }
 .heroGrid{
   position:relative;
   display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:2rem;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 2.5rem;
   align-items:center;
 }
 .heroTitle{
   margin:0 0 .9rem;
-  font-size: clamp(2rem, 3vw, 2.8rem);
-  font-weight:950;
+  font-size: clamp(1.9rem, 2.6vw, 2.9rem);
+  font-weight: 950;
   letter-spacing: -.03em;
-  line-height: 1.15;
+  line-height: 1.14;
 }
 .heroDesc{
   margin:0;
-  line-height:1.85;
+  max-width: 62ch;
   color: rgba(255,255,255,.88);
+  line-height: 1.85;
+  font-size: 1rem;
 }
 .heroVisual{ display:flex; justify-content:flex-end; }
 .heroAvatar{
@@ -168,26 +142,24 @@ a, button { -webkit-tap-highlight-color: transparent; }
   box-shadow: 0 12px 30px rgba(0,0,0,.25);
 }
 
-/* =====================================================
-   About Panels
-===================================================== */
+/* Panels */
 .aboutGrid{
   display:grid;
-  grid-template-columns:1fr 1.5fr;
-  gap:1.6rem;
+  grid-template-columns: 1fr 1.55fr;
+  gap: 1.6rem;
   align-items: stretch;
 }
 .panel{
-  background:var(--panel);
-  border:1px solid var(--stroke);
-  border-radius:var(--rXL);
-  padding:2rem;
-  box-shadow:var(--shadow);
-  display:flex;
-  flex-direction:column;
-  min-height:0;
+  background: var(--panel);
+  border: 1px solid var(--stroke);
+  border-radius: var(--rXL);
+  padding: 2rem;
+  box-shadow: var(--shadow);
   position: relative;
-  overflow: hidden;
+  overflow:hidden;
+  display:flex;
+  flex-direction: column;
+  min-height: 0;
 }
 .panel::before{
   content:"";
@@ -204,68 +176,38 @@ a, button { -webkit-tap-highlight-color: transparent; }
   letter-spacing: -.02em;
 }
 
-/* PC에서만 높이 동일 유지 */
+/* 프로필/경력 높이 동일 (데스크탑에서만) */
 .panelProfile,
 .panelCareer{
-  height:var(--aboutPanelH);
+  height: var(--aboutPanelH);
 }
 
-/* Profile alignment (대칭 안맞음 해결 핵심) */
-.profileList{
-  position: relative;
-  margin:0;
-  display:grid;
-  gap: 1.35rem;
-}
-.profileRow{
-  display:grid;
-  grid-template-columns: 7.2rem 1fr;
-  gap: 1rem;
-  align-items:start;
-}
-.profileKey{
-  margin:0;
-  color: rgba(255,255,255,.55);
-  font-weight: 950;
-  font-size: 1.05rem;
-}
-.profileVal{
-  margin:0;
-  font-weight: 950;
-  font-size: 1.2rem;
-  line-height: 1.35;
-  letter-spacing: -.01em;
-}
+/* Profile */
+.profileList{ margin:0; display:grid; gap: 1.5rem; position:relative; }
+.profileRow{ display:grid; grid-template-columns: 7.2rem 1fr; gap: 1rem; align-items:start; }
+.profileKey{ margin:0; color: rgba(255,255,255,.55); font-weight: 950; font-size: 1.05rem; }
+.profileVal{ margin:0; font-weight: 950; font-size: 1.2rem; line-height: 1.35; letter-spacing: -.01em; }
 
-/* =====================================================
-   Career Scroll + Card (PC/모바일 디자인 통일)
-===================================================== */
+/* Career: 패널 안쪽 스크롤 영역 */
 .careerScroll{
   position: relative;
-  flex:1;
-  min-height:0;
-  overflow:hidden;
+  flex: 1;
+  min-height: 0;   /* 중요 */
+  overflow: hidden;
 }
 .careerGrid{
   position: relative;
-  height:100%;
-  overflow:auto;
-  min-height:0;
   display:grid;
-  grid-template-columns:repeat(2, minmax(0,1fr));
-  gap:1rem;
-  padding-right:.6rem;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 1rem;
+  padding-right: .8rem;
+  height: 100%;
+  overflow: auto;  /* 스크롤은 여기에서만 */
+  min-height: 0;
 }
-
-.careerGrid::-webkit-scrollbar{ width:10px; }
-.careerGrid::-webkit-scrollbar-thumb{
-  background:rgba(255,255,255,.3);
-  border-radius:999px;
-}
-.careerGrid::-webkit-scrollbar-track{
-  background:rgba(255,255,255,.08);
-  border-radius:999px;
-}
+.careerGrid::-webkit-scrollbar{ width: 12px; }
+.careerGrid::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.34); border-radius: 999px; }
+.careerGrid::-webkit-scrollbar-track{ background: rgba(255,255,255,.08); border-radius: 999px; }
 
 .careerCard{
   width:100%;
@@ -296,9 +238,7 @@ a, button { -webkit-tap-highlight-color: transparent; }
   white-space: nowrap;
 }
 
-/* =====================================================
-   Portfolio Tabs + Cards
-===================================================== */
+/* Portfolio */
 .tabs{
   display:flex;
   flex-wrap: wrap;
@@ -321,14 +261,14 @@ a, button { -webkit-tap-highlight-color: transparent; }
 
 .workGrid{
   display:grid;
-  grid-template-columns:repeat(2, minmax(0,1fr));
-  gap:1rem;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 1.1rem;
 }
 .workCard{
-  background:rgba(23,25,29,.86);
+  background: rgba(23,25,29,.86);
   border: 1px solid rgba(255,255,255,.10);
-  border-radius:1.4rem;
-  padding:1rem;
+  border-radius: 1.4rem;
+  padding: 1rem;
   cursor:pointer;
 }
 .workThumb{
@@ -336,7 +276,7 @@ a, button { -webkit-tap-highlight-color: transparent; }
   overflow:hidden;
   aspect-ratio: 16 / 9;
   border: 1px solid rgba(255,255,255,.10);
-  background:#111;
+  background:#fff;
 }
 .workThumb img{ width:100%; height:100%; object-fit: cover; }
 .workTitle{ margin: .85rem 0 .35rem; font-size: 1.15rem; font-weight: 950; }
@@ -367,9 +307,7 @@ a, button { -webkit-tap-highlight-color: transparent; }
 .btn:hover{ filter: brightness(1.07); }
 .btnIcon{ width: 1.25rem; height: 1.25rem; object-fit: contain; }
 
-/* =====================================================
-   Footer
-===================================================== */
+/* Footer */
 .footer{ border-top: 1px solid rgba(255,255,255,.08); padding: 1.4rem 0; }
 .footerRow{ display:flex; align-items:center; justify-content:space-between; gap:1rem; font-weight: 900; color: rgba(255,255,255,.85); }
 .toTop{
@@ -380,45 +318,24 @@ a, button { -webkit-tap-highlight-color: transparent; }
   border-radius: 1.6rem;
   border: 1px solid rgba(255,255,255,.12);
   background: rgba(18,19,23,.86);
+  text-decoration:none;
 }
 .toTopIcon{ width: 1.5rem; height: 1.5rem; object-fit: contain; }
 
-/* =====================================================
-   Modal Base (shared)
-===================================================== */
+/* Modal Base */
 .modal{
-  position:fixed;
-  inset:0;
-  z-index:1000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:rgba(0,0,0,.65);
-  backdrop-filter:blur(6px);
-  opacity:0;
-  pointer-events:none;
-  transition:.25s ease;
-  overscroll-behavior:contain;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  place-items: center;
 }
-.modal.isOpen{
-  opacity:1;
-  pointer-events:auto;
-}
+.modal.isOpen{ display: grid; }
 .modalBackdrop{
   position:absolute;
   inset:0;
+  background: rgba(0,0,0,.6);
 }
-
-/* Body Lock (Safari 안정) */
-body.modalOpen{
-  overflow:hidden;
-  height:100dvh;
-  touch-action:none;
-}
-
-/* =====================================================
-   Career Modal (index.html 구조 기준)
-===================================================== */
 .modalDialog{
   position: relative;
   width: min(960px, calc(100% - 2rem));
@@ -428,10 +345,8 @@ body.modalOpen{
   box-shadow: 0 40px 100px rgba(0,0,0,.55);
   padding: 1.8rem;
   overflow:hidden;
-  z-index: 2;
 }
 .modalDialogWide{ width: min(980px, calc(100% - 2rem)); }
-
 .modalClose{
   position:absolute;
   top: 1.1rem;
@@ -444,7 +359,6 @@ body.modalOpen{
   display:grid;
   place-items:center;
   cursor:pointer;
-  z-index:3;
 }
 .modalClose img{ width: 20px; height: 20px; object-fit: contain; }
 
@@ -453,7 +367,6 @@ body.modalOpen{
 .modalTitle{ margin:0; font-size: 1.6rem; font-weight: 950; letter-spacing: -.02em; }
 .modalSub{ font-weight: 900; color: rgba(255,255,255,.8); }
 .pillInModal{ transform: translateY(.05rem); }
-
 .modalBox{
   background: rgba(12,14,18,.55);
   border: 1px solid rgba(255,255,255,.12);
@@ -471,35 +384,32 @@ body.modalOpen{
   line-height: 1.65;
 }
 
-/* =====================================================
-   Work Popup (index.html 구조 기준)
-===================================================== */
+/* Work popup (Figma style) */
 .workPopup{
-  width:min(1180px, calc(100% - 2rem));
-  height:min(90dvh, 820px);
-  display:grid;
-  grid-template-columns:705px 1fr;
-  border-radius:30px;
-  background:rgba(18,22,34,.95);
-  border:1px solid rgba(255,255,255,.18);
-  overflow:hidden;
-  position:relative;
-  z-index:2;
-  overscroll-behavior:contain;
+  width: min(1180px, calc(100% - 2rem));
+  border-radius: 30px;
+  background: rgba(18, 22, 34, 0.60);
+  border: 1px solid rgba(255,255,255,.18);
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,.55);
+
+  display: grid;
+  grid-template-columns: 705px 1fr;
+  position: relative;
 }
 .workPopup__close{
   position:absolute;
-  top:20px;
-  right:24px;
-  width:49px;
-  height:44px;
-  border-radius:10px;
-  border: 1px solid rgba(255,255,255,.35);
-  background:#1B1F2B;
+  top: 20px;
+  right: 24px;
+  width: 49px;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid #B0B0B0;
+  background: #1B1F2B;
   display:grid;
   place-items:center;
   cursor:pointer;
-  z-index:5;
+  z-index: 3;
 }
 .workPopup__close img{ width: 22px; height: 22px; object-fit: contain; }
 
@@ -512,32 +422,33 @@ body.modalOpen{
   justify-content:center;
 }
 .workPopup__imageFrame{
-  width:min(486px, 78%);
-  height:100%;
+  width: min(486px, 78%);
+  height: 565px;
   display:flex;
   align-items:center;
   justify-content:center;
 }
 .workPopup__image{
-  max-width:100%;
-  max-height:100%;
-  object-fit:contain;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display:block;
 }
 
-/* slider nav */
 .workPopup__nav{
   position:absolute;
   top: 50%;
   transform: translateY(-50%);
   width: 42px;
   height: 42px;
+  border: none;
+  background: transparent;
   cursor:pointer;
   display:grid;
   place-items:center;
-  z-index:4;
-  border-radius: 999px;
-  background: rgba(255,255,255,.10);
-  border: 1px solid rgba(255,255,255,.18);
+  z-index:2;
 }
 .workPopup__nav img{ width: 24px; height: 24px; object-fit: contain; opacity:.95; }
 .workPopup__nav--prev{ left: 10px; }
@@ -550,7 +461,6 @@ body.modalOpen{
   transform: translateX(-50%);
   display:flex;
   gap: 10px;
-  z-index:4;
 }
 .dot{
   width: 7.4px;
@@ -560,14 +470,7 @@ body.modalOpen{
 }
 .dot.isActive{ background:#DCDDDF; }
 
-.workPopup__info{
-  padding:64px 32px 36px;
-  overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
-  overscroll-behavior:contain;
-  touch-action:pan-y;
-  min-height:0;
-}
+.workPopup__info{ padding: 64px 32px 36px; }
 .workPopup__title{
   margin:0 0 14px;
   font-size: 34px;
@@ -600,7 +503,7 @@ body.modalOpen{
   height: 52px;
   border-radius: 10px;
   background:#181A27;
-  outline: 1px solid rgba(255,255,255,.35);
+  outline: 1px solid #B0B0B0;
   outline-offset: -1px;
   display:flex;
   align-items:center;
@@ -610,35 +513,29 @@ body.modalOpen{
   color:#fff;
 }
 
-/* =====================================================
-   Responsive
-===================================================== */
+/* Responsive */
 @media (max-width: 980px){
-  .heroGrid{ grid-template-columns:1fr; }
+  .heroGrid{ grid-template-columns: 1fr; }
   .heroVisual{ justify-content:flex-start; }
-  .aboutGrid{ grid-template-columns:1fr; }
-  .workGrid{ grid-template-columns:1fr; }
+  .aboutGrid{ grid-template-columns: 1fr; }
+  .workGrid{ grid-template-columns: 1fr; }
 
+  /* 모바일에서는 같은 높이 강제 X (내용만큼 자연스럽게) */
   .panelProfile,
   .panelCareer{
-    height:auto;
+    height: auto;
   }
 
   .careerGrid{
-    grid-template-columns:1fr;
-    height:auto;
-    max-height:360px;
+    grid-template-columns: 1fr;
+    height: auto;
+    max-height: 360px; /* 모바일에서 너무 길어지면 스크롤 */
   }
 
-  .workPopup{
-    grid-template-columns: 1fr;
-  }
-  .workPopup__media{
-    min-height: 420px;
-  }
-  .workPopup__info{
-    padding: 28px 20px 26px;
-  }
+  .workPopup{ grid-template-columns: 1fr; }
+  .workPopup__media{ min-height: 420px; }
+  .workPopup__imageFrame{ height: 420px; }
+  .workPopup__info{ padding: 28px 20px 26px; }
   .workPopup__title{ font-size: 26px; }
   .metaBox{ font-size: 18px; }
 }
@@ -658,41 +555,73 @@ body.modalOpen{
   .workPopup__close{ top: 12px; right: 12px; width: 44px; height: 40px; }
 }
 
-/* =====================================================
-   Work Popup - Mobile Fix (Safari 안정화 핵심)
-===================================================== */
-@media (max-width: 768px){
-  .workPopup{
-    display:flex !important;
-    flex-direction:column;
+/* ==========================
+   Work Popup - Mobile Fix
+========================== */
+@media (max-width: 768px) {
+  /* 팝업 전체: 화면에 꽉 차게 + 내부만 스크롤 */
+  .workPopup {
+    width: calc(100% - 20px);
+    height: calc(100dvh - 20px); /* 모바일 주소창 대응 */
+    max-height: calc(100dvh - 20px);
+    left: 50%;
+    top: 10px;
+    transform: translateX(-50%);
+    border-radius: 22px;
 
-    width:calc(100% - 20px);
-    height:calc(100dvh - 20px);
-    max-height:calc(100dvh - 20px);
-
-    margin:10px;
-    border-radius:22px;
-
-    grid-template-columns:none !important;
-    overflow:hidden;
+    display: flex;
+    flex-direction: column;   /* ✅ 세로로 쌓기 */
+    overflow: hidden;         /* ✅ 팝업 밖으로 안 튀게 */
   }
 
-  .workPopup__media{
-    flex:0 0 auto;
-    height:min(52dvh, 420px);
-    min-height:260px;
+  /* 미디어 영역: 위쪽에 고정 높이로 */
+  .workPopup__media {
+    width: 100%;
+    height: min(52dvh, 420px);  /* ✅ 이미지 영역은 적당히 */
+    min-height: 260px;
+    flex: 0 0 auto;
+    position: relative;
   }
 
-  .workPopup__imageFrame{
-    height:100%;
+  /* 이미지 프레임: 꽉 차게 */
+  .workPopup__imageFrame {
+    height: 100%;
   }
 
-  .workPopup__info{
-    flex:1 1 auto;
-    min-height:0;
-    overflow-y:auto;
-    -webkit-overflow-scrolling:touch;
-    overscroll-behavior:contain;
-    touch-action:pan-y;
+  .workPopup__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* ✅ 모바일에서 잘리지 않게 */
+  }
+
+  /* 정보 영역: 아래쪽은 스크롤 */
+  .workPopup__info {
+    width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;                 /* ✅ overflow 작동 필수 */
+    overflow: auto;                /* ✅ 여기서 스크롤 */
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 18px;
+  }
+
+  /* 닫기 버튼: 항상 보이게 */
+  .workPopup__close {
+    position: absolute;
+    right: 14px;
+    top: 14px;
+    z-index: 5;
+  }
+
+  /* 좌우 화살표 버튼 크기/위치 */
+  .workPopup__nav {
+    width: 40px;
+    height: 40px;
+  }
+  .workPopup__nav--prev { left: 10px; }
+  .workPopup__nav--next { right: 10px; }
+
+  /* 도트는 이미지 아래 여백 안쪽 */
+  .workPopup__dots {
+    bottom: 10px;
   }
 }

@@ -120,10 +120,7 @@ const portfolioData = [
     title: "현대디에프 제주항공 프로모션 이벤트",
     desc: "현대디에프 내 최대 행사 현데이 프로젝트에 오픈하는 제주항공 왕복 항공권 추첨 이벤트 제작",
     thumb: "./images/profile/work_piece/thumb/thumb_jeju_air.jpg",
-    popupImages: 
-       ["./images/profile/work_piece/popup/images_jeju_1.jpg",
-        "./images/profile/work_piece/popup/images_jeju_2.jpg"
-    ],
+    popupImages: ["./images/profile/work_piece/popup/images_jeju.jpg"],
     tool: "PS / FIGMA",
     contribution: "100%",
     type: "E-commerce",
@@ -147,11 +144,7 @@ const portfolioData = [
     title: "[현대디에프] 인천공항면세점앱 가입방법 안내 페이지",
     desc: "인천공항면세점 앱 스면세 가입방법 안내 페이지",
     thumb: "./images/profile/work_piece/thumb/thumb_ic_air.jpg",
-    popupImages: 
-       ["./images/profile/work_piece/popup/images_ic_air_1.jpg",
-        "./images/profile/work_piece/popup/images_ic_air_2.jpg",
-        "./images/profile/work_piece/popup/images_ic_air_3.jpg"
-    ],
+    popupImages: ["./images/profile/work_piece/popup/images_ic_air.jpg"],
     tool: "FIGMA",
     contribution: "100%",
     type: "E-commerce",
@@ -163,11 +156,7 @@ const portfolioData = [
     title: "현대디에프 웨딩 인증 고객 혜택 페이지",
     desc: "곧 결혼하는 예비 부부들을 위한 웨딩 인증 고객 혜택 페이지",
     thumb: "./images/profile/work_piece/thumb/thumb_wedding.jpg",
-    popupImages: 
-       ["./images/profile/work_piece/popup/images_wedding_1.jpg",
-        "./images/profile/work_piece/popup/images_wedding_2.jpg",
-        "./images/profile/work_piece/popup/images_wedding_3.jpg"
-    ],
+    popupImages: ["./images/profile/work_piece/popup/images_wedding.jpg"],
     tool: "FIGMA",
     contribution: "100%",
     type: "E-commerce",
