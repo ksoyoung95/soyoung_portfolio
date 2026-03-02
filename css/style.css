@@ -1,6 +1,8 @@
+/* =====================================================
+   Root
+===================================================== */
 :root{
   --bg:#090B10;
-
   --panel: rgba(23,25,29,.88);
   --item: rgba(35,38,43,.92);
 
@@ -14,10 +16,12 @@
   --shadow: 0 30px 70px rgba(0,0,0,.45);
   --shadowSoft: 0 14px 34px rgba(0,0,0,.28);
 
-  /* About 패널 공통 높이 (반응형 안전하게 clamp) */
   --aboutPanelH: clamp(420px, 55vh, 560px);
 }
 
+/* =====================================================
+   Reset
+===================================================== */
 *{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; }
 body{
@@ -27,601 +31,274 @@ body{
   font-family: system-ui, -apple-system, "Pretendard", "Noto Sans KR", Arial, sans-serif;
 }
 img{ max-width:100%; display:block; }
-a{ color:inherit; }
+a{ color:inherit; text-decoration:none; }
+
 .container{ width: min(1280px, 100% - 2rem); margin-inline:auto; }
-.muted{ color: var(--muted); }
-
 .section{ padding: 4.5rem 0; }
-.sectionHead{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; }
-.sectionTitle {
+.sectionTitle{
   font-size: clamp(40px, 5vw, 64px);
-  font-weight: 800;
-  line-height: 1.1;
+  font-weight:800;
+  line-height:1.1;
 }
-.center{ display:flex; justify-content:center; margin-top: 1.5rem; }
+.muted{ color:var(--muted); }
 
-/* Header */
+/* =====================================================
+   Header
+===================================================== */
 .siteHeader{
   position: sticky;
   top:0;
-  z-index: 50;
+  z-index:50;
   backdrop-filter: blur(10px);
   background: rgba(9,11,16,.55);
-  border-bottom: 1px solid rgba(255,255,255,.08);
+  border-bottom:1px solid rgba(255,255,255,.08);
 }
 .headerRow{
-  height: 4.5rem;
+  height:4.5rem;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:1rem;
 }
-.brand{ text-decoration:none; font-weight:950; letter-spacing:.02em; font-size:1.1rem; }
-.nav{ display:flex; gap: 2.2rem; }
-.navLink{ text-decoration:none; font-weight:900; opacity:.92; }
+.nav{ display:flex; gap:2rem; }
+.navLink{ font-weight:900; opacity:.9; }
 .navLink:hover{ opacity:1; }
 
-.iconBtn{
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(23,25,29,.65);
-  border-radius: .9rem;
-  width: 2.75rem;
-  height: 2.75rem;
-  display:grid;
-  place-items:center;
-  cursor:pointer;
-}
-.navToggle{ display:none; }
-.burger{
-  width: 1.25rem;
-  height: .12rem;
-  background:#fff;
-  position: relative;
-  opacity:.9;
-}
-.burger::before,.burger::after{
-  content:"";
-  position:absolute;
-  left:0;
-  width:1.25rem;
-  height:.12rem;
-  background:#fff;
-}
-.burger::before{ top:-.4rem; }
-.burger::after{ top:.4rem; }
-
-.mobileNav{
-  padding: .75rem 1rem 1rem;
-  border-top: 1px solid rgba(255,255,255,.08);
-}
-.mobileNavLink{
-  display:block;
-  padding: .65rem 0;
-  text-decoration:none;
-  font-weight: 900;
-  opacity:.92;
-}
-
-/* Hero */
-.hero{ position:relative; padding: 4.2rem 0 2rem; overflow:hidden; }
-.heroBg{
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(1100px 600px at 20% 0%, rgba(255,255,255,.07), transparent 60%),
-    radial-gradient(900px 520px at 70% 30%, rgba(255,255,255,.05), transparent 55%),
-    linear-gradient(180deg, rgba(255,255,255,.03), transparent 45%),
-    #090B10;
-}
+/* =====================================================
+   Hero
+===================================================== */
+.hero{ padding:4rem 0 2rem; }
 .heroGrid{
-  position:relative;
   display:grid;
-  grid-template-columns: 1.2fr .8fr;
-  gap: 2.5rem;
+  grid-template-columns:1.2fr .8fr;
+  gap:2rem;
   align-items:center;
 }
 .heroTitle{
-  margin:0 0 .9rem;
-  font-size: clamp(1.9rem, 2.6vw, 2.9rem);
-  font-weight: 950;
-  letter-spacing: -.03em;
-  line-height: 1.14;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight:950;
 }
-.heroDesc{
-  margin:0;
-  max-width: 62ch;
-  color: rgba(255,255,255,.88);
-  line-height: 1.85;
-  font-size: 1rem;
-}
-.heroVisual{ display:flex; justify-content:flex-end; }
-.heroAvatar{
-  width: min(22rem, 100%);
-  border-radius: 1.4rem;
-  border: 1px solid rgba(255,255,255,.12);
-  box-shadow: 0 12px 30px rgba(0,0,0,.25);
-}
+.heroDesc{ line-height:1.8; }
 
-/* Panels */
+/* =====================================================
+   About Panels
+===================================================== */
 .aboutGrid{
   display:grid;
-  grid-template-columns: 1fr 1.55fr;
-  gap: 1.6rem;
-  align-items: stretch;
+  grid-template-columns:1fr 1.5fr;
+  gap:1.6rem;
 }
 .panel{
-  background: var(--panel);
-  border: 1px solid var(--stroke);
-  border-radius: var(--rXL);
-  padding: 2rem;
-  box-shadow: var(--shadow);
-  position: relative;
-  overflow:hidden;
+  background:var(--panel);
+  border:1px solid var(--stroke);
+  border-radius:var(--rXL);
+  padding:2rem;
+  box-shadow:var(--shadow);
   display:flex;
-  flex-direction: column;
-  min-height: 0;
+  flex-direction:column;
+  min-height:0;
 }
-.panel::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: radial-gradient(900px 320px at 30% 10%, rgba(255,255,255,.06), transparent 60%);
-  pointer-events:none;
-}
-.panelTitle{
-  position: relative;
-  margin:0 0 1.1rem;
-  font-size: 1.6rem;
-  font-weight: 950;
-  letter-spacing: -.02em;
-}
-
-/* 프로필/경력 높이 동일 (데스크탑에서만) */
 .panelProfile,
 .panelCareer{
-  height: var(--aboutPanelH);
+  height:var(--aboutPanelH);
 }
 
-/* Profile */
-.profileList{ margin:0; display:grid; gap: 1.5rem; position:relative; }
-.profileRow{ display:grid; grid-template-columns: 7.2rem 1fr; gap: 1rem; align-items:start; }
-.profileKey{ margin:0; color: rgba(255,255,255,.55); font-weight: 950; font-size: 1.05rem; }
-.profileVal{ margin:0; font-weight: 950; font-size: 1.2rem; line-height: 1.35; letter-spacing: -.01em; }
-
-/* Career: 패널 안쪽 스크롤 영역 */
+/* =====================================================
+   Career Scroll
+===================================================== */
 .careerScroll{
-  position: relative;
-  flex: 1;
-  min-height: 0;   /* 중요 */
-  overflow: hidden;
+  flex:1;
+  min-height:0;
 }
 .careerGrid{
-  position: relative;
+  height:100%;
+  overflow:auto;
+  min-height:0;
   display:grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 1rem;
-  padding-right: .8rem;
-  height: 100%;
-  overflow: auto;  /* 스크롤은 여기에서만 */
-  min-height: 0;
+  grid-template-columns:repeat(2,1fr);
+  gap:1rem;
+  padding-right:.6rem;
 }
-.careerGrid::-webkit-scrollbar{ width: 12px; }
-.careerGrid::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.34); border-radius: 999px; }
-.careerGrid::-webkit-scrollbar-track{ background: rgba(255,255,255,.08); border-radius: 999px; }
-
-.careerCard{
-  width:100%;
-  text-align:left;
-  background: var(--item);
-  border: 1px solid var(--strokeSoft);
-  border-radius: 1.25rem;
-  padding: 1.1rem;
-  box-shadow: var(--shadowSoft);
-  cursor:pointer;
-  color:inherit;
-  display:flex;
-  flex-direction: column;
-  gap: .75rem;
-}
-.careerTop{ display:flex; align-items:center; justify-content:space-between; gap:.75rem; }
-.careerCompany{ font-size: 1.35rem; font-weight: 950; letter-spacing: -.02em; }
-.careerPeriod{ color: rgba(255,255,255,.75); font-weight: 900; font-size: 1rem; }
-
-.pill{
-  font-size: .9rem;
-  font-weight: 950;
-  padding: .5rem .8rem;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(0,0,0,.10);
-  color: rgba(255,255,255,.88);
-  white-space: nowrap;
+.careerGrid::-webkit-scrollbar{ width:10px; }
+.careerGrid::-webkit-scrollbar-thumb{
+  background:rgba(255,255,255,.3);
+  border-radius:999px;
 }
 
-/* Portfolio */
-.tabs{
-  display:flex;
-  flex-wrap: wrap;
-  gap: .75rem;
-  margin: .5rem 0 1.1rem;
-}
-.tab{
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(23,25,29,.86);
-  color:#fff;
-  border-radius: .8rem;
-  padding: .7rem .9rem;
-  font-weight: 950;
-  cursor:pointer;
-}
-.tab.isActive{
-  background: linear-gradient(135deg, rgba(138,181,235,1), rgba(164,220,206,1));
-  color:#000;
-}
-
+/* =====================================================
+   Portfolio Grid
+===================================================== */
 .workGrid{
   display:grid;
-  grid-template-columns: repeat(2, minmax(0,1fr));
-  gap: 1.1rem;
+  grid-template-columns:repeat(2,1fr);
+  gap:1rem;
 }
 .workCard{
-  background: rgba(23,25,29,.86);
-  border: 1px solid rgba(255,255,255,.10);
-  border-radius: 1.4rem;
-  padding: 1rem;
+  background:rgba(23,25,29,.86);
+  border-radius:1.4rem;
+  padding:1rem;
   cursor:pointer;
 }
-.workThumb{
-  border-radius: 1.2rem;
-  overflow:hidden;
-  aspect-ratio: 16 / 9;
-  border: 1px solid rgba(255,255,255,.10);
-  background:#fff;
-}
-.workThumb img{ width:100%; height:100%; object-fit: cover; }
-.workTitle{ margin: .85rem 0 .35rem; font-size: 1.15rem; font-weight: 950; }
-.workDesc{
-  margin: 0 0 .7rem;
-  color: rgba(255,255,255,.72);
-  font-weight: 850;
-  font-size: .95rem;
-  line-height: 1.55;
-}
-.workMeta{ display:flex; gap: .9rem; font-size: .85rem; font-weight: 950; color: rgba(255,255,255,.86); }
 
-/* Button */
-.btn{
-  display:inline-flex;
+/* =====================================================
+   ================= MODAL ============================
+===================================================== */
+
+/* Overlay */
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+
+  display:flex;
   align-items:center;
   justify-content:center;
-  gap: .7rem;
-  padding: .9rem 1.2rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(23,25,29,.86);
-  color:#fff;
-  font-weight: 950;
-  cursor:pointer;
-  min-width: 18rem;
-}
-.btn:hover{ filter: brightness(1.07); }
-.btnIcon{ width: 1.25rem; height: 1.25rem; object-fit: contain; }
 
-/* Footer */
-.footer{ border-top: 1px solid rgba(255,255,255,.08); padding: 1.4rem 0; }
-.footerRow{ display:flex; align-items:center; justify-content:space-between; gap:1rem; font-weight: 900; color: rgba(255,255,255,.85); }
-.toTop{
-  width: 4.2rem;
-  height: 4.2rem;
-  display:grid;
-  place-items:center;
-  border-radius: 1.6rem;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(18,19,23,.86);
-  text-decoration:none;
-}
-.toTopIcon{ width: 1.5rem; height: 1.5rem; object-fit: contain; }
+  background:rgba(0,0,0,.65);
+  backdrop-filter:blur(6px);
 
-/* Modal Base */
-.modal{
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: none;
-  place-items: center;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s ease;
+
+  overscroll-behavior:contain;
 }
-.modal.isOpen{ display: grid; }
-.modalBackdrop{
-  position:absolute;
-  inset:0;
-  background: rgba(0,0,0,.6);
+.modal.isOpen{
+  opacity:1;
+  pointer-events:auto;
 }
-.modalDialog{
-  position: relative;
-  width: min(960px, calc(100% - 2rem));
-  background: rgba(18,20,26,.96);
-  border: 1px solid rgba(255,255,255,.22);
-  border-radius: 2.4rem;
-  box-shadow: 0 40px 100px rgba(0,0,0,.55);
-  padding: 1.8rem;
+
+/* Body Lock (Safari 안정) */
+body.modalOpen{
   overflow:hidden;
-}
-.modalDialogWide{ width: min(980px, calc(100% - 2rem)); }
-.modalClose{
-  position:absolute;
-  top: 1.1rem;
-  right: 1.1rem;
-  width: 3.1rem;
-  height: 3.1rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(255,255,255,.35);
-  background: rgba(23,25,29,.55);
-  display:grid;
-  place-items:center;
-  cursor:pointer;
-}
-.modalClose img{ width: 20px; height: 20px; object-fit: contain; }
-
-.modalHead{ display:flex; flex-direction: column; gap: .55rem; margin-bottom: 1.2rem; }
-.modalHeadLeft{ display:flex; align-items:center; gap:.8rem; flex-wrap: wrap; }
-.modalTitle{ margin:0; font-size: 1.6rem; font-weight: 950; letter-spacing: -.02em; }
-.modalSub{ font-weight: 900; color: rgba(255,255,255,.8); }
-.pillInModal{ transform: translateY(.05rem); }
-.modalBox{
-  background: rgba(12,14,18,.55);
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 1.4rem;
-  padding: 1.4rem;
-}
-.modalBoxTitle{ margin:0 0 .9rem; font-size: 1.1rem; font-weight: 950; }
-.bullet{
-  margin:0;
-  padding-left: 1.2rem;
-  display:grid;
-  gap: .55rem;
-  color: rgba(255,255,255,.88);
-  font-weight: 800;
-  line-height: 1.65;
+  height:100dvh;
+  touch-action:none;
 }
 
-/* Work popup (Figma style) */
+/* =====================================================
+   Work Popup
+===================================================== */
 .workPopup{
-  width: min(1180px, calc(100% - 2rem));
-  border-radius: 30px;
-  background: rgba(18, 22, 34, 0.60);
-  border: 1px solid rgba(255,255,255,.18);
-  overflow: hidden;
-  box-shadow: 0 40px 100px rgba(0,0,0,.55);
+  width:min(1180px, calc(100% - 2rem));
+  height:min(90dvh, 820px);
 
-  display: grid;
-  grid-template-columns: 705px 1fr;
-  position: relative;
+  display:grid;
+  grid-template-columns:705px 1fr;
+
+  border-radius:30px;
+  background:rgba(18,22,34,.95);
+  border:1px solid rgba(255,255,255,.18);
+
+  overflow:hidden;
+  position:relative;
+
+  overscroll-behavior:contain;
 }
+
+/* Close */
 .workPopup__close{
   position:absolute;
-  top: 20px;
-  right: 24px;
-  width: 49px;
-  height: 44px;
-  border-radius: 10px;
-  border: 1px solid #B0B0B0;
-  background: #1B1F2B;
+  top:20px;
+  right:24px;
+  width:44px;
+  height:44px;
+  border-radius:10px;
+  background:#1B1F2B;
   display:grid;
   place-items:center;
   cursor:pointer;
-  z-index: 3;
+  z-index:5;
 }
-.workPopup__close img{ width: 22px; height: 22px; object-fit: contain; }
 
+/* Media */
 .workPopup__media{
   background:#171926;
-  min-height: 565px;
-  position: relative;
   display:flex;
   align-items:center;
   justify-content:center;
 }
 .workPopup__imageFrame{
-  width: min(486px, 78%);
-  height: 565px;
+  width:min(486px, 78%);
+  height:100%;
   display:flex;
   align-items:center;
   justify-content:center;
 }
 .workPopup__image{
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  display:block;
+  max-width:100%;
+  max-height:100%;
+  object-fit:contain;
 }
 
-.workPopup__nav{
-  position:absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 42px;
-  height: 42px;
-  border: none;
-  background: transparent;
-  cursor:pointer;
-  display:grid;
-  place-items:center;
-  z-index:2;
-}
-.workPopup__nav img{ width: 24px; height: 24px; object-fit: contain; opacity:.95; }
-.workPopup__nav--prev{ left: 10px; }
-.workPopup__nav--next{ right: 10px; }
+/* Info Scroll */
+.workPopup__info{
+  padding:64px 32px 36px;
 
-.workPopup__dots{
-  position:absolute;
-  bottom: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  display:flex;
-  gap: 10px;
-}
-.dot{
-  width: 7.4px;
-  height: 7.4px;
-  border-radius: 999px;
-  background:#30303C;
-}
-.dot.isActive{ background:#DCDDDF; }
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
 
-.workPopup__info{ padding: 64px 32px 36px; }
-.workPopup__title{
-  margin:0 0 14px;
-  font-size: 34px;
-  font-weight: 800;
-  letter-spacing: -.02em;
-}
-.workPopup__desc{
-  margin:0 0 10px;
-  font-size: 18px;
-  font-weight: 500;
-  color:#B4B4B5;
-  line-height: 1.55;
-  max-width: 410px;
-}
-.workPopup__link{
-  display:inline-block;
-  margin: 0 0 34px;
-  font-size: 18px;
-  font-weight: 700;
-  color:#B4B4B5;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-.workPopup__meta{
-  display:grid;
-  gap: 15px;
-  width: min(431px, 100%);
-}
-.metaBox{
-  height: 52px;
-  border-radius: 10px;
-  background:#181A27;
-  outline: 1px solid #B0B0B0;
-  outline-offset: -1px;
-  display:flex;
-  align-items:center;
-  padding: 0 19px;
-  font-size: 21px;
-  font-weight: 500;
-  color:#fff;
+  overscroll-behavior:contain;
+  touch-action:pan-y;
+
+  min-height:0;
 }
 
-/* Responsive */
+/* =====================================================
+   ================= MOBILE ============================
+===================================================== */
+
 @media (max-width: 980px){
-  .heroGrid{ grid-template-columns: 1fr; }
-  .heroVisual{ justify-content:flex-start; }
-  .aboutGrid{ grid-template-columns: 1fr; }
-  .workGrid{ grid-template-columns: 1fr; }
+  .heroGrid{ grid-template-columns:1fr; }
+  .aboutGrid{ grid-template-columns:1fr; }
+  .workGrid{ grid-template-columns:1fr; }
 
-  /* 모바일에서는 같은 높이 강제 X (내용만큼 자연스럽게) */
   .panelProfile,
   .panelCareer{
-    height: auto;
+    height:auto;
   }
 
   .careerGrid{
-    grid-template-columns: 1fr;
-    height: auto;
-    max-height: 360px; /* 모바일에서 너무 길어지면 스크롤 */
+    grid-template-columns:1fr;
+    height:auto;
+    max-height:360px;
   }
-
-  .workPopup{ grid-template-columns: 1fr; }
-  .workPopup__media{ min-height: 420px; }
-  .workPopup__imageFrame{ height: 420px; }
-  .workPopup__info{ padding: 28px 20px 26px; }
-  .workPopup__title{ font-size: 26px; }
-  .metaBox{ font-size: 18px; }
 }
 
-@media (max-width: 720px){
-  .nav{ display:none; }
-  .navToggle{ display:grid; }
+/* Safari 안정화 핵심 */
+@media (max-width: 768px){
 
-  .profileRow{ grid-template-columns: 6rem 1fr; }
-  .panel{ padding: 1.5rem; border-radius: 2rem; }
-  .btn{ min-width: 14rem; }
-}
+  .workPopup{
+    display:flex !important;
+    flex-direction:column;
 
-@media (max-width: 520px){
-  .workPopup__nav{ width: 36px; height: 36px; }
-  .workPopup__nav img{ width: 20px; height: 20px; }
-  .workPopup__close{ top: 12px; right: 12px; width: 44px; height: 40px; }
-}
+    width:calc(100% - 20px);
+    height:calc(100dvh - 20px);
+    max-height:calc(100dvh - 20px);
 
-/* ==========================
-   Work Popup - Mobile Fix
-========================== */
-@media (max-width: 768px) {
-  /* 팝업 전체: 화면에 꽉 차게 + 내부만 스크롤 */
-  .workPopup {
-    width: calc(100% - 20px);
-    height: calc(100dvh - 20px); /* 모바일 주소창 대응 */
-    max-height: calc(100dvh - 20px);
-    left: 50%;
-    top: 10px;
-    transform: translateX(-50%);
-    border-radius: 22px;
+    margin:10px;
+    border-radius:22px;
 
-    display: flex;
-    flex-direction: column;   /* ✅ 세로로 쌓기 */
-    overflow: hidden;         /* ✅ 팝업 밖으로 안 튀게 */
+    grid-template-columns:none !important;
+    overflow:hidden;
   }
 
-  /* 미디어 영역: 위쪽에 고정 높이로 */
-  .workPopup__media {
-    width: 100%;
-    height: min(52dvh, 420px);  /* ✅ 이미지 영역은 적당히 */
-    min-height: 260px;
-    flex: 0 0 auto;
-    position: relative;
+  .workPopup__media{
+    flex:0 0 auto;
+    height:min(52dvh, 420px);
+    min-height:260px;
   }
 
-  /* 이미지 프레임: 꽉 차게 */
-  .workPopup__imageFrame {
-    height: 100%;
+  .workPopup__imageFrame{
+    height:100%;
   }
 
-  .workPopup__image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* ✅ 모바일에서 잘리지 않게 */
-  }
+  .workPopup__info{
+    flex:1 1 auto;
+    min-height:0;
 
-  /* 정보 영역: 아래쪽은 스크롤 */
-  .workPopup__info {
-    width: 100%;
-    flex: 1 1 auto;
-    min-height: 0;                 /* ✅ overflow 작동 필수 */
-    overflow: auto;                /* ✅ 여기서 스크롤 */
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 18px;
-  }
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
 
-  /* 닫기 버튼: 항상 보이게 */
-  .workPopup__close {
-    position: absolute;
-    right: 14px;
-    top: 14px;
-    z-index: 5;
-  }
-
-  /* 좌우 화살표 버튼 크기/위치 */
-  .workPopup__nav {
-    width: 40px;
-    height: 40px;
-  }
-  .workPopup__nav--prev { left: 10px; }
-  .workPopup__nav--next { right: 10px; }
-
-  /* 도트는 이미지 아래 여백 안쪽 */
-  .workPopup__dots {
-    bottom: 10px;
+    overscroll-behavior:contain;
+    touch-action:pan-y;
   }
 }

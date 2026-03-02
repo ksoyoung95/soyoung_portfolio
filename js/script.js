@@ -1,17 +1,32 @@
 /* ==========================
-   APP LOGIC (Do not edit)
+   APP LOGIC
 ========================== */
+
+/** ---------- Scroll Lock (Safari Safe) ---------- */
+let scrollY = 0;
 
 /** ---------- Helpers ---------- */
 function qs(sel, el = document) { return el.querySelector(sel); }
 function qsa(sel, el = document) { return [...el.querySelectorAll(sel)]; }
 
 function openModal(modalEl) {
+  scrollY = window.scrollY;
+
   modalEl.classList.add("isOpen");
   modalEl.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
 
-  const onKeyDown = (e) => { if (e.key === "Escape") closeModal(modalEl); };
+  // Safari 완전 대응 스크롤 차단
+  document.body.classList.add("modalOpen");
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.left = "0";
+  document.body.style.right = "0";
+  document.body.style.width = "100%";
+
+  const onKeyDown = (e) => { 
+    if (e.key === "Escape") closeModal(modalEl); 
+  };
+
   modalEl._onKeyDown = onKeyDown;
   document.addEventListener("keydown", onKeyDown);
 }
@@ -19,7 +34,16 @@ function openModal(modalEl) {
 function closeModal(modalEl) {
   modalEl.classList.remove("isOpen");
   modalEl.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = "";
+
+  // 스크롤 복구
+  document.body.classList.remove("modalOpen");
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.left = "";
+  document.body.style.right = "";
+  document.body.style.width = "";
+
+  window.scrollTo(0, scrollY);
 
   if (modalEl._onKeyDown) {
     document.removeEventListener("keydown", modalEl._onKeyDown);
@@ -83,13 +107,11 @@ function initCareerModal() {
     const c = careerData.find(x => x.id === btn.dataset.careerId);
     if (!c) return;
 
-    // index.html 기준 id로 맞춤
     const titleEl = qs("#careerModalTitle");
     const tagEl = qs("#careerModalTag");
     const periodEl = qs("#careerModalPeriod");
     const tasksEl = qs("#careerModalTasks");
 
-    // 혹시라도 id 누락 시 원인 바로 보이게
     if (!titleEl || !tagEl || !periodEl || !tasksEl) {
       console.error("Career modal element missing:", { titleEl, tagEl, periodEl, tasksEl });
       return;
@@ -107,7 +129,6 @@ function initCareerModal() {
 /** ---------- Portfolio Render + Modal ---------- */
 let activeFilter = "all";
 let visibleCount = 4;
-
 let currentWork = null;
 let currentIndex = 0;
 
@@ -152,7 +173,6 @@ function renderDots(active, total) {
 function updateWorkImage() {
   if (!currentWork) return;
 
-  // index.html 기준: popupImages (data.js에서 이 필드명 사용 권장)
   const imgs = currentWork.popupImages || currentWork.images || [];
   if (!imgs.length) return;
 
@@ -178,12 +198,9 @@ function openWorkModal(id) {
 
   qs("#workTitle").textContent = w.title;
   qs("#workDesc").textContent = w.desc;
-
   qs("#workTool").textContent = `Tool : ${w.tool}`;
   qs("#workContribution").textContent = `Contribution : ${w.contribution}`;
   qs("#workType").textContent = `Type : ${w.type}`;
-
-  // 상세 페이지 이동 링크
   qs("#workLink").href = `work.html?id=${encodeURIComponent(w.id)}`;
 
   updateWorkImage();
@@ -194,7 +211,6 @@ function initPortfolio() {
   const modal = qs("#workModal");
   if (modal) wireModalClose(modal);
 
-  // tabs
   qsa(".tab").forEach(btn => {
     btn.addEventListener("click", () => {
       qsa(".tab").forEach(t => {
@@ -211,20 +227,17 @@ function initPortfolio() {
     });
   });
 
-  // load more
   qs("#loadMoreBtn")?.addEventListener("click", () => {
     visibleCount += 4;
     renderPortfolio();
   });
 
-  // open modal (click)
   qs("#workGrid")?.addEventListener("click", (e) => {
     const card = e.target.closest("[data-work-id]");
     if (!card) return;
     openWorkModal(card.dataset.workId);
   });
 
-  // open modal (keyboard)
   qs("#workGrid")?.addEventListener("keydown", (e) => {
     const card = e.target.closest("[data-work-id]");
     if (!card) return;
@@ -234,7 +247,6 @@ function initPortfolio() {
     }
   });
 
-  // slider
   modal?.addEventListener("click", (e) => {
     if (e.target.closest("[data-img-prev]")) { currentIndex--; updateWorkImage(); }
     if (e.target.closest("[data-img-next]")) { currentIndex++; updateWorkImage(); }
@@ -244,10 +256,8 @@ function initPortfolio() {
 /** ---------- Init ---------- */
 document.addEventListener("DOMContentLoaded", () => {
   initMobileNav();
-
   renderCareers();
   initCareerModal();
-
   renderPortfolio();
   initPortfolio();
 });
