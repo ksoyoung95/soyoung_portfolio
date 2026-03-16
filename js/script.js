@@ -1,35 +1,46 @@
 /* ==========================
-   APP LOGIC (Do not edit)
+   APP LOGIC
+   - Career: modal open
+   - Portfolio: go to work.html
 ========================== */
 
 /** ---------- Helpers ---------- */
-function qs(sel, el = document) { return el.querySelector(sel); }
-function qsa(sel, el = document) { return [...el.querySelectorAll(sel)]; }
+function qs(sel, el = document) {
+  return el.querySelector(sel);
+}
 
+function qsa(sel, el = document) {
+  return [...el.querySelectorAll(sel)];
+}
+
+/** ---------- Modal ---------- */
 function openModal(modalEl) {
+  if (!modalEl) return;
   modalEl.classList.add("isOpen");
   modalEl.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
-
-  const onKeyDown = (e) => { if (e.key === "Escape") closeModal(modalEl); };
-  modalEl._onKeyDown = onKeyDown;
-  document.addEventListener("keydown", onKeyDown);
+  document.body.classList.add("modalOpen");
 }
 
 function closeModal(modalEl) {
+  if (!modalEl) return;
   modalEl.classList.remove("isOpen");
   modalEl.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = "";
-
-  if (modalEl._onKeyDown) {
-    document.removeEventListener("keydown", modalEl._onKeyDown);
-    modalEl._onKeyDown = null;
-  }
+  document.body.classList.remove("modalOpen");
 }
 
 function wireModalClose(modalEl) {
+  if (!modalEl) return;
+
   modalEl.addEventListener("click", (e) => {
-    if (e.target.closest("[data-close='true']")) closeModal(modalEl);
+    if (e.target.closest("[data-close='true']")) {
+      closeModal(modalEl);
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modalEl.classList.contains("isOpen")) {
+      closeModal(modalEl);
+    }
   });
 }
 
@@ -37,6 +48,7 @@ function wireModalClose(modalEl) {
 function initMobileNav() {
   const toggleBtn = qs(".navToggle");
   const mobileNav = qs(".mobileNav");
+
   if (!toggleBtn || !mobileNav) return;
 
   toggleBtn.addEventListener("click", () => {
@@ -53,18 +65,23 @@ function initMobileNav() {
   });
 }
 
-/** ---------- Career Render + Modal ---------- */
+/** ---------- Career ---------- */
 function renderCareers() {
   const grid = qs("#careerGrid");
   if (!grid) return;
 
-  grid.innerHTML = careerData.map(c => `
-    <button class="careerCard" type="button" data-career-id="${c.id}">
-      <div class="careerTop">
-        <div class="careerCompany">${c.company}</div>
-        <span class="pill">${c.tag}</span>
+  if (!Array.isArray(window.careerData)) {
+    console.error("careerData not found. Check data.js load order.");
+    return;
+  }
+
+  grid.innerHTML = window.careerData.map((c) => `
+    <button class="careerMiniItem" type="button" data-career-id="${c.id}">
+      <div class="careerMiniTop">
+        <div class="careerMiniCompany">${c.company}</div>
+        <span class="careerMiniTag">${c.tag}</span>
       </div>
-      <div class="careerPeriod">${c.period}</div>
+      <div class="careerMiniPeriod">${c.period}</div>
     </button>
   `).join("");
 }
@@ -72,48 +89,44 @@ function renderCareers() {
 function initCareerModal() {
   const modal = qs("#careerModal");
   const grid = qs("#careerGrid");
-  if (!modal || !grid) return;
 
+  if (!modal || !grid) return;
   wireModalClose(modal);
 
   grid.addEventListener("click", (e) => {
-    const btn = e.target.closest("[data-career-id]");
-    if (!btn) return;
+    const card = e.target.closest("[data-career-id]");
+    if (!card) return;
 
-    const c = careerData.find(x => x.id === btn.dataset.careerId);
-    if (!c) return;
+    const item = window.careerData.find((c) => c.id === card.dataset.careerId);
+    if (!item) return;
 
-    // index.html 기준 id로 맞춤
-    const titleEl = qs("#careerModalTitle");
-    const tagEl = qs("#careerModalTag");
-    const periodEl = qs("#careerModalPeriod");
-    const tasksEl = qs("#careerModalTasks");
+    qs("#careerModalTitle").textContent = item.company;
+    qs("#careerModalTag").textContent = item.tag;
+    qs("#careerModalPeriod").textContent = item.period;
 
-    // 혹시라도 id 누락 시 원인 바로 보이게
-    if (!titleEl || !tagEl || !periodEl || !tasksEl) {
-      console.error("Career modal element missing:", { titleEl, tagEl, periodEl, tasksEl });
-      return;
-    }
-
-    titleEl.textContent = c.company;
-    tagEl.textContent = c.tag;
-    periodEl.textContent = c.period;
-    tasksEl.innerHTML = (c.tasks || []).map(t => `<li>${t}</li>`).join("");
+    const taskEl = qs("#careerModalTasks");
+    taskEl.innerHTML = (item.tasks || []).map((task) => `<li>${task}</li>`).join("");
 
     openModal(modal);
   });
 }
 
-/** ---------- Portfolio Render + Modal ---------- */
+/** ---------- Portfolio ---------- */
 let activeFilter = "all";
 let visibleCount = 4;
 
-let currentWork = null;
-let currentIndex = 0;
-
 function getFilteredWorks() {
-  if (activeFilter === "all") return portfolioData;
-  return portfolioData.filter(w => w.category === activeFilter);
+  if (!Array.isArray(window.portfolioData)) {
+    console.error("portfolioData not found. Check data.js load order.");
+    return [];
+  }
+
+  const validWorks = window.portfolioData.filter((w) => {
+    return w.id && w.title && w.thumb && w.desc;
+  });
+
+  if (activeFilter === "all") return validWorks;
+  return validWorks.filter((w) => w.category === activeFilter);
 }
 
 function renderPortfolio() {
@@ -124,8 +137,8 @@ function renderPortfolio() {
   const filtered = getFilteredWorks();
   const slice = filtered.slice(0, visibleCount);
 
-  grid.innerHTML = slice.map(w => `
-    <article class="workCard" role="button" tabindex="0" data-work-id="${w.id}">
+  grid.innerHTML = slice.map((w) => `
+    <a class="workCard" href="work.html?id=${encodeURIComponent(w.id)}" data-work-id="${w.id}">
       <div class="workThumb">
         <img src="${w.thumb}" alt="${w.title} 썸네일" loading="lazy" />
       </div>
@@ -135,71 +148,20 @@ function renderPortfolio() {
         <span>Tool : ${w.tool}</span>
         <span>Contribution : ${w.contribution}</span>
       </div>
-    </article>
+    </a>
   `).join("");
 
-  if (loadMoreBtn) loadMoreBtn.hidden = visibleCount >= filtered.length;
-}
-
-function renderDots(active, total) {
-  const el = qs("#workDots");
-  if (!el) return;
-  el.innerHTML = Array.from({ length: total }).map((_, i) =>
-    `<span class="dot ${i === active ? "isActive" : ""}"></span>`
-  ).join("");
-}
-
-function updateWorkImage() {
-  if (!currentWork) return;
-
-  // index.html 기준: popupImages (data.js에서 이 필드명 사용 권장)
-  const imgs = currentWork.popupImages || currentWork.images || [];
-  if (!imgs.length) return;
-
-  if (currentIndex < 0) currentIndex = imgs.length - 1;
-  if (currentIndex >= imgs.length) currentIndex = 0;
-
-  const img = qs("#workImg");
-  img.src = imgs[currentIndex];
-  img.alt = `${currentWork.title} 이미지 ${currentIndex + 1}`;
-
-  renderDots(currentIndex, imgs.length);
-}
-
-function openWorkModal(id) {
-  const modal = qs("#workModal");
-  if (!modal) return;
-
-  const w = portfolioData.find(x => x.id === id);
-  if (!w) return;
-
-  currentWork = w;
-  currentIndex = 0;
-
-  qs("#workTitle").textContent = w.title;
-  qs("#workDesc").textContent = w.desc;
-
-  qs("#workTool").textContent = `Tool : ${w.tool}`;
-  qs("#workContribution").textContent = `Contribution : ${w.contribution}`;
-  qs("#workType").textContent = `Type : ${w.type}`;
-
-  // 상세 페이지 이동 링크
-  qs("#workLink").href = `work.html?id=${encodeURIComponent(w.id)}`;
-
-  updateWorkImage();
-  openModal(modal);
+  if (loadMoreBtn) {
+    loadMoreBtn.hidden = visibleCount >= filtered.length;
+  }
 }
 
 function initPortfolio() {
-  const modal = qs("#workModal");
-  if (modal) wireModalClose(modal);
-
-  // tabs
-  qsa(".tab").forEach(btn => {
+  qsa(".tab").forEach((btn) => {
     btn.addEventListener("click", () => {
-      qsa(".tab").forEach(t => {
-        t.classList.remove("isActive");
-        t.setAttribute("aria-selected", "false");
+      qsa(".tab").forEach((tab) => {
+        tab.classList.remove("isActive");
+        tab.setAttribute("aria-selected", "false");
       });
 
       btn.classList.add("isActive");
@@ -211,43 +173,17 @@ function initPortfolio() {
     });
   });
 
-  // load more
   qs("#loadMoreBtn")?.addEventListener("click", () => {
     visibleCount += 4;
     renderPortfolio();
-  });
-
-  // open modal (click)
-  qs("#workGrid")?.addEventListener("click", (e) => {
-    const card = e.target.closest("[data-work-id]");
-    if (!card) return;
-    openWorkModal(card.dataset.workId);
-  });
-
-  // open modal (keyboard)
-  qs("#workGrid")?.addEventListener("keydown", (e) => {
-    const card = e.target.closest("[data-work-id]");
-    if (!card) return;
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      openWorkModal(card.dataset.workId);
-    }
-  });
-
-  // slider
-  modal?.addEventListener("click", (e) => {
-    if (e.target.closest("[data-img-prev]")) { currentIndex--; updateWorkImage(); }
-    if (e.target.closest("[data-img-next]")) { currentIndex++; updateWorkImage(); }
   });
 }
 
 /** ---------- Init ---------- */
 document.addEventListener("DOMContentLoaded", () => {
   initMobileNav();
-
   renderCareers();
   initCareerModal();
-
   renderPortfolio();
   initPortfolio();
 });

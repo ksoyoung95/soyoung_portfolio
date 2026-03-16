@@ -2,7 +2,7 @@
    DATA ONLY (Edit here)
 ========================== */
 
-/** 경력 데이터 */
+/** ---------- Career Data ---------- */
 const careerData = [
   {
     id: "kistem",
@@ -94,25 +94,25 @@ const careerData = [
   },
 ];
 
+/** ---------- Portfolio Data ---------- */
+/*
+추가 템플릿
+{
+  id: "project-id",
+  category: "detail", // detail | uiux | ads | video
+  title: "프로젝트명",
+  desc: "설명",
+  thumb: "./images/path/thumb.jpg",
+  popupImages: [
+    "./images/path/popup1.jpg"
+  ],
+  tool: "PS / FIGMA",
+  contribution: "100%",
+  type: "E-commerce",
+  fullImage: "./images/path/detail.jpg",
+},
+*/
 
-/** 프트폴리오 복붙용 **/
-/* ==========================
-  * {
-    id: "",
-    category: "detail", // detail | uiux | ads | video
-    title: "",
-    desc: "",
-    thumb: "파일경로",
-    popupImages: [
-    "파일경로"
-    ],
-    tool: "툴 프로그램",
-    contribution: "100%",
-    type: "E-commerce",
-    fullImage: "파일경로",
-  },
-========================== */
-/** 포트폴리오 데이터 */
 const portfolioData = [
   {
     id: "hyundai-jejuair",
@@ -120,9 +120,9 @@ const portfolioData = [
     title: "현대디에프 제주항공 프로모션 이벤트",
     desc: "현대디에프 내 최대 행사 현데이 프로젝트에 오픈하는 제주항공 왕복 항공권 추첨 이벤트 제작",
     thumb: "./images/profile/work_piece/thumb/thumb_jeju_air.jpg",
-    popupImages: 
-    ["./images/profile/work_piece/popup/images_jeju1.jpg",
-        "./images/profile/work_piece/popup/images_jeju2.jpg"
+    popupImages: [
+      "./images/profile/work_piece/popup/images_jeju1.jpg",
+      "./images/profile/work_piece/popup/images_jeju2.jpg"
     ],
     tool: "PS / FIGMA",
     contribution: "100%",
@@ -135,11 +135,13 @@ const portfolioData = [
     title: "현대디에프 신규가입 프로모션 페이지",
     desc: "현대디에프 신규가입 유도를 위한 이벤트 페이지",
     thumb: "./images/profile/work_piece/thumb/thumb_new_sub.jpg",
-    popupImages: ["./images/profile/work_piece/popup/images_new_sub.jpg"],
+    popupImages: [
+      "./images/profile/work_piece/popup/images_new_sub.jpg"
+    ],
     tool: "PS / FIGMA",
     contribution: "100%",
     type: "E-commerce",
-    fullImage: "./images/profile/work_piece/detail_page/PC_detail_new_sub.jpg", 
+    fullImage: "./images/profile/work_piece/detail_page/PC_detail_new_sub.jpg",
   },
   {
     id: "hyundai-icair",
@@ -147,9 +149,10 @@ const portfolioData = [
     title: "[현대디에프] 인천공항면세점앱 가입방법 안내 페이지",
     desc: "인천공항면세점 앱 스면세 가입방법 안내 페이지",
     thumb: "./images/profile/work_piece/thumb/thumb_ic_air.jpg",
-    popupImages: ["./images/profile/work_piece/popup/images_ic_air1.jpg",
-        "./images/profile/work_piece/popup/images_ic_air2.jpg",
-        "./images/profile/work_piece/popup/images_ic_air3.jpg"
+    popupImages: [
+      "./images/profile/work_piece/popup/images_ic_air1.jpg",
+      "./images/profile/work_piece/popup/images_ic_air2.jpg",
+      "./images/profile/work_piece/popup/images_ic_air3.jpg"
     ],
     tool: "FIGMA",
     contribution: "100%",
@@ -162,13 +165,18 @@ const portfolioData = [
     title: "현대디에프 웨딩 인증 고객 혜택 페이지",
     desc: "곧 결혼하는 예비 부부들을 위한 웨딩 인증 고객 혜택 페이지",
     thumb: "./images/profile/work_piece/thumb/thumb_wedding.jpg",
-    popupImages: ["./images/profile/work_piece/popup/images_wedding1.jpg",
-        "./images/profile/work_piece/popup/images_wedding2.jpg",
-        "./images/profile/work_piece/popup/images_wedding3.jpg"
+    popupImages: [
+      "./images/profile/work_piece/popup/images_wedding1.jpg",
+      "./images/profile/work_piece/popup/images_wedding2.jpg",
+      "./images/profile/work_piece/popup/images_wedding3.jpg"
     ],
     tool: "FIGMA",
     contribution: "100%",
     type: "E-commerce",
     fullImage: "./images/profile/work_piece/detail_page/PC_detail_wedding.jpg",
-  },
+  }
 ];
+
+/** ---------- Expose to window ---------- */
+window.careerData = careerData;
+window.portfolioData = portfolioData;

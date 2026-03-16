@@ -1,28 +1,41 @@
 <!doctype html>
 <html lang="ko">
 <head>
+  <!-- =====================================================
+       01. Document Head
+  ====================================================== -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>So Young | Portfolio</title>
-  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/style.css" />
 </head>
 
 <body>
+  <!-- =====================================================
+       02. Header
+       - 로고
+       - PC 네비게이션
+       - 모바일 메뉴 버튼 / 모바일 메뉴
+  ====================================================== -->
   <header class="siteHeader">
     <div class="container headerRow">
-      <a class="brand" href="#home">So Young</a>
+      <!-- 02-1. Brand -->
+      <a class="brand" href="#home">soYoung</a>
 
+      <!-- 02-2. Desktop Navigation -->
       <nav class="nav" aria-label="Primary">
         <a class="navLink" href="#home">Home</a>
         <a class="navLink" href="#about">About</a>
         <a class="navLink" href="#portfolio">Portfolio</a>
       </nav>
 
+      <!-- 02-3. Mobile Menu Toggle -->
       <button class="iconBtn navToggle" type="button" aria-label="메뉴 열기" aria-expanded="false">
         <span class="burger" aria-hidden="true"></span>
       </button>
     </div>
 
+    <!-- 02-4. Mobile Navigation -->
     <div class="mobileNav" hidden>
       <a class="mobileNavLink" href="#home">Home</a>
       <a class="mobileNavLink" href="#about">About</a>
@@ -30,188 +43,338 @@
     </div>
   </header>
 
+  <!-- =====================================================
+       03. Main
+  ====================================================== -->
   <main id="home">
-    <!-- Hero -->
-    <section class="hero">
-      <div class="heroBg" aria-hidden="true"></div>
 
+    <!-- =====================================================
+         04. Hero / Intro Section
+         - 메인 카피
+         - 프로필 이미지
+    ====================================================== -->
+    <section class="hero">
       <div class="container heroGrid">
+
+        <!-- 04-1. Intro Copy -->
         <div class="heroCopy">
           <h1 class="heroTitle">
-            기억되고 싶은 사람,<br />
-            결국 사람을 남기는 디자이너
+            기억에 남는 브랜드,<br />
+            결국 경험을 남기는 디자이너
           </h1>
+
           <p class="heroDesc">
-            수많은 화면을 만들었지만 결국 남는 것은 장면이 아니라 감정이라는 걸 배웠습니다.<br />
-            디자인은 눈에 보이는 결과물이 아니라 누군가의 하루에 스며드는 마음이라고 믿습니다.<br />
-            오늘의 고민과 진심이 시간이 지나도 자연스럽게 떠오를 수 있도록, 기억에 남는 순간을 만듭니다.
+            수많은 디자인하며 알게 되었습니다.<br />
+            결국 사람에게 남는 것은 장면이 아니라 그때의 경험이라는 것을,<br />
+            그래서 <span class="heroAccent">브랜드의 메시지와 사용자 경험</span> 을 전달해 시간이 지나도<br />
+            자연스럽게 떠오르는 디자인을 만듭니다.
           </p>
         </div>
 
-        <div class="heroVisual" aria-hidden="true">
-          <img class="heroAvatar" src="./images/profile/soyoung.png" alt="강소영 미모티콘" />
+        <!-- 04-2. Intro Profile Image -->
+        <div class="heroVisual">
+          <img class="heroPortrait" src="./images/profile/img/Profile.svg" alt="강소영 프로필 이미지" />
         </div>
       </div>
     </section>
 
-    <!-- About -->
-    <section id="about" class="section">
+    <!-- =====================================================
+         05. About Section
+         - 프로필 카드
+         - 보유역량 카드
+         - 경력사항 카드
+    ====================================================== -->
+    <section id="about" class="section sectionGray">
       <div class="container">
-        <h2 class="sectionTitle">About</h2>
+        <!-- 05-1. Section Title -->
+        <h2 class="sectionTitle centerTitle">About</h2>
 
-        <div class="aboutGrid">
-          <!-- Profile -->
-          <article class="panel panelProfile">
-            <h3 class="panelTitle">프로필</h3>
+        <!-- 05-2. About Card Grid -->
+        <div class="aboutCardGrid">
 
-            <dl class="profileList">
-              <div class="profileRow">
-                <dt class="profileKey">이름</dt>
-                <dd class="profileVal">강소영</dd>
-              </div>
+          <!-- =====================================================
+               05-2-1. Profile Card
+          ====================================================== -->
+          <article class="infoCard aboutFixedCard">
+            <div class="aboutCardScroll">
+              <h3 class="infoCardTitle">프로필</h3>
 
-              <div class="profileRow">
-                <dt class="profileKey">학력</dt>
-                <dd class="profileVal">
-                  <strong>대입검정고시</strong> <span class="muted">- 합격</span><br />
-                  <strong>경희사이버대학교</strong> <span class="muted">- 재학</span>
-                </dd>
-              </div>
+              <dl class="profileList">
+                <!-- 이름 -->
+                <div class="profileRow">
+                  <dt class="profileKey">이름</dt>
+                  <dd class="profileVal">강소영</dd>
+                </div>
 
-              <div class="profileRow">
-                <dt class="profileKey">전문 분야</dt>
-                <dd class="profileVal">
-                  웹디자인 · 시각 디자인 · 콘텐츠 디자인 · 광고디자인 · HTML/CSS
-                </dd>
-              </div>
+                <!-- 생년월일 -->
+                <div class="profileRow">
+                  <dt class="profileKey">생년월일</dt>
+                  <dd class="profileVal">1995.03.15</dd>
+                </div>
 
-              <div class="profileRow">
-                <dt class="profileKey">사용 툴</dt>
-                <dd class="profileVal">
-                  Photoshop · Illustration · Premiere Pro · After Effects · Figma · OpenAI · Nanobanana · firefly · Gemini
-                </dd>
-              </div>
-            </dl>
-          </article>
+                <!-- 이메일 -->
+                <div class="profileRow">
+                  <dt class="profileKey">이메일</dt>
+                  <dd class="profileVal">sydh0714@naver.com</dd>
+                </div>
 
-          <!-- Career -->
-          <article class="panel panelCareer">
-            <h3 class="panelTitle">경력사항</h3>
+                <!-- 학력 -->
+                <div class="profileRow">
+                  <dt class="profileKey">학력</dt>
+                  <dd class="profileVal">
+                    대입검정고시 - 합격<br />
+                    경희사이버대학교 - 재학
+                  </dd>
+                </div>
 
-            <!-- 내부 스크롤 영역 (panel 높이는 프로필과 동일, 스크롤은 여기만) -->
-            <div class="careerScroll">
-              <div class="careerGrid" id="careerGrid" aria-label="경력 리스트"></div>
+                <!-- 전문 분야 -->
+                <div class="profileRow">
+                  <dt class="profileKey">전문 분야</dt>
+                  <dd class="profileVal">
+                    웹디자인 · 시각 디자인 · 콘텐츠 디자인 · 광고디자인 · HTML/CSS
+                  </dd>
+                </div>
+
+                <!-- 교육 수료 -->
+                <div class="profileRow">
+                  <dt class="profileKey">교육 수료</dt>
+
+                  <dd class="profileVal">
+                    <ul class="eduList">
+                      <li>
+                        드림위버&메이크샵 제작
+                        <span>2014.10 ~ 2014.11</span>
+                      </li>
+
+                      <li>
+                        웹 표준과 웹 디자인
+                        <span>2014.11 ~ 2015.03 수료</span>
+                      </li>
+
+                      <li>
+                        영상편집 (프리미어프로, 애프터이펙트)
+                        <span>2020.12 ~ 2021.03</span>
+                      </li>
+                    </ul>
+                  </dd>
+                </div>
+              </dl>
             </div>
           </article>
+
+          <!-- =====================================================
+               05-2-2. Skill Card
+               - 스킬 로고
+               - 숙련도
+               - 프로그램명 / 설명
+          ====================================================== -->
+          <article class="infoCard aboutFixedCard">
+            <div class="aboutCardScroll">
+              <h3 class="infoCardTitle">보유역량</h3>
+
+              <div class="skillListCard">
+                <!-- Photoshop -->
+                <div class="skillRow">
+                  <div class="skillLogo skillPs">
+                    <img src="./images/profile/img/ps.svg" alt="Adobe Photoshop 로고" />
+                  </div>
+                  <div class="skillInfo">
+                    <div class="skillLevel" aria-label="숙련도 5점 만점 중 5점">
+                      <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                    <strong class="skillName">Adobe 포토샵</strong>
+                    <p class="skillDesc">이미지보정, 합성, 편집, 배너, 웹사이트 등 가능</p>
+                  </div>
+                </div>
+
+                <!-- Illustrator -->
+                <div class="skillRow">
+                  <div class="skillLogo skillAi">
+                    <img src="./images/profile/img/ai.svg" alt="Adobe Illustrator 로고" />
+                  </div>
+                  <div class="skillInfo">
+                    <div class="skillLevel" aria-label="숙련도 5점 만점 중 4점">
+                      <span></span><span></span><span></span><span></span>
+                    </div>
+                    <strong class="skillName">Adobe 일러스트</strong>
+                    <p class="skillDesc">그래픽 디자인, 카드뉴스, 포스터 등 가능</p>
+                  </div>
+                </div>
+
+                <!-- Lightroom -->
+                <div class="skillRow">
+                  <div class="skillLogo skillLr">
+                    <img src="./images/profile/img/lr.svg" alt="Adobe Lightroom 로고" />
+                  </div>
+                  <div class="skillInfo">
+                    <div class="skillLevel" aria-label="숙련도 5점 만점 중 4점">
+                      <span></span><span></span><span></span><span></span>
+                    </div>
+                    <strong class="skillName">Adobe 라이트룸</strong>
+                    <p class="skillDesc">사진, 색감 보정 가능</p>
+                  </div>
+                </div>
+
+                <!-- Premiere Pro -->
+                <div class="skillRow">
+                  <div class="skillLogo skillPr">
+                    <img src="./images/profile/img/pr.svg" alt="Adobe Premiere Pro 로고" />
+                  </div>
+                  <div class="skillInfo">
+                    <div class="skillLevel" aria-label="숙련도 5점 만점 중 3점">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <strong class="skillName">Adobe 프리미어 프로</strong>
+                    <p class="skillDesc">간단 영상 제작, 컷 편집, 자막 디자인 등 가능</p>
+                  </div>
+                </div>
+
+                <!-- After Effects -->
+                <div class="skillRow">
+                  <div class="skillLogo skillPr">
+                    <img src="./images/profile/img/ae.svg" alt="Adobe After Effects 로고" />
+                  </div>
+                  <div class="skillInfo">
+                    <div class="skillLevel" aria-label="숙련도 5점 만점 중 3점">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <strong class="skillName">Adobe 에프터 이펙트</strong>
+                    <p class="skillDesc">간단한 모션 그래픽 가능</p>
+                  </div>
+                </div>
+
+                <!-- figma -->
+                <div class="skillRow">
+                  <div class="skillLogo skillPr">
+                    <img src="./images/profile/img/fig.svg" alt="figma 로고" />
+                  </div>
+                  <div class="skillInfo">
+                    <div class="skillLevel" aria-label="숙련도 5점 만점 중 4점">
+                      <span></span><span></span><span></span><span></span>
+                    </div>
+                    <strong class="skillName">피그마</strong>
+                    <p class="skillDesc">Gui 제작, 레이아웃 편집, 웹 페이지 등 가능</p>
+                  </div>
+                </div>
+
+                <!-- html -->
+                <div class="skillRow">
+                  <div class="skillLogo skillPr">
+                    <img src="./images/profile/img/html.svg" alt="html 로고" />
+                  </div>
+                  <div class="skillInfo">
+                    <div class="skillLevel" aria-label="숙련도 5점 만점 중 3점">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <strong class="skillName">HTML</strong>
+                    <p class="skillDesc">웹 표준 구조 이해 및 레이아웃 설계 가능</p>
+                  </div>
+                </div>
+
+                <!-- css -->
+                <div class="skillRow">
+                  <div class="skillLogo skillPr">
+                    <img src="./images/profile/img/css.svg" alt="css 로고" />
+                  </div>
+                  <div class="skillInfo">
+                    <div class="skillLevel" aria-label="숙련도 5점 만점 중 3점">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <strong class="skillName">CSS</strong>
+                    <p class="skillDesc">디자인 정밀 구현 및 레이아웃 수정 가능</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- =====================================================
+               05-2-3. Career Card
+               - data.js + script.js로 렌더링되는 영역
+          ====================================================== -->
+          <article class="infoCard aboutFixedCard">
+            <div class="aboutCardScroll">
+              <h3 class="infoCardTitle">경력사항</h3>
+              <div class="careerMiniList" id="careerGrid" aria-label="경력 리스트"></div>
+            </div>
+          </article>
+
         </div>
       </div>
     </section>
 
-    <!-- Portfolio -->
-    <section id="portfolio" class="section">
-      <div class="container">
-        <div class="sectionHead">
-          <h2 class="sectionTitle">Portfolio</h2>
-        </div>
+    <!-- =====================================================
+         06. Portfolio Section
+         - 카테고리 탭
+         - 포트폴리오 리스트
+         - 더보기 버튼
+         - 상단 이동 버튼
+    ====================================================== -->
+    <section id="portfolio" class="section sectionGray">
+      <div class="container portfolioWrap">
 
+        <!-- 06-1. Section Title -->
+        <h2 class="sectionTitle centerTitle">Portfolio</h2>
+
+        <!-- 06-2. Filter Tabs -->
         <div class="tabs" role="tablist" aria-label="Portfolio categories">
           <button class="tab isActive" type="button" data-filter="all" role="tab" aria-selected="true">전체</button>
           <button class="tab" type="button" data-filter="detail" role="tab" aria-selected="false">상세페이지</button>
-          <button class="tab" type="button" data-filter="uiux" role="tab" aria-selected="false">UI · UX</button>
+          <button class="tab" type="button" data-filter="uiux" role="tab" aria-selected="false">홈페이지</button>
           <button class="tab" type="button" data-filter="ads" role="tab" aria-selected="false">광고</button>
           <button class="tab" type="button" data-filter="video" role="tab" aria-selected="false">영상</button>
         </div>
 
-        <div class="workGrid" id="workGrid" aria-label="포트폴리오 리스트"></div>
+        <!-- 06-3. Portfolio Grid (script.js 렌더링 영역) -->
+        <div class="workGrid lightWorkGrid" id="workGrid" aria-label="포트폴리오 리스트"></div>
 
-        <div class="center">
-          <button class="btn btnLoadMore" id="loadMoreBtn" type="button">
+        <!-- 06-4. Load More Button -->
+        <div class="moreBtnWrap">
+          <button class="moreBtn" id="loadMoreBtn" type="button">
             <span>더 보기</span>
-            <img class="btnIcon" src="./images/profile/ioc/Expand_down.png" alt="더보기 버튼" aria-hidden="true" />
+            <img class="moreBtnIcon" src="./images/profile/ioc/Expand_down.png" alt="" aria-hidden="true" />
           </button>
         </div>
+
+        <!-- 06-5. Floating Top Button -->
+        <a class="floatingTop" href="#home" aria-label="맨 위로">
+          <img src="./images/profile/ioc/Expand_up.png" alt="" aria-hidden="true" />
+        </a>
       </div>
     </section>
-  </main>
+      <!-- =====================================================
+       Career Modal
+       ====================================================== -->
+ 
+       <div class="modal" id="careerModal" aria-hidden="true">
+        <div class="modalBackdrop" data-close="true" aria-hidden="true"></div>
 
-  <footer class="footer">
-    <div class="container footerRow">
-      <p>© 2026 Soyoung. All rights reserved.</p>
+        <div class="careerModalDialog" role="dialog" aria-modal="true" aria-labelledby="careerModalTitle">
+          <button class="careerModalClose" type="button" aria-label="닫기" data-close="true">
+            <img src="./images/profile/ioc/Close_round.png" alt="" aria-hidden="true" />
+          </button>
 
-      <a class="toTop" href="#home" aria-label="맨 위로">
-        <img class="toTopIcon" src="./images/profile/ioc/Expand_up.png" alt="상단으로" aria-hidden="true" />
-      </a>
-    </div>
-  </footer>
+          <div class="careerModalHead">
+            <div class="careerModalHeadTop">
+              <h3 class="careerModalTitle" id="careerModalTitle">회사명</h3>
+              <span class="careerModalTag" id="careerModalTag">근무형태</span>
+            </div>
+            <p class="careerModalPeriod" id="careerModalPeriod">기간 : 0000.00 ~ 0000.00</p>
+          </div>
 
-  <!-- Career Modal -->
-  <div class="modal" id="careerModal" aria-hidden="true">
-    <div class="modalBackdrop" data-close="true" aria-hidden="true"></div>
-
-    <div class="modalDialog modalDialogWide" role="dialog" aria-modal="true" aria-labelledby="careerModalTitle">
-      <button class="modalClose" type="button" aria-label="닫기" data-close="true">
-        <img src="./images/profile/ioc/Close_round.png" alt="닫기버튼" aria-hidden="true" />
-      </button>
-
-      <div class="modalHead">
-        <div class="modalHeadLeft">
-          <h3 class="modalTitle" id="careerModalTitle">키스템프</h3>
-          <span class="pill pillInModal" id="careerModalTag">파견 계약직</span>
-        </div>
-        <div class="modalSub" id="careerModalPeriod">기간 : 2025.09 ~ 2026.03</div>
-      </div>
-
-      <div class="modalBody">
-        <div class="modalBox">
-          <h4 class="modalBoxTitle">주요 업무</h4>
-          <ul class="bullet" id="careerModalTasks"></ul>
+          <div class="careerModalBody">
+            <div class="careerModalBox">
+              <h4 class="careerModalBoxTitle">주요 업무</h4>
+              <ul class="careerTaskList" id="careerModalTasks"></ul>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </main>
 
-  <!-- Work Modal -->
-  <div class="modal" id="workModal" aria-hidden="true">
-    <div class="modalBackdrop" data-close="true" aria-hidden="true"></div>
-
-    <div class="workPopup" role="dialog" aria-modal="true" aria-labelledby="workTitle">
-      <button class="workPopup__close" type="button" aria-label="닫기" data-close="true">
-        <img src="./images/profile/ioc/Close_round.png" alt="닫기버튼" aria-hidden="true" />
-      </button>
-
-      <div class="workPopup__media">
-        <button class="workPopup__nav workPopup__nav--prev" type="button" aria-label="이전 이미지" data-img-prev>
-          <img src="./images/profile/ioc/Expand_left.png" alt="이전으로" aria-hidden="true" />
-        </button>
-
-        <div class="workPopup__imageFrame">
-          <img id="workImg" class="workPopup__image" src="./images/profile/work_piece/thumb/thumb_jeju_air.jpg" alt="제주항공 썸네일" />
-        </div>
-
-        <button class="workPopup__nav workPopup__nav--next" type="button" aria-label="다음 이미지" data-img-next>
-          <img src="./images/profile/ioc/Expand_right.png" alt="다음으로" aria-hidden="true" />
-        </button>
-
-        <div class="workPopup__dots" aria-hidden="true" id="workDots"></div>
-      </div>
-
-      <div class="workPopup__info">
-        <h3 id="workTitle" class="workPopup__title">현대디에프 이벤트 페이지</h3>
-        <p class="workPopup__desc" id="workDesc">현대디에프 내 최대 행사 “현데이" 에 오픈하는<br/>제주항공 왕복 항공권 추첨 이벤트 제작</p>
-
-        <a id="workLink" class="workPopup__link" href="work.html?id=hyundai-join">
-          전체 이미지를 확인하시려면 여기를 클릭해주세요.
-        </a>
-
-        <div class="workPopup__meta">
-          <div class="metaBox" id="workTool">Tool : PS / FIGMA</div>
-          <div class="metaBox" id="workContribution">Contribution : 100%</div>
-          <div class="metaBox" id="workType">Type : E-commerce</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  <!-- =====================================================
+       07. Script Files
+  ====================================================== -->
   <script src="./js/data.js"></script>
   <script src="./js/script.js"></script>
 </body>
