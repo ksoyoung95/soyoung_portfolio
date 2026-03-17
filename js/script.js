@@ -2,6 +2,7 @@
    APP LOGIC
    - Career: modal open
    - Portfolio: go to work.html
+   - Top button: show after scroll 400px
 ========================== */
 
 /** ---------- Helpers ---------- */
@@ -179,6 +180,23 @@ function initPortfolio() {
   });
 }
 
+/** ---------- Top Button ---------- */
+function initTopButton() {
+  const topBtn = qs(".floatingTop");
+  if (!topBtn) return;
+
+  const toggleTopButton = () => {
+    if (window.scrollY > 400) {
+      topBtn.classList.add("show");
+    } else {
+      topBtn.classList.remove("show");
+    }
+  };
+
+  window.addEventListener("scroll", toggleTopButton, { passive: true });
+  toggleTopButton();
+}
+
 /** ---------- Init ---------- */
 document.addEventListener("DOMContentLoaded", () => {
   initMobileNav();
@@ -186,4 +204,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initCareerModal();
   renderPortfolio();
   initPortfolio();
+  initTopButton();
 });
