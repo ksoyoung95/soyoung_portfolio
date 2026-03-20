@@ -163,24 +163,34 @@ const portfolioData = [
   type: "Branding"
  },
  {
-  id: "project-id",
-  category: "detail", // detail | uiux | ads | video
-  title: "프로젝트명",
-  desc: "설명",
-  thumb: "./images/portfilo/thumb/thumb_xxx.jpg",
-  tool: "PS / FIGMA",
+  id: "deor-film",
+  category: "video", // detail | uiux | ads | video
+  title: "[de:or] 데오아 헤어드라이기",
+  desc: "헤어드라이기 매직부스터 소개 영상",
+  thumb: "./images/portfilo/thumb/thumb_deor.jpg",
+  tool: "Premier Pro",
   contribution: "100%",
-  type: "E-commerce"
+  type: "Branding"
 },
 {
-  id: "project-id",
-  category: "detail", // detail | uiux | ads | video
-  title: "프로젝트명",
-  desc: "설명",
-  thumb: "./images/portfilo/thumb/thumb_xxx.jpg",
-  tool: "PS / FIGMA",
+  id: "filter-film",
+  category: "video", // detail | uiux | ads | video
+  title: "[필터 for you] 브랜딩 영상",
+  desc: "필터포유 브랜드 소개 영상",
+  thumb: "./images/portfilo/thumb/thumb_filter.jpg",
+  tool: "Premier Pro",
   contribution: "100%",
-  type: "E-commerce"
+  type: "Branding"
+},
+{
+  id: "allinone-film",
+  category: "video", // detail | uiux | ads | video
+  title: "[올인원뱅크] 쇼핑몰 가입방법",
+  desc: "올인원뱅크 쇼핑몰 가입방법",
+  thumb: "./images/portfilo/thumb/thumb_allinone.jpg",
+  tool: "Premier Pro",
+  contribution: "100%",
+  type: "Branding"
 }
 ];
 

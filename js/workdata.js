@@ -161,6 +161,63 @@ const workDetailData = [
       src: "./images/portfilo/video/soundbone.mp4"
     }
   ]
+},
+{
+  id: "deor-film",
+  category: "product / Video",
+  client: "[데오아]",
+  title: "데오아 드라이기 제품 브랜딩 영상",
+  role: "Video Editing",
+  contribution: "100%",
+  tools: "Premiere Pro",
+
+  hideColor: true,
+  hideDetailTitle: true,
+
+  detailMedia: [
+    {
+      type: "video",
+      src: "./images/portfilo/video/deor.mp4"
+    }
+  ]
+},
+{
+  id: "filter-film",
+  category: "Branding / Video",
+  client: "[필터포유]",
+  title: "필터포유 브랜드 소개 영상",
+  role: "Video Editing",
+  contribution: "100%",
+  tools: "Premiere Pro",
+
+  hideColor: true,
+  hideDetailTitle: true,
+
+  detailMedia: [
+    {
+      type: "video",
+      src: "./images/portfilo/video/filterforyou.mp4"
+    }
+  ]
+},
+{
+  id: "allinone-film",
+  category: "Branding / Video",
+  client: "[올인원뱅크]",
+  title: "올인원뱅크 쇼핑몰 가입방법",
+  role: "Video Editing",
+  contribution: "100%",
+  tools: "Premiere Pro / After Effects",
+
+  hideColor: true,
+  hideDetailTitle: true,
+
+  detailMedia: [
+    {
+      type: "video",
+      src: "./images/portfilo/video/allinone.mp4"
+    }
+  ]
 }
 ];
 
