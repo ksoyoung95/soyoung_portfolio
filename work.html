@@ -23,9 +23,7 @@
 <body>
   <main class="workDetailPage" id="top">
     <!-- =====================================================
-         04. Top Bar
-         - 뒤로가기 버튼
-         - Portfolio 텍스트
+         04. 상단 바
     ====================================================== -->
     <section class="workTopBar">
       <div class="workContainer workTopBarInner">
@@ -37,36 +35,32 @@
     </section>
 
     <!-- =====================================================
-         05. Work Intro
-         - 카테고리
-         - 클라이언트
-         - 제목
-         - 메타 정보
-         - 컬러칩
+         05. 프로젝트 기본 정보
     ====================================================== -->
     <section class="workIntro">
       <div class="workContainer">
-        <p class="workCategory" id="workCategory">E-commerce / Promotion</p>
+        <p class="workCategory" id="workCategory"></p>
 
         <div class="workTitleGroup">
-          <p class="workClient" id="workClient">[현대디에프]</p>
-          <h1 class="workMainTitle" id="workTitle">프로젝트 제목</h1>
+          <p class="workClient" id="workClient"></p>
+          <h1 class="workMainTitle" id="workTitle"></h1>
+          <p class="workSubText" id="workSubText"></p>
         </div>
 
         <div class="workMetaGrid">
           <div class="workMetaItem">
             <span class="workMetaLabel">ROLE</span>
-            <p class="workMetaValue" id="workRole">Detailed Page, Graphic</p>
+            <p class="workMetaValue" id="workRole"></p>
           </div>
 
           <div class="workMetaItem">
             <span class="workMetaLabel">CONTRIBUTION</span>
-            <p class="workMetaValue" id="workContribution">100%</p>
+            <p class="workMetaValue" id="workContribution"></p>
           </div>
 
           <div class="workMetaItem">
             <span class="workMetaLabel">TOOLS</span>
-            <p class="workMetaValue" id="workTools">PS / FIGMA</p>
+            <p class="workMetaValue" id="workTools"></p>
           </div>
         </div>
 
@@ -78,9 +72,9 @@
     </section>
 
     <!-- =====================================================
-         06. Detailed Image
-         - PC / MO 반응형 상세 이미지
-         - gif / video도 확장 가능
+         06. 일반 상세 이미지 제목
+         - 일반 work는 사용
+         - 탭형 / 영상형은 JS에서 숨김
     ====================================================== -->
     <section class="workImageSection">
       <div class="workContainer workImageContainer">
@@ -91,7 +85,24 @@
     </section>
 
     <!-- =====================================================
-         07. Top Button
+         07. 탭형 상세페이지 전용
+         - heroMedia: 상단 고정 키비주얼
+         - tabSections: HTML 탭 + 하단 교체 콘텐츠
+    ====================================================== -->
+    <section class="workHeroSection" id="workHeroSection">
+      <div id="workHeroWrap"></div>
+    </section>
+
+    <section class="workTabSection" id="workTabSection">
+      <div class="workTabNav" id="workTabNav"></div>
+    </section>
+
+    <section class="workTabContentSection" id="workTabContentSection">
+      <div id="workTabContent"></div>
+    </section>
+
+    <!-- =====================================================
+         08. 상단 이동 버튼
     ====================================================== -->
     <a class="workFloatingTop" href="#top" aria-label="맨 위로" id="workTopBtn">
       <img src="./images/profile/ioc/Expand_up.png" alt="" aria-hidden="true" />
@@ -99,9 +110,7 @@
   </main>
 
   <!-- =====================================================
-       08. JS
-       - 상세 데이터 먼저
-       - 상세 로직 나중
+       09. JS
   ====================================================== -->
   <script src="./js/workdata.js"></script>
   <script src="./js/work.js"></script>

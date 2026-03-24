@@ -7,6 +7,12 @@
   --work-muted: #8F8F8F;
   --work-line: #EAEAEA;
   --work-container: 1120px;
+
+  --tab-orange: #ff4a14;
+  --beauty-bg: #000000;
+  --beauty-muted: #6e6e6e;
+  --beauty-strong: #ffffff;
+  --beauty-active: #ff4a14;
 }
 
 /* =====================================================
@@ -131,6 +137,15 @@ a{
   letter-spacing: -0.04em;
 }
 
+.workSubText{
+  margin: 14px 0 0;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: #666666;
+  letter-spacing: -0.01em;
+}
+
 .workMetaGrid{
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -159,6 +174,9 @@ a{
   color: #222222;
 }
 
+/* =====================================================
+   05. Color
+===================================================== */
 .workColorSection{
   display: grid;
   gap: 18px;
@@ -189,7 +207,6 @@ a{
   height: 42px;
   border-radius: 999px;
   border: 1px solid #EBEBEB;
-  box-sizing: border-box;
 }
 
 .workColorCode{
@@ -200,7 +217,7 @@ a{
 }
 
 /* =====================================================
-   05. Detail Media Section
+   06. Default Detail Image
 ===================================================== */
 .workImageSection{
   padding: 8px 0 80px;
@@ -232,11 +249,7 @@ a{
 }
 
 /* =====================================================
-   06. MP4 Video
-   - 최대 가로 1080px
-   - 포스터 없음
-   - 클릭 전 검정 배경 + 재생 버튼
-   - 클릭 후 재생
+   07. MP4 Video
 ===================================================== */
 .workVideoOuter{
   width: min(1080px, calc(100% - 48px));
@@ -260,8 +273,6 @@ a{
   height: 100%;
   padding: 0;
   background: rgba(0, 0, 0, 0.14);
-  border: 0;
-  cursor: pointer;
 }
 
 .workVideoPlayIcon{
@@ -287,7 +298,167 @@ a{
 }
 
 /* =====================================================
-   07. Floating Top Button
+   08. Tab Layout Common
+===================================================== */
+.workHeroSection,
+.workTabSection,
+.workTabContentSection{
+  display: none;
+}
+
+.workHeroSection.isVisible,
+.workTabSection.isVisible,
+.workTabContentSection.isVisible{
+  display: block;
+}
+
+.workHeroSection picture,
+.workHeroSection img,
+.workTabContentSection picture,
+.workTabContentSection img{
+  display: block;
+  width: 100%;
+}
+
+.workTabTopLabel,
+.workTabMainLabel,
+.workTabSingleLabel{
+  display: block;
+}
+
+/* =====================================================
+   09. Hyunday Tab Style
+===================================================== */
+#workTabSection.isHyundayTab{
+  background: var(--tab-orange);
+}
+
+#workTabSection.isHyundayTab .workTabNav{
+  width: min(1600px, calc(100% - 40px));
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#workTabSection.isHyundayTab .workTabButton{
+  position: relative;
+  padding: 18px 22px;
+  background: transparent;
+  color: #2d170f;
+  font-family:
+    "Pretendard Variable",
+    Pretendard,
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+#workTabSection.isHyundayTab .workTabButton:not(:last-child)::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 1px;
+  height: 24px;
+  background: rgba(45, 23, 15, 0.45);
+  transform: translateY(-50%);
+}
+
+#workTabSection.isHyundayTab .workTabButton:hover,
+#workTabSection.isHyundayTab .workTabButton.isActive{
+  color: #000000;
+}
+
+/* =====================================================
+   10. Beauty Tab Style
+   - 첨부 시안 1,2,3 기준
+===================================================== */
+#workTabSection.isBeautyTab{
+  background: var(--beauty-bg);
+  padding: 0;
+}
+
+#workTabSection.isBeautyTab .workTabNav{
+  width: min(1600px, calc(100% - 40px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+#workTabSection.isBeautyTab .workTabButton{
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 8px;
+  min-height: 116px;
+  padding: 18px 20px;
+  background: transparent;
+  text-align: center;
+  color: var(--beauty-muted);
+  font-family:
+    "Pretendard Variable",
+    Pretendard,
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+#workTabSection.isBeautyTab .workTabButton:not(:last-child)::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 1px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.7);
+  transform: translateY(-50%);
+}
+
+#workTabSection.isBeautyTab .workTabTopLabel{
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #7b7b7b;
+}
+
+#workTabSection.isBeautyTab .workTabMainLabel{
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #5f5f5f;
+}
+
+#workTabSection.isBeautyTab .workTabButton.isActive .workTabTopLabel{
+  color: var(--beauty-strong);
+}
+
+#workTabSection.isBeautyTab .workTabButton.isActive .workTabMainLabel{
+  color: var(--beauty-active);
+}
+
+#workTabSection.isBeautyTab .workTabButton:hover .workTabTopLabel{
+  color: var(--beauty-strong);
+}
+
+#workTabSection.isBeautyTab .workTabButton:hover .workTabMainLabel{
+  color: var(--beauty-active);
+}
+
+/* =====================================================
+   11. Floating Top Button
 ===================================================== */
 .workFloatingTop{
   position: fixed;
@@ -324,7 +495,7 @@ a{
 }
 
 /* =====================================================
-   08. Responsive - Tablet
+   12. Responsive - Tablet
 ===================================================== */
 @media (max-width: 1024px){
   .workIntro{
@@ -353,7 +524,7 @@ a{
 }
 
 /* =====================================================
-   09. Responsive - Mobile
+   13. Responsive - Mobile
 ===================================================== */
 @media (max-width: 768px){
   .workContainer{
@@ -385,6 +556,12 @@ a{
   .workMainTitle{
     font-size: 2rem;
     line-height: 1.28;
+  }
+
+  .workSubText{
+    margin-top: 12px;
+    font-size: 0.95rem;
+    line-height: 1.55;
   }
 
   .workMetaGrid{
@@ -432,6 +609,50 @@ a{
     border-top: 11px solid transparent;
     border-bottom: 11px solid transparent;
     border-left: 18px solid #111111;
+  }
+
+  #workTabSection.isHyundayTab .workTabNav{
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 0 8px;
+  }
+
+  #workTabSection.isHyundayTab .workTabButton{
+    flex: 0 0 auto;
+    padding: 16px 18px;
+    font-size: 20px;
+    white-space: nowrap;
+  }
+
+  #workTabSection.isHyundayTab .workTabButton:not(:last-child)::after{
+    height: 20px;
+  }
+
+  #workTabSection.isBeautyTab .workTabNav{
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #workTabSection.isBeautyTab .workTabButton{
+    min-height: 84px;
+    padding: 12px 10px;
+    gap: 4px;
+  }
+
+  #workTabSection.isBeautyTab .workTabTopLabel{
+    font-size: 20px;
+    line-height: 1.15;
+  }
+
+  #workTabSection.isBeautyTab .workTabMainLabel{
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  #workTabSection.isBeautyTab .workTabButton:not(:last-child)::after{
+    height: 26px;
   }
 
   .workFloatingTop{
