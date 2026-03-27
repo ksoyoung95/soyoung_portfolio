@@ -194,7 +194,7 @@ const portfolioData = [
 },
 {
   id: "hyundai-hyunday",
-  category: "detail",
+  category: "uiux",
   title: "현데이 블랙프라이데이 이벤트",
   desc: "키비주얼 고정 + 카테고리 탭 전환형 상세 프로모션 페이지",
   thumb: "./images/portfilo/thumb/thumb_hyunday.jpg",
@@ -204,10 +204,20 @@ const portfolioData = [
 },
 {
   id: "beauty-freeweek",
-  category: "detail",
+  category: "uiux",
   title: "뷰티 프리위크 이벤트",
   desc: "키비주얼 고정 + 컬러 강조형 카테고리 탭 전환 상세 페이지",
   thumb: "./images/portfilo/thumb/thumb_beauty.jpg",
+  tool: "PS / FIGMA",
+  contribution: "100%",
+  type: "E-commerce"
+},
+{
+  id: "ui-designvowel",
+  category: "uiux",
+  title: "뷰티 프리위크 이벤트",
+  desc: "키비주얼 고정 + 컬러 강조형 카테고리 탭 전환 상세 페이지",
+  thumb: "./images/portfilo/thumb/thumb_ui.jpg",
   tool: "PS / FIGMA",
   contribution: "100%",
   type: "E-commerce"

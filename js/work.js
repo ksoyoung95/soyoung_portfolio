@@ -1,6 +1,7 @@
 /* ==========================
    WORK DETAIL LOGIC ONLY
    - 일반 상세 이미지 / 영상 / 탭형 상세페이지 모두 지원
+   - layout: "contained" 지원
 ========================== */
 
 /* =====================================================
@@ -58,6 +59,15 @@ function initTopButton() {
 /* =====================================================
    03. Media Factory
 ===================================================== */
+function wrapMediaLayout(node, layout) {
+  if (layout !== "contained") return node;
+
+  const outer = document.createElement("div");
+  outer.className = "workMediaContained";
+  outer.appendChild(node);
+  return outer;
+}
+
 function createImageNode(src, altText) {
   const img = document.createElement("img");
   img.className = "workFullImage";
@@ -80,7 +90,7 @@ function createResponsiveImageNode(item) {
   const img = createImageNode(item.pc || item.mo || "", item.alt || "");
   picture.appendChild(img);
 
-  return picture;
+  return wrapMediaLayout(picture, item.layout);
 }
 
 function createVideoNode(item) {
@@ -137,11 +147,15 @@ function createMediaNode(item) {
     case "responsive-image":
       return createResponsiveImageNode(item);
 
-    case "image":
-      return createImageNode(item.src, item.alt || "");
+    case "image": {
+      const img = createImageNode(item.src, item.alt || "");
+      return wrapMediaLayout(img, item.layout);
+    }
 
-    case "gif":
-      return createImageNode(item.src, item.alt || "");
+    case "gif": {
+      const img = createImageNode(item.src, item.alt || "");
+      return wrapMediaLayout(img, item.layout);
+    }
 
     case "video":
       return createVideoNode(item);
