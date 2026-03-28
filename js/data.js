@@ -221,7 +221,7 @@ const portfolioData = [
   tool: "PS / FIGMA",
   contribution: "100%",
   type: "E-commerce"
-}
+},
 ];
 
 /** ---------- Expose Global ---------- */
